@@ -26,6 +26,7 @@
 		141FFFB42B2EA59B00E06199 /* AllPurchasesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFFB32B2EA59B00E06199 /* AllPurchasesView.swift */; };
 		141FFFB62B2EA5B100E06199 /* AddPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFFB52B2EA5B100E06199 /* AddPurchaseView.swift */; };
 		141FFFF72B2EB96B00E06199 /* EditPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFFF62B2EB96B00E06199 /* EditPurchaseView.swift */; };
+		143889DB2B34393700028415 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143889DA2B34393700028415 /* DateFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		141FFFB32B2EA59B00E06199 /* AllPurchasesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPurchasesView.swift; sourceTree = "<group>"; };
 		141FFFB52B2EA5B100E06199 /* AddPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPurchaseView.swift; sourceTree = "<group>"; };
 		141FFFF62B2EB96B00E06199 /* EditPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPurchaseView.swift; sourceTree = "<group>"; };
+		143889DA2B34393700028415 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +100,7 @@
 		141FFF6A2B2E9F5200E06199 = {
 			isa = PBXGroup;
 			children = (
-				141FFFF62B2EB96B00E06199 /* EditPurchaseView.swift */,
-				141FFFB32B2EA59B00E06199 /* AllPurchasesView.swift */,
-				141FFFB52B2EA5B100E06199 /* AddPurchaseView.swift */,
-				141FFFAB2B2EA0D800E06199 /* TimeFormatter.swift */,
-				141FFFA92B2EA0B100E06199 /* EditNoteView.swift */,
+				143889DA2B34393700028415 /* DateFormatter.swift */,
 				141FFF752B2E9F5200E06199 /* ThreeInOne */,
 				141FFF862B2E9F5500E06199 /* ThreeInOneTests */,
 				141FFF902B2E9F5500E06199 /* ThreeInOneUITests */,
@@ -125,13 +123,11 @@
 			children = (
 				141FFF762B2E9F5200E06199 /* ThreeInOneApp.swift */,
 				141FFF782B2E9F5200E06199 /* ContentView.swift */,
-				141FFFA52B2EA01B00E06199 /* AllNotesView.swift */,
-				141FFFA72B2EA06C00E06199 /* AddNoteView.swift */,
-				141FFFA02B2E9F7300E06199 /* DataModel.xcdatamodeld */,
-				141FFFAD2B2EA1EB00E06199 /* AllRemindersView.swift */,
-				141FFFAF2B2EA20C00E06199 /* AddReminderView.swift */,
-				141FFFB12B2EA23900E06199 /* EditReminderView.swift */,
-				141FFFA32B2E9FAA00E06199 /* DataController.swift */,
+				14AC4B972B3357A30090CE9A /* Helper */,
+				14AC4B942B3357730090CE9A /* Notes */,
+				14AC4B962B3357950090CE9A /* Reminders */,
+				14AC4B932B33574D0090CE9A /* Purchases */,
+				14AC4B952B33578D0090CE9A /* Data Model */,
 				141FFF7A2B2E9F5400E06199 /* Assets.xcassets */,
 				141FFF7C2B2E9F5400E06199 /* Preview Content */,
 			);
@@ -161,6 +157,53 @@
 				141FFF932B2E9F5500E06199 /* ThreeInOneUITestsLaunchTests.swift */,
 			);
 			path = ThreeInOneUITests;
+			sourceTree = "<group>";
+		};
+		14AC4B932B33574D0090CE9A /* Purchases */ = {
+			isa = PBXGroup;
+			children = (
+				141FFFB32B2EA59B00E06199 /* AllPurchasesView.swift */,
+				141FFFB52B2EA5B100E06199 /* AddPurchaseView.swift */,
+				141FFFF62B2EB96B00E06199 /* EditPurchaseView.swift */,
+			);
+			path = Purchases;
+			sourceTree = "<group>";
+		};
+		14AC4B942B3357730090CE9A /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				141FFFA52B2EA01B00E06199 /* AllNotesView.swift */,
+				141FFFA72B2EA06C00E06199 /* AddNoteView.swift */,
+				141FFFA92B2EA0B100E06199 /* EditNoteView.swift */,
+			);
+			path = Notes;
+			sourceTree = "<group>";
+		};
+		14AC4B952B33578D0090CE9A /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				141FFFA32B2E9FAA00E06199 /* DataController.swift */,
+				141FFFA02B2E9F7300E06199 /* DataModel.xcdatamodeld */,
+			);
+			path = "Data Model";
+			sourceTree = "<group>";
+		};
+		14AC4B962B3357950090CE9A /* Reminders */ = {
+			isa = PBXGroup;
+			children = (
+				141FFFAD2B2EA1EB00E06199 /* AllRemindersView.swift */,
+				141FFFAF2B2EA20C00E06199 /* AddReminderView.swift */,
+				141FFFB12B2EA23900E06199 /* EditReminderView.swift */,
+			);
+			path = Reminders;
+			sourceTree = "<group>";
+		};
+		14AC4B972B3357A30090CE9A /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				141FFFAB2B2EA0D800E06199 /* TimeFormatter.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,6 +345,7 @@
 				141FFF792B2E9F5200E06199 /* ContentView.swift in Sources */,
 				141FFFB42B2EA59B00E06199 /* AllPurchasesView.swift in Sources */,
 				141FFF772B2E9F5200E06199 /* ThreeInOneApp.swift in Sources */,
+				143889DB2B34393700028415 /* DateFormatter.swift in Sources */,
 				141FFFAE2B2EA1EB00E06199 /* AllRemindersView.swift in Sources */,
 				141FFFF72B2EB96B00E06199 /* EditPurchaseView.swift in Sources */,
 				141FFFB02B2EA20C00E06199 /* AddReminderView.swift in Sources */,

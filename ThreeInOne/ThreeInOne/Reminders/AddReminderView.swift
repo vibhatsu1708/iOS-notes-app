@@ -15,6 +15,7 @@ struct AddReminderView: View {
     @State private var name: String = ""
     @State private var reminder_desc: String = ""
     @State private var completed: Bool = false
+    @State private var tags: String = ""
     
     var body: some View {
         NavigationStack {
@@ -30,13 +31,18 @@ struct AddReminderView: View {
                             .foregroundStyle(Color.newFont)
                             .font(.subheadline)
                     }
+                    Section {
+                        TextField("Tags", text: $tags, axis: .vertical)
+                            .foregroundStyle(Color.newFont)
+                            .font(.subheadline)
+                    }
                 }
                 Group {
                     Button {
                         if name.trimmingCharacters(in: .whitespaces) == "" {
                             name = "New Reminder"
                         }
-                        DataController().addReminder(name: name, reminder_desc: reminder_desc, completed: completed, context: managedObjectContext)
+                        DataController().addReminder(name: name, reminder_desc: reminder_desc, completed: completed, tags: tags, context: managedObjectContext)
                         dismiss()
                     } label: {
                         Label("Add Reminder", systemImage: "plus")

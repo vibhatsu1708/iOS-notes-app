@@ -10,7 +10,10 @@ import CoreData
 
 struct AllRemindersView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var reminders: FetchedResults<Reminder>
+    @Environment(\.undoManager) var undoManager
+    @FetchRequest(
+        entity: Reminder.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Reminder.date, ascending: false)]) var reminders: FetchedResults<Reminder>
 
     @State private var toggleOnlyCompleted: Bool = false
     @State private var toggleOnlyNotCompleted: Bool = false
@@ -45,6 +48,12 @@ struct AllRemindersView: View {
             }
         }
     }
+    
+    var groupedReminders: [Date: [Reminder]] {
+        Dictionary(grouping: filteredReminders) { reminder in
+            Calendar.current.startOfDay(for: reminder.date!)
+        }
+    }
 
 
     @State private var showingAddReminder: Bool = false
@@ -61,8 +70,11 @@ struct AllRemindersView: View {
                                 toggleOnlyCompleted = false
                                 toggleOnlyNotCompleted = false
                             } label: {
-                                Text("Clear Filters")
-                                    .bold()
+                                Group {
+                                    Image(systemName: "eraser.fill")
+                                    Text("Clear Filters")
+                                }
+                                .bold()
                             }
                             .padding(8)
                             .foregroundStyle(Color.newFont)
@@ -131,52 +143,56 @@ struct AllRemindersView: View {
                     .padding(.horizontal)
                     Divider()
                     List {
-                        ForEach(filteredReminders) { reminder in
-                            NavigationLink(destination: EditReminderView(reminder: reminder)) {
-                                HStack(alignment: .top) {
-                                    VStack(alignment: .leading, spacing: 10) {
-                                        HStack(spacing: 10) {
-                                            Circle()
-                                                .frame(height: 15)
-                                                .foregroundStyle(reminder.completed ? Color(UIColor(hex: "5863F8")): Color(UIColor(hex: "FF686B")))
-                                            Text(reminder.name!)
-                                                .font(.headline)
-                                                .bold()
+                        ForEach(groupedReminders.keys.sorted(by: >), id: \.self) { date in
+                            Section(header: Text(formatDate(date: date))) { 
+                                ForEach(groupedReminders[date]!) { reminder in
+                                    NavigationLink(destination: EditReminderView(reminder: reminder)) {
+                                        HStack(alignment: .top) {
+                                            VStack(alignment: .leading, spacing: 10) {
+                                                HStack(alignment: .firstTextBaseline, spacing: 10) {
+                                                    Circle()
+                                                        .frame(height: 15)
+                                                        .foregroundStyle(reminder.completed ? Color(UIColor(hex: "5863F8")): Color(UIColor(hex: "FF686B")))
+                                                    Text(reminder.name!)
+                                                        .font(.headline)
+                                                        .bold()
+                                                }
+                                                
+                                                if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                                                    Text(reminder.reminder_desc!)
+                                                        .font(.subheadline)
+                                                } else {
+                                                    Text(reminder.reminder_desc!)
+                                                        .font(.subheadline)
+                                                }
+                                                
+                                                Spacer()
+                                                
+                                                HStack {
+                                                    Text(calculateTime(date: reminder.date!))
+                                                        .font(.caption)
+                                                        .foregroundStyle(Color.gray)
+                                                        .italic()
+                                                    Spacer()
+                                                }
+                                            }
                                         }
-                                        
-                                        if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-                                            Text(reminder.reminder_desc!)
-                                                .font(.subheadline)
-                                        } else {
-                                            Text(reminder.reminder_desc!)
-                                                .font(.subheadline)
-                                        }
-                                        
-                                        Spacer()
-                                        
-                                        HStack {
-                                            Text(calculateTime(date: reminder.date!))
-                                                .font(.caption)
-                                                .foregroundStyle(Color.gray)
-                                                .italic()
-                                            Spacer()
+                                    }
+                                    .swipeActions(edge: .leading) {
+                                        Button {
+                                            reminder.completed.toggle()
+                                            updateRemindersCount()
+                                            DataController().save(context: managedObjectContext)
+                                        } label: {
+                                            Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
+                                                .tint(reminder.completed ? Color(UIColor(hex: "FF686B")) : Color(UIColor(hex: "5863F8")))
                                         }
                                     }
                                 }
-                            }
-                            .swipeActions(edge: .leading) {
-                                Button {
-                                    reminder.completed.toggle()
-                                    updateRemindersCount()
-                                    DataController().save(context: managedObjectContext)
-                                } label: {
-                                    Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
-                                        .tint(reminder.completed ? Color(UIColor(hex: "FF686B")) : Color(UIColor(hex: "5863F8")))
-                                }
+                                .onDelete(perform: deleteReminder)
+                                .padding(.vertical)
                             }
                         }
-                        .onDelete(perform: deleteReminder)
-                        .padding(.vertical)
                     }
                     .frame(maxWidth: .infinity)
                 }
@@ -190,6 +206,7 @@ struct AllRemindersView: View {
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             .onAppear {
                 updateRemindersCount()
+                managedObjectContext.undoManager = UndoManager()
             }
             .onChange(of: filteredReminders) {
                 updateRemindersCount()

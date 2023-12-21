@@ -16,6 +16,7 @@ struct AddNoteView: View {
     @State private var note_desc: String = ""
     @State private var heart: Bool = false
     @State private var bookmark: Bool = false
+    @State private var hidden: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -40,7 +41,7 @@ struct AddNoteView: View {
                         if note_desc.trimmingCharacters(in: .whitespaces) == "" {
                             note_desc = "Note Description"
                         }
-                        DataController().addNote(name: name, note_desc: note_desc, heart: heart, bookmark: bookmark, context: managedObjectContext)
+                        DataController().addNote(name: name, note_desc: note_desc, heart: heart, bookmark: bookmark, hidden: hidden, context: managedObjectContext)
                         dismiss()
                     } label: {
                         Label("Add Note", systemImage: "plus")

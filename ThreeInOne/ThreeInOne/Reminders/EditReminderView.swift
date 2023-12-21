@@ -18,7 +18,7 @@ struct EditReminderView: View {
     
     @State private var name = ""
     @State private var reminder_desc: String = ""
-    @State private var completed: Bool = false
+    @State private var tags: String = ""
     
     var body: some View {
         Form {
@@ -49,7 +49,7 @@ struct EditReminderView: View {
                 reminder_desc = "Reminder Description"
             }
             
-            DataController().editReminder(reminder: reminder, name: name, reminder_desc: reminder_desc, completed: completed, context: managedObjectContext)
+            DataController().editReminder(reminder: reminder, name: name, reminder_desc: reminder_desc, tags: tags, context: managedObjectContext)
             dismiss()
         } label: {
             Label("Add Changes", systemImage: "plus")

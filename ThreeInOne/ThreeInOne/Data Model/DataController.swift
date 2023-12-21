@@ -32,7 +32,7 @@ class DataController: ObservableObject {
     
     
     //MARK: - to add a new note
-    func addNote(name: String, note_desc: String, heart: Bool, bookmark: Bool, context: NSManagedObjectContext) {
+    func addNote(name: String, note_desc: String, heart: Bool, bookmark: Bool, hidden: Bool, context: NSManagedObjectContext) {
         let note = Note(context: context)
         note.id = UUID()
         note.date = Date()
@@ -40,39 +40,42 @@ class DataController: ObservableObject {
         note.note_desc = note_desc
         note.heart = heart
         note.bookmark = bookmark
+        note.hidden = hidden
         
         save(context: context)
     }
     
     //MARK: - to edit a note
-    func editNote(note: Note, name: String, note_desc: String, heart: Bool, bookmark: Bool, context: NSManagedObjectContext) {
+    func editNote(note: Note, name: String, note_desc: String, heart: Bool, bookmark: Bool, hidden: Bool, context: NSManagedObjectContext) {
         note.date = Date()
         note.name = name
         note.note_desc = note_desc
         note.heart = heart
         note.bookmark = bookmark
+        note.hidden = hidden
         
         save(context: context)
     }
     
     //MARK: - To add a new Reminder
-    func addReminder(name: String, reminder_desc: String, completed: Bool, context: NSManagedObjectContext) {
+    func addReminder(name: String, reminder_desc: String, completed: Bool, tags: String, context: NSManagedObjectContext) {
         let reminder = Reminder(context: context)
         reminder.id = UUID()
         reminder.date = Date()
         reminder.name = name
         reminder.reminder_desc = reminder_desc
         reminder.completed = completed
+        reminder.tags = tags
         
         save(context: context)
     }
     
     //MARK: - To edit a reminder
-    func editReminder(reminder: Reminder, name: String, reminder_desc: String, completed: Bool, context: NSManagedObjectContext) {
+    func editReminder(reminder: Reminder, name: String, reminder_desc: String, tags: String, context: NSManagedObjectContext) {
         reminder.date = Date()
         reminder.name = name
         reminder.reminder_desc = reminder_desc
-        reminder.completed = completed
+        reminder.tags = tags
         
         save(context: context)
     }
