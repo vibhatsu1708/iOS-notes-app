@@ -17,7 +17,7 @@ struct AllNotesView: View {
     @State private var toggleOnlyStar: Bool = false
     @State private var toggleOnlyBookmark: Bool = false
     @State private var toggleOnlyHidden: Bool = false
-
+    
     @State private var searchText: String = ""
     
     var filteredNotes: [Note] {
@@ -39,7 +39,8 @@ struct AllNotesView: View {
                 return $0.bookmark &&
                     ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
                     $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
-            } else {
+            }
+            else {
                 return $0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
                     $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false
             }

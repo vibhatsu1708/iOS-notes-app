@@ -26,10 +26,10 @@ struct ContentView: View {
                 .tabItem {
                     Label("My Reminders", systemImage: "checklist")
                 }
-            AllPurchasesView()
-                .tabItem {
-                    Label("My Budget", systemImage: "chart.bar")
-                }
+//            AllPurchasesView()
+//                .tabItem {
+//                    Label("My Budget", systemImage: "chart.bar")
+//                }
         }
     }
 }

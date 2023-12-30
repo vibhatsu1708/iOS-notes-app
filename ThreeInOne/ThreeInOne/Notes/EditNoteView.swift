@@ -25,11 +25,11 @@ struct EditNoteView: View {
     var body: some View {
         Form {
             Section {
-                TextField("\(note.name!)", text: $name, axis: .vertical)
+                TextField("Note Name\(note.name!)", text: $name, axis: .vertical)
                     .bold()
                     .font(.headline)
                 
-                TextField("\(note.note_desc!)", text: $note_desc, axis: .vertical)
+                TextField("Note Description\(note.note_desc!)", text: $note_desc, axis: .vertical)
                     .font(.subheadline)
                     .onAppear {
                         name = note.name!

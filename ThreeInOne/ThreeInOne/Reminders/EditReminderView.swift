@@ -23,11 +23,11 @@ struct EditReminderView: View {
     var body: some View {
         Form {
             Section {
-                TextField("\(reminder.name!)", text: $name, axis: .vertical)
+                TextField("Reminder Name\(reminder.name!)", text: $name, axis: .vertical)
                     .bold()
                     .font(.headline)
                 
-                TextField("\(reminder.reminder_desc!)", text: $reminder_desc, axis: .vertical)
+                TextField("Reminder Description\(reminder.reminder_desc!)", text: $reminder_desc, axis: .vertical)
                     .font(.subheadline)
                     .onAppear {
                         name = reminder.name!

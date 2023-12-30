@@ -18,10 +18,13 @@ struct AllRemindersView: View {
     @State private var toggleOnlyCompleted: Bool = false
     @State private var toggleOnlyNotCompleted: Bool = false
     
+    @State private var toggleOnlyFlag: Bool = false
+    
     @State private var searchText: String = ""
     
     @State private var totalCompleted: Int = 0
     @State private var totalNotCompleted: Int = 0
+    @State private var totalFlagged: Int = 0
     
     var filteredReminders: [Reminder] {
         guard !searchText.isEmpty else {
@@ -31,6 +34,10 @@ struct AllRemindersView: View {
             if toggleOnlyNotCompleted {
                 return reminders.filter { !$0.completed }
             }
+            if toggleOnlyFlag {
+                return reminders.filter { $0.flag }
+            }
+            
             return Array(reminders)
         }
 
@@ -42,6 +49,9 @@ struct AllRemindersView: View {
                 return !$0.completed &&
                     ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
                     $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
+            } 
+            if toggleOnlyFlag {
+                return $0.flag && ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false || $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
             } else {
                 return $0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
                     $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false
@@ -69,12 +79,33 @@ struct AllRemindersView: View {
                             Button {
                                 toggleOnlyCompleted = false
                                 toggleOnlyNotCompleted = false
+                                toggleOnlyFlag = false
                             } label: {
                                 Group {
                                     Image(systemName: "eraser.fill")
                                     Text("Clear Filters")
                                 }
                                 .bold()
+                            }
+                            .padding(8)
+                            .foregroundStyle(Color.newFont)
+                            .background(.quaternary)
+                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            
+                            Button {
+                                toggleOnlyFlag.toggle()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "flag.fill")
+                                        .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f83d5c")), Color(UIColor(hex: "fd4b2f"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                        .opacity(toggleOnlyFlag ? 1.0 : 0.5)
+                                    
+                                    Text("Flagged")
+                                    Text("\(totalFlagged)")
+                                        .foregroundStyle(.secondary)
+                                        .padding(.leading, 10)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 25.0))
                             }
                             .padding(8)
                             .foregroundStyle(Color.newFont)
@@ -90,9 +121,9 @@ struct AllRemindersView: View {
                                 HStack {
                                     Circle()
                                         .frame(height: 15)
-                                        .foregroundStyle(toggleOnlyCompleted ? Color(UIColor(hex: "5863F8")) : Color(UIColor(hex: "5863F8")).opacity(0.4))
+                                        .foregroundStyle(Color(UIColor(hex: "5863F8")))
+                                        .opacity(toggleOnlyCompleted ? 1.0 : 0.5)
                                     Text("Completed")
-                                        .bold()
                                     Text("\(totalCompleted)")
                                         .foregroundStyle(.secondary)
                                         .padding(.leading, 10)
@@ -113,9 +144,9 @@ struct AllRemindersView: View {
                                 HStack {
                                     Circle()
                                         .frame(height: 15)
-                                        .foregroundStyle(toggleOnlyNotCompleted ? Color(UIColor(hex: "FF686B")) : Color(UIColor(hex: "FF686B")).opacity(0.4))
+                                        .foregroundStyle(Color(UIColor(hex: "FF686B")))
+                                        .opacity(toggleOnlyNotCompleted ? 1.0 : 0.5)
                                     Text("Not Completed")
-                                        .bold()
                                     Text("\(totalNotCompleted)")
                                         .foregroundStyle(.secondary)
                                         .padding(.leading, 10)
@@ -174,6 +205,9 @@ struct AllRemindersView: View {
                                                         .foregroundStyle(Color.gray)
                                                         .italic()
                                                     Spacer()
+                                                    Image(systemName: "flag.fill")
+                                                        .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f83d5c")), Color(UIColor(hex: "fd4b2f"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                        .opacity(reminder.flag ? 1.0 : 0.0)
                                                 }
                                             }
                                         }
@@ -186,6 +220,14 @@ struct AllRemindersView: View {
                                         } label: {
                                             Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
                                                 .tint(reminder.completed ? Color(UIColor(hex: "FF686B")) : Color(UIColor(hex: "5863F8")))
+                                        }
+                                        Button {
+                                            reminder.flag.toggle()
+                                            updateRemindersCount()
+                                            DataController().save(context: managedObjectContext)
+                                        } label: {
+                                            Label(reminder.flag ? "Unflag" : "Flag", systemImage: reminder.flag ? "flag.slash.fill" : "flag.fill")
+                                                .tint(Color(UIColor(hex: "392d69")))
                                         }
                                     }
                                 }
@@ -252,6 +294,7 @@ struct AllRemindersView: View {
     private func updateRemindersCount() {
         totalCompleted = calculateTotalCompleted()
         totalNotCompleted = calculateTotalNotCompleted()
+        totalFlagged = calculateTotalFlagged()
     }
     private func calculateTotalCompleted() -> Int {
         return reminders.reduce(0) {
@@ -261,6 +304,11 @@ struct AllRemindersView: View {
     private func calculateTotalNotCompleted() -> Int {
         return reminders.reduce(0) {
             $0 + (!$1.completed ? 1 : 0)
+        }
+    }
+    private func calculateTotalFlagged() -> Int {
+        return reminders.reduce(0) {
+            $0 + ($1.flag ? 1 : 0)
         }
     }
 }
