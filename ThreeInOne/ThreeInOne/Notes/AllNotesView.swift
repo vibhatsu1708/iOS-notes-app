@@ -18,6 +18,8 @@ struct AllNotesView: View {
     @State private var toggleOnlyBookmark: Bool = false
     @State private var toggleOnlyHidden: Bool = false
     
+    @Binding var isCustomTabBarHidden: Bool
+    
     @State private var searchText: String = ""
     
     var filteredNotes: [Note] {
@@ -145,7 +147,8 @@ struct AllNotesView: View {
                         ForEach(toggleOnlyHidden ? groupedHiddenNotes.keys.sorted(by: >) : groupedNotes.keys.sorted(by: >), id: \.self) { date in
                             Section(header: Text(formatDate(date: date))) {
                                 ForEach(toggleOnlyHidden ? groupedHiddenNotes[date]! : groupedNotes[date]!) { note in
-                                    NavigationLink(destination: EditNoteView(note: note)) {
+                                    NavigationLink(destination: EditNoteView(note: note, isCustomTabBarHidden: $isCustomTabBarHidden)) {
+                                        
                                         HStack(alignment: .top) {
                                             VStack(alignment: .leading, spacing: 10) {
                                                 HStack(alignment: .top) {
@@ -245,7 +248,8 @@ struct AllNotesView: View {
                     .shadow(radius: 30)
                 }
             }
-            .padding(30)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 120)
         }
     }
     
@@ -262,5 +266,5 @@ struct AllNotesView: View {
 
 
 #Preview {
-    AllNotesView()
+    AllNotesView(isCustomTabBarHidden: .constant(true))
 }

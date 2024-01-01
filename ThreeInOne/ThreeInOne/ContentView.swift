@@ -16,24 +16,35 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var purchase: FetchedResults<Purchase>
     
     
+    // For the navigation bar
+    @State private var tabSelection: Int = 1
+    // For hiding the custom tab bar when entering the edit view for notes/reminders/budget logs.
+    @State private var isCustomTabBarHidden: Bool = false
+    // To hide the background color of the tab bar, hide the reserved space for the tab bar at the bottom.
+    
+    // To hide the default tab bar background.
+    init() {
+        UITabBar.appearance().isHidden = true
+    }
+    
     var body: some View {
-        TabView {
-            AllNotesView()
-                .tabItem {
-                    Label("My Notes", systemImage: "note.text")
-                }
-            AllRemindersView()
-                .tabItem {
-                    Label("My Reminders", systemImage: "checklist")
-                }
-//            AllPurchasesView()
-//                .tabItem {
-//                    Label("My Budget", systemImage: "chart.bar")
-//                }
+        TabView(selection: $tabSelection) {
+            AllNotesView(isCustomTabBarHidden: $isCustomTabBarHidden)
+                .tag(1)
+            AllRemindersView(isCustomTabBarHidden: $isCustomTabBarHidden)
+                .tag(2)
+            AllPurchasesView()
+                .tag(3)
+        }
+        .overlay(alignment: .bottom) {
+            CustomTabView(tabSelection: $tabSelection)
+                .padding()
+                .opacity(isCustomTabBarHidden ? 0.0 : 1.0)
         }
     }
 }
 
+// Extension to be able to use hex colors throughout the project views/files.
 extension UIColor {
     convenience init(hex: String, alpha: CGFloat = 1.0) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)

@@ -14,6 +14,8 @@ struct EditReminderView: View {
     
     var reminder: FetchedResults<Reminder>.Element
     
+    @Binding var isCustomTabBarHidden: Bool
+    
     @State private var disabledEditButton: Bool = true
     
     @State private var name = ""
@@ -23,11 +25,11 @@ struct EditReminderView: View {
     var body: some View {
         Form {
             Section {
-                TextField("Reminder Name\(reminder.name!)", text: $name, axis: .vertical)
+                TextField("Todo Name\(reminder.name!)", text: $name, axis: .vertical)
                     .bold()
                     .font(.headline)
                 
-                TextField("Reminder Description\(reminder.reminder_desc!)", text: $reminder_desc, axis: .vertical)
+                TextField("Todo Description\(reminder.reminder_desc!)", text: $reminder_desc, axis: .vertical)
                     .font(.subheadline)
                     .onAppear {
                         name = reminder.name!
@@ -43,10 +45,10 @@ struct EditReminderView: View {
         }
         Button {
             if name.trimmingCharacters(in: .whitespaces) == "" {
-                name = "New Reminder"
+                name = "New Todo"
             }
             if reminder_desc.trimmingCharacters(in: .whitespaces) == "" {
-                reminder_desc = "Reminder Description"
+                reminder_desc = "Todo Description"
             }
             
             DataController().editReminder(reminder: reminder, name: name, reminder_desc: reminder_desc, tags: tags, context: managedObjectContext)
@@ -60,6 +62,12 @@ struct EditReminderView: View {
         .background(!disabledEditButton ? LinearGradient(colors: [Color(UIColor(hex: "F3C178")), Color(UIColor(hex: "FE5E41"))], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [Color(UIColor(hex: "DEDEE0"))], startPoint: .topLeading, endPoint: .bottomTrailing))
         .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
         .clipShape(RoundedRectangle(cornerRadius: 1000.0))
+        .onAppear {
+            isCustomTabBarHidden = true
+        }
+        .onDisappear {
+            isCustomTabBarHidden = false
+        }
     }
     
     func updateButtonState() {

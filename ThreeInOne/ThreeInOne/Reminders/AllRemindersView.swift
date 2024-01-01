@@ -14,6 +14,8 @@ struct AllRemindersView: View {
     @FetchRequest(
         entity: Reminder.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Reminder.date, ascending: false)]) var reminders: FetchedResults<Reminder>
+    
+    @Binding var isCustomTabBarHidden: Bool
 
     @State private var toggleOnlyCompleted: Bool = false
     @State private var toggleOnlyNotCompleted: Bool = false
@@ -177,7 +179,7 @@ struct AllRemindersView: View {
                         ForEach(groupedReminders.keys.sorted(by: >), id: \.self) { date in
                             Section(header: Text(formatDate(date: date))) { 
                                 ForEach(groupedReminders[date]!) { reminder in
-                                    NavigationLink(destination: EditReminderView(reminder: reminder)) {
+                                    NavigationLink(destination: EditReminderView(reminder: reminder, isCustomTabBarHidden: $isCustomTabBarHidden)) {
                                         HStack(alignment: .top) {
                                             VStack(alignment: .leading, spacing: 10) {
                                                 HStack(alignment: .firstTextBaseline, spacing: 10) {
@@ -238,7 +240,7 @@ struct AllRemindersView: View {
                     }
                     .frame(maxWidth: .infinity)
                 }
-                .navigationTitle("Your Reminders")
+                .navigationTitle("Your Todos")
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         EditButton()
@@ -277,7 +279,8 @@ struct AllRemindersView: View {
                     .shadow(radius: 30)
                 }
             }
-            .padding(30)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 120)
         }
     }
     
@@ -314,5 +317,5 @@ struct AllRemindersView: View {
 }
 
 #Preview {
-    AllRemindersView()
+    AllRemindersView(isCustomTabBarHidden: .constant(true))
 }

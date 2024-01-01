@@ -23,12 +23,12 @@ struct AddReminderView: View {
             VStack {
                 Form {
                     Section {
-                        TextField("Reminder Name", text: $name, axis: .vertical)
+                        TextField("Todo Name", text: $name, axis: .vertical)
                             .foregroundStyle(Color.newFont)
                             .font(.headline)
                             .bold()
                         
-                        TextField("Reminder Description", text: $reminder_desc, axis: .vertical)
+                        TextField("Todo Description", text: $reminder_desc, axis: .vertical)
                             .foregroundStyle(Color.newFont)
                             .font(.subheadline)
                     }
@@ -41,12 +41,12 @@ struct AddReminderView: View {
                 Group {
                     Button {
                         if name.trimmingCharacters(in: .whitespaces) == "" {
-                            name = "New Reminder"
+                            name = "New Todo"
                         }
                         DataController().addReminder(name: name, reminder_desc: reminder_desc, completed: completed, flag: flag, tags: tags, context: managedObjectContext)
                         dismiss()
                     } label: {
-                        Label("Add Reminder", systemImage: "plus")
+                        Label("Add Todo", systemImage: "plus")
                     }
                     .padding()
                     .bold()
@@ -56,7 +56,7 @@ struct AddReminderView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 1000.0))
                 }
             }
-            .navigationTitle("New Reminder")
+            .navigationTitle("New Todo")
         }
     }
 }
