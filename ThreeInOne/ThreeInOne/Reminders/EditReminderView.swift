@@ -23,32 +23,36 @@ struct EditReminderView: View {
     @State private var tags: String = ""
     
     var body: some View {
-        Form {
-            Section {
-                TextField("Todo Name\(reminder.name!)", text: $name, axis: .vertical)
-                    .bold()
-                    .font(.headline)
+        NavigationStack {
+            Form {
+                Section("Todo Name") {
+                    TextField("\(reminder.name!)", text: $name, axis: .vertical)
+                        .bold()
+                        .font(.headline)
+                        .onAppear {
+                            name = reminder.name!
+                        }
+                        .onChange(of: name) { _, _ in
+                            updateButtonState()
+                        }
+                }
                 
-                TextField("Todo Description\(reminder.reminder_desc!)", text: $reminder_desc, axis: .vertical)
-                    .font(.subheadline)
-                    .onAppear {
-                        name = reminder.name!
-                        reminder_desc = reminder.reminder_desc!
-                    }
-                    .onChange(of: name) { _, _ in
-                        updateButtonState()
-                    }
-                    .onChange(of: reminder_desc) { _, _ in
-                        updateButtonState()
-                    }
+                Section("Todo Description") {
+                    TextField("\(reminder.reminder_desc!)", text: $reminder_desc, axis: .vertical)
+                        .font(.subheadline)
+                        .onAppear {
+                            reminder_desc = reminder.reminder_desc!
+                        }
+                        .onChange(of: reminder_desc) { _, _ in
+                            updateButtonState()
+                        }
+                }
             }
+            .navigationTitle("Edit Todo")
         }
         Button {
             if name.trimmingCharacters(in: .whitespaces) == "" {
                 name = "New Todo"
-            }
-            if reminder_desc.trimmingCharacters(in: .whitespaces) == "" {
-                reminder_desc = "Todo Description"
             }
             
             DataController().editReminder(reminder: reminder, name: name, reminder_desc: reminder_desc, tags: tags, context: managedObjectContext)

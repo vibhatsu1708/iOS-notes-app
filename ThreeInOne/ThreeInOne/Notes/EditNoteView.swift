@@ -26,19 +26,22 @@ struct EditNoteView: View {
     
     var body: some View {
         Form {
-            Section {
-                TextField("Note Name\(note.name!)", text: $name, axis: .vertical)
+            Section("Note Name") {
+                TextField("\(note.name!)", text: $name, axis: .vertical)
                     .bold()
                     .font(.headline)
-                
-                TextField("Note Description\(note.note_desc!)", text: $note_desc, axis: .vertical)
-                    .font(.subheadline)
                     .onAppear {
                         name = note.name!
-                        note_desc = note.note_desc!
                     }
                     .onChange(of: name) { _, _ in
                         updateButtonState()
+                    }
+            }
+            Section("Note Description") {
+                TextField("\(note.note_desc!)", text: $note_desc, axis: .vertical)
+                    .font(.subheadline)
+                    .onAppear {
+                        note_desc = note.note_desc!
                     }
                     .onChange(of: note_desc) { _, _ in
                         updateButtonState()

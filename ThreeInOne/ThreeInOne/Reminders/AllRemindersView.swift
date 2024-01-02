@@ -273,7 +273,7 @@ struct AllRemindersView: View {
                     .font(.title)
                     .bold()
                     .frame(width: 80, height: 80)
-                    .background(LinearGradient(colors: [Color(UIColor(hex: "F3C178")), Color(UIColor(hex: "FE5E41"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .background(LinearGradient(colors: [Color(UIColor(hex: "FFBA08")), Color(UIColor(hex: "FE5E41"))], startPoint: .topLeading, endPoint: .bottomTrailing))
                     .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
                     .clipShape(Circle())
                     .shadow(radius: 30)

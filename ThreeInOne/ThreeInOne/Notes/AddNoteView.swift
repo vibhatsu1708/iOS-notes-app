@@ -27,7 +27,8 @@ struct AddNoteView: View {
                             .foregroundStyle(Color.newFont)
                             .font(.headline)
                             .bold()
-                        
+                    }
+                    Section {
                         TextField("Note Description", text: $note_desc, axis: .vertical)
                             .foregroundStyle(Color.newFont)
                             .font(.subheadline)

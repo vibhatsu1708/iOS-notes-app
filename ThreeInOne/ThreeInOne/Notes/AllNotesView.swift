@@ -233,7 +233,7 @@ struct AllNotesView: View {
                         Button(action: {
                             showingAddNote.toggle()
                         }) {
-                            Image(systemName: "doc.text.fill")
+                            Image(systemName: "note.text")
                         }
                         .sheet(isPresented: $showingAddNote) {
                             AddNoteView()

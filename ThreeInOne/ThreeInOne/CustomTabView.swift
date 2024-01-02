@@ -11,44 +11,55 @@ struct CustomTabView: View {
     @Binding var tabSelection: Int
     @Namespace private var animationNamespace
     
-    let tabBarItems: [(image: String, title: String, accentColor: String)] = [
-        ("note.text", "Notes", "5448C8"),
-        ("text.badge.checkmark", "Todos", "FC7A1E")
+    let tabBarItems: [(image: String, title: String, accentColor: String, gradientColorOne: String, gradientColorTwo: String)] = [
+        ("note.text", "Notes", "F87666", "F87666", "8A4FFF"),
+        ("text.badge.checkmark", "Todos", "FFBA08", "FFBA08", "FE5E41")
     ]
     
     // for default value of the stroke color, set the value to the above array's first accentColor value.
-    @State private var currentTabBarStrokeColor: String = "5448C8"
+    @State private var currentTabBarStrokeColor: String = "8A4FFF"
     
     var body: some View {
         ZStack {
-            Capsule()
-                .frame(height: 80)
-                .foregroundStyle(Color(.secondarySystemBackground))
+            ZStack {
+                Capsule()
+                    .frame(width: 300, height: 60)
+                    .foregroundStyle(Color(UIColor(hex: currentTabBarStrokeColor)))
+                    .padding(.top, 30)
+                Capsule()
+                    .frame(height: 70)
+                    .foregroundStyle(Color(.secondarySystemBackground))
+                    .overlay {
+                        Capsule()
+                            .stroke(Color.secondary, lineWidth: 1.0)
+                    }
+            }
             
             HStack {
                 ForEach(0..<2) { index in
                     Spacer()
                     Button {
                         tabSelection = index + 1
-                        currentTabBarStrokeColor = tabBarItems[index].accentColor
+                        currentTabBarStrokeColor = tabBarItems[index].gradientColorTwo
                     } label: {
-                        VStack(spacing: 8) {
+                        VStack(spacing: 10) {
                             Image(systemName: tabBarItems[index].image)
-                            Text("\(tabBarItems[index].title)")
-                                .bold()
+                                .font(.title)
+                            if index+1 == tabSelection {
+                                Capsule()
+                                    .frame(width: 20, height: 5)
+                                    .foregroundStyle(index+1 == tabSelection ? Color(UIColor(hex: tabBarItems[index].gradientColorTwo)) : Color.clear)
+                            }
                         }
-                        .foregroundStyle(index+1 == tabSelection ? Color(UIColor(hex: tabBarItems[index].accentColor)) : Color(.secondaryLabel))
+                        .foregroundStyle(Color.newFont)
+                        .padding(.vertical, 15)
+                        .padding(.horizontal, 50)
+                        .clipShape(Capsule())
                     }
                     Spacer()
                 }
             }
-            .frame(height: 80)
-            .padding(.horizontal)
             .clipShape(Capsule())
-            .overlay {
-                Capsule()
-                    .stroke(Color(UIColor(hex: currentTabBarStrokeColor)), lineWidth: 2)
-            }
         }
     }
 }
