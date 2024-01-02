@@ -10,7 +10,6 @@ import CoreData
 
 struct AllRemindersView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.undoManager) var undoManager
     @FetchRequest(
         entity: Reminder.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Reminder.date, ascending: false)]) var reminders: FetchedResults<Reminder>
@@ -71,6 +70,8 @@ struct AllRemindersView: View {
     @State private var showingAddReminder: Bool = false
     @State private var showingEditReminder: Bool = false
     @State private var selectedReminder: Reminder?
+    
+    @State private var confirmationForDeletionOfCompletedReminders: Bool = false
     
     var body: some View {
         ZStack {
@@ -161,11 +162,13 @@ struct AllRemindersView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10.0))
                             
                             Button {
-                                
+                                confirmationForDeletionOfCompletedReminders = true
                             } label: {
                                 Image(systemName: "trash.fill")
-                                    
-                            }
+                            }.confirmationDialog("Are you sure you want to DELETE all the COMPLETED TODOS?", isPresented: $confirmationForDeletionOfCompletedReminders, titleVisibility: .visible, actions: {
+                                Button("Yes, DELETE it all", role: .destructive, action: deleteCompletedReminders)
+                                Button("Cancel", role: .cancel, action: {})
+                            })
                             .padding(8)
                             .background(Color(UIColor(hex: "E71D36")).opacity(0.3))
                             .foregroundStyle(Color.newFont.opacity(0.7))
@@ -293,7 +296,6 @@ struct AllRemindersView: View {
             DataController().save(context: managedObjectContext)
         }
     }
-    
     private func updateRemindersCount() {
         totalCompleted = calculateTotalCompleted()
         totalNotCompleted = calculateTotalNotCompleted()
@@ -313,6 +315,13 @@ struct AllRemindersView: View {
         return reminders.reduce(0) {
             $0 + ($1.flag ? 1 : 0)
         }
+    }
+    private func deleteCompletedReminders() {
+        let completedRemindersToDelete = reminders.filter { $0.completed == true }
+        for reminder in completedRemindersToDelete {
+            managedObjectContext.delete(reminder)
+        }
+        DataController().save(context: managedObjectContext)
     }
 }
 
