@@ -11,6 +11,8 @@ import CoreData
 struct AllPurchasesView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var purchases: FetchedResults<Purchase>
+    
+    @Binding var isCustomTabBarHidden: Bool
 
     @State private var searchText: String = ""
     
@@ -32,7 +34,7 @@ struct AllPurchasesView: View {
                 VStack(alignment: .leading) {
                     List {
                         ForEach(filteredPurchases) { purchase in
-                            NavigationLink(destination: EditPurchaseView(purchase: purchase)) {
+                            NavigationLink(destination: EditPurchaseView(purchase: purchase, isCustomTabBarHidden: $isCustomTabBarHidden)) {
                                 VStack(alignment: .leading, spacing: 12) {
                                     VStack(alignment: .leading) {
                                         Text(purchase.name!)
@@ -103,7 +105,8 @@ struct AllPurchasesView: View {
                     .shadow(radius: 30)
                 }
             }
-            .padding(30)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 120)
         }
     }
     
@@ -119,5 +122,5 @@ struct AllPurchasesView: View {
 }
 
 #Preview {
-    AllPurchasesView()
+    AllPurchasesView(isCustomTabBarHidden: .constant(true))
 }

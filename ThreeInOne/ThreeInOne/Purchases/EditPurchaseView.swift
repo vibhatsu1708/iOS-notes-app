@@ -13,6 +13,8 @@ struct EditPurchaseView: View {
     
     var purchase: FetchedResults<Purchase>.Element
     
+    @Binding var isCustomTabBarHidden: Bool
+    
     @State private var disabledEditButton: Bool = true
     
     @State private var name: String = ""
@@ -108,6 +110,12 @@ struct EditPurchaseView: View {
         .background(!disabledEditButton ? LinearGradient(colors: [Color(UIColor(hex: "F3C178")), Color(UIColor(hex: "FE5E41"))], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [Color(UIColor(hex: "DEDEE0"))], startPoint: .topLeading, endPoint: .bottomTrailing))
         .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
         .clipShape(RoundedRectangle(cornerRadius: 1000.0))
+        .onAppear {
+            isCustomTabBarHidden = true
+        }
+        .onDisappear {
+            isCustomTabBarHidden = false
+        }
     }
     
     func updateButtonState() {

@@ -33,7 +33,7 @@ struct ContentView: View {
                 .tag(1)
             AllRemindersView(isCustomTabBarHidden: $isCustomTabBarHidden)
                 .tag(2)
-            AllPurchasesView()
+            AllPurchasesView(isCustomTabBarHidden: $isCustomTabBarHidden)
                 .tag(3)
         }
         .overlay(alignment: .bottom) {

@@ -11,9 +11,10 @@ struct CustomTabView: View {
     @Binding var tabSelection: Int
     @Namespace private var animationNamespace
     
-    let tabBarItems: [(image: String, title: String, accentColor: String, gradientColorOne: String, gradientColorTwo: String)] = [
-        ("note.text", "Notes", "F87666", "F87666", "8A4FFF"),
-        ("text.badge.checkmark", "Todos", "FFBA08", "FFBA08", "FE5E41")
+    let tabBarItems: [(image: String, title: String, accentColor: String)] = [
+        ("note.text", "Notes", "8A4FFF"),
+        ("text.badge.checkmark", "Todos", "FFBA08"),
+        ("creditcard.fill", "Todos", "6AB547")
     ]
     
     // for default value of the stroke color, set the value to the above array's first accentColor value.
@@ -35,12 +36,11 @@ struct CustomTabView: View {
                     }
             }
             
-            HStack {
-                ForEach(0..<2) { index in
-                    Spacer()
+            HStack(spacing: 40) {
+                ForEach(0..<3) { index in
                     Button {
                         tabSelection = index + 1
-                        currentTabBarStrokeColor = tabBarItems[index].gradientColorTwo
+                        currentTabBarStrokeColor = tabBarItems[index].accentColor
                     } label: {
                         VStack(spacing: 10) {
                             Image(systemName: tabBarItems[index].image)
@@ -48,15 +48,15 @@ struct CustomTabView: View {
                             if index+1 == tabSelection {
                                 Capsule()
                                     .frame(width: 20, height: 5)
-                                    .foregroundStyle(index+1 == tabSelection ? Color(UIColor(hex: tabBarItems[index].gradientColorTwo)) : Color.clear)
+                                    .foregroundStyle(index+1 == tabSelection ? Color(UIColor(hex: tabBarItems[index].accentColor)) : Color.clear)
                             }
                         }
                         .foregroundStyle(Color.newFont)
-                        .padding(.vertical, 15)
-                        .padding(.horizontal, 50)
+                        .padding()
+//                        .padding(.vertical, 15)
+//                        .padding(.horizontal, 50)
                         .clipShape(Capsule())
                     }
-                    Spacer()
                 }
             }
             .clipShape(Capsule())

@@ -148,7 +148,6 @@ struct AllNotesView: View {
                             Section(header: Text(formatDate(date: date))) {
                                 ForEach(toggleOnlyHidden ? groupedHiddenNotes[date]! : groupedNotes[date]!) { note in
                                     NavigationLink(destination: EditNoteView(note: note, isCustomTabBarHidden: $isCustomTabBarHidden)) {
-                                        
                                         HStack(alignment: .top) {
                                             VStack(alignment: .leading, spacing: 10) {
                                                 HStack(alignment: .top) {
@@ -184,6 +183,7 @@ struct AllNotesView: View {
                                                 }
                                             }
                                         }
+                                        .padding(.vertical)
                                     }
                                     .swipeActions(edge: .leading) {
                                         Button {
@@ -210,11 +210,157 @@ struct AllNotesView: View {
                                     }
                                 }
                                 .onDelete(perform: deleteNote)
-                                .padding(.vertical)
                             }
                         }
                     }
                     .frame(maxWidth: .infinity)
+                    .overlay {
+                        if groupedNotes.isEmpty && toggleOnlyHidden == false && toggleOnlyBookmark == false && toggleOnlyStar == false {
+                            VStack(spacing: 20) {
+                                Image(systemName: "note.text")
+                                    .font(.system(size: 50))
+                                    .padding()
+                                    .background(.tertiary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                                Text("No Notes noted")
+                                HStack {
+                                    Text("Click on")
+                                    Image(systemName: "note.text")
+                                        .padding(10)
+                                        .background(.tertiary)
+                                        .clipShape(Circle())
+                                    Text("to get started.")
+                                }
+                                Spacer()
+                            }
+                            .padding(.top, 50)
+                        }
+                        if groupedNotes.isEmpty && toggleOnlyStar == true && (toggleOnlyHidden == false && toggleOnlyBookmark == false) {
+                            VStack(spacing: 20) {
+                                HStack {
+                                    Image(systemName: "star.fill")
+                                    Image(systemName: "plus")
+                                        .font(.subheadline)
+                                    Image(systemName: "note.text")
+                                }
+                                    .font(.system(size: 50))
+                                    .padding()
+                                    .background(.tertiary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                                Text("No Starred Notes")
+                                HStack {
+                                    Text("Swipe")
+                                    Image(systemName: "star.fill")
+                                        .padding(10)
+                                        .background(.tertiary)
+                                        .clipShape(Circle())
+                                    Text("to Star a note.")
+                                }
+                                Spacer()
+                            }
+                            .padding(.top, 50)
+                        }
+                        if groupedNotes.isEmpty && toggleOnlyBookmark == true && (toggleOnlyHidden == false && toggleOnlyStar == false) {
+                            VStack(spacing: 20) {
+                                HStack {
+                                    Image(systemName: "bookmark.fill")
+                                    Image(systemName: "plus")
+                                        .font(.subheadline)
+                                    Image(systemName: "note.text")
+                                }
+                                    .font(.system(size: 50))
+                                    .padding()
+                                    .background(.tertiary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                                Text("No Bookmarked Notes")
+                                HStack {
+                                    Text("Swipe")
+                                    Image(systemName: "bookmark.fill")
+                                        .padding(10)
+                                        .background(.tertiary)
+                                        .clipShape(Circle())
+                                    Text("to Bookmark a note.")
+                                }
+                                Spacer()
+                            }
+                            .padding(.top, 50)
+                        }
+                        if groupedHiddenNotes.isEmpty && toggleOnlyHidden == true && toggleOnlyStar == false && toggleOnlyBookmark == false {
+                            VStack(spacing: 20) {
+                                HStack {
+                                    Image(systemName: "eye.slash")
+                                    Image(systemName: "plus")
+                                        .font(.subheadline)
+                                    Image(systemName: "note.text")
+                                }
+                                    .font(.system(size: 50))
+                                    .padding()
+                                    .background(.tertiary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                                Text("No Hidden Notes")
+                                HStack {
+                                    Text("Swipe on a note")
+                                    Image(systemName: "eye.slash")
+                                        .padding(10)
+                                        .background(.tertiary)
+                                        .clipShape(Circle())
+                                    Text("to hide.")
+                                }
+                                Spacer()
+                            }
+                            .padding(.top, 50)
+                        }
+                        if groupedHiddenNotes.isEmpty && toggleOnlyHidden == true && toggleOnlyStar == true && toggleOnlyBookmark == false {
+                            VStack(spacing: 20) {
+                                HStack {
+                                    Image(systemName: "eye.slash")
+                                    Image(systemName: "plus")
+                                        .font(.subheadline)
+                                    Image(systemName: "star.fill")
+                                }
+                                    .font(.system(size: 50))
+                                    .padding()
+                                    .background(.tertiary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                                Text("No Hidden Starred Notes")
+                                HStack {
+                                    Text("Swipe on a hidden note")
+                                    Image(systemName: "star.fill")
+                                        .padding(10)
+                                        .background(.tertiary)
+                                        .clipShape(Circle())
+                                    Text("to star.")
+                                }
+                                Spacer()
+                            }
+                            .padding(.top, 50)
+                        }
+                        if groupedHiddenNotes.isEmpty && toggleOnlyHidden == true && toggleOnlyBookmark == true && toggleOnlyStar == false{
+                            VStack(spacing: 20) {
+                                HStack {
+                                    Image(systemName: "eye.slash")
+                                    Image(systemName: "plus")
+                                        .font(.subheadline)
+                                    Image(systemName: "bookmark.fill")
+                                }
+                                    .font(.system(size: 50))
+                                    .padding()
+                                    .background(.tertiary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                                Text("No Hidden Bookmarked Notes")
+                                HStack {
+                                    Text("Swipe on a hidden note")
+                                    Image(systemName: "bookmark.fill")
+                                        .padding(10)
+                                        .background(.tertiary)
+                                        .clipShape(Circle())
+                                    Text("to bookmark.")
+                                }
+                                Spacer()
+                            }
+                            .padding(.top, 50)
+                        }
+                    }
                 }
                 .navigationTitle("Your Notes")
                 .toolbar {
