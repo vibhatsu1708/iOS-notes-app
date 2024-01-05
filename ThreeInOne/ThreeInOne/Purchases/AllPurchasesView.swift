@@ -116,7 +116,7 @@ struct AllPurchasesView: View {
                 purchases[$0]
             }.forEach(managedObjectContext.delete)
             
-            DataController().save(context: managedObjectContext)
+            DataController.shared.save(context: managedObjectContext)
         }
     }
 }

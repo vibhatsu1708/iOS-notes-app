@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Note" representedClassName="Note" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23C71" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="DataModel">
+    <entity name="Note" representedClassName=".Note" syncable="YES" codeGenerationType="class">
         <attribute name="bookmark" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="heart" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -9,7 +9,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="note_desc" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="Purchase" representedClassName="Purchase" syncable="YES" codeGenerationType="class">
+    <entity name="Purchase" representedClassName=".Purchase" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="String" defaultValueString="0.0"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>

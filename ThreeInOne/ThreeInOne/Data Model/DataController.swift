@@ -11,9 +11,16 @@ import CoreData
 class DataController: ObservableObject {
     let dataContainer = NSPersistentContainer(name: "DataModel")
     
+    static let shared = DataController()
+    
     //MARK: - Data Controller init
     init() {
-        dataContainer.loadPersistentStores { desc, error in
+        loadPersistentData()
+    }
+    
+    //MARK: - to load the data
+    func loadPersistentData() {
+        self.dataContainer.loadPersistentStores { desc, error in
             if let error = error {
                 print("Error: \(error)")
             }

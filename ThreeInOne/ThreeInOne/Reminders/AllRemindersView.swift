@@ -233,7 +233,7 @@ struct AllRemindersView: View {
                                         Button {
                                             reminder.completed.toggle()
                                             updateRemindersCount()
-                                            DataController().save(context: managedObjectContext)
+                                            DataController.shared.save(context: managedObjectContext)
                                         } label: {
                                             Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
                                                 .tint(reminder.completed ? Color(UIColor(hex: "FF686B")) : Color(UIColor(hex: "5863F8")))
@@ -241,7 +241,7 @@ struct AllRemindersView: View {
                                         Button {
                                             reminder.flag.toggle()
                                             updateRemindersCount()
-                                            DataController().save(context: managedObjectContext)
+                                            DataController.shared.save(context: managedObjectContext)
                                         } label: {
                                             Label(reminder.flag ? "Unflag" : "Flag", systemImage: reminder.flag ? "flag.slash.fill" : "flag.fill")
                                                 .tint(Color(UIColor(hex: "392d69")))
@@ -427,7 +427,7 @@ struct AllRemindersView: View {
                 reminders[$0]
             }.forEach(managedObjectContext.delete)
             
-            DataController().save(context: managedObjectContext)
+            DataController.shared.save(context: managedObjectContext)
         }
     }
     private func updateRemindersCount() {
@@ -455,7 +455,7 @@ struct AllRemindersView: View {
         for reminder in completedRemindersToDelete {
             managedObjectContext.delete(reminder)
         }
-        DataController().save(context: managedObjectContext)
+        DataController.shared.save(context: managedObjectContext)
     }
 }
 

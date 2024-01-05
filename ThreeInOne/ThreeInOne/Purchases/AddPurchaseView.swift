@@ -64,7 +64,7 @@ struct AddPurchaseView: View {
                         if purchase_desc.trimmingCharacters(in: .whitespaces) == "" {
                             purchase_desc = "Purchase Description"
                         }
-                        DataController().addPurchase(name: name, purchase_desc: purchase_desc, amount: amount, payment_method: payment_method, paid: paid, spent_or_received: spent_or_received, context: managedObjectContext)
+                        DataController.shared.addPurchase(name: name, purchase_desc: purchase_desc, amount: amount, payment_method: payment_method, paid: paid, spent_or_received: spent_or_received, context: managedObjectContext)
                         dismiss()
                     } label: {
                         Label("Add Purchase", systemImage: "plus")

@@ -24,6 +24,9 @@ struct AllNotesView: View {
     
     var filteredNotes: [Note] {
         guard !searchText.isEmpty else {
+            if toggleOnlyStar && toggleOnlyBookmark {
+                return notes.filter { $0.heart && $0.bookmark }
+            }
             if toggleOnlyStar {
                 return notes.filter { $0.heart }
             }
@@ -34,6 +37,11 @@ struct AllNotesView: View {
         }
 
         return notes.filter {
+            if toggleOnlyStar && toggleOnlyBookmark {
+                return ($0.bookmark && $0.heart) &&
+                    ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
+                    $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
+            }
             if toggleOnlyStar {
                 return $0.heart && ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false || $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
             }
@@ -89,9 +97,6 @@ struct AllNotesView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10.0))
                             
                             Button {
-                                if toggleOnlyBookmark {
-                                    toggleOnlyBookmark = false
-                                }
                                 toggleOnlyStar.toggle()
                             } label: {
                                 Group {
@@ -107,9 +112,6 @@ struct AllNotesView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10.0))
                             
                             Button {
-                                if toggleOnlyStar {
-                                    toggleOnlyStar = false
-                                }
                                 toggleOnlyBookmark.toggle()
                             } label: {
                                 Group {
@@ -188,21 +190,21 @@ struct AllNotesView: View {
                                     .swipeActions(edge: .leading) {
                                         Button {
                                             note.hidden.toggle()
-                                            DataController().save(context: managedObjectContext)
+                                            DataController.shared.save(context: managedObjectContext)
                                         } label: {
                                             Image(systemName: note.hidden ? "eye.slash" : "eye")
                                                 .tint(Color(UIColor(hex: "4F4789")))
                                         }
                                         Button {
                                             note.heart.toggle()
-                                            DataController().save(context: managedObjectContext)
+                                            DataController.shared.save(context: managedObjectContext)
                                         } label: {
                                             Image(systemName: note.heart ? "star.slash.fill" : "star.fill")
                                                 .tint(Color(UIColor(hex: "f74c06")))
                                         }
                                         Button {
                                             note.bookmark.toggle()
-                                            DataController().save(context: managedObjectContext)
+                                            DataController.shared.save(context: managedObjectContext)
                                         } label: {
                                             Image(systemName: note.bookmark ? "bookmark.slash.fill" : "bookmark.fill")
                                                 .tint(Color(UIColor(hex: "2B2D42")))
@@ -285,6 +287,26 @@ struct AllNotesView: View {
                             }
                             .padding(.top, 50)
                         }
+                        if groupedNotes.isEmpty && (toggleOnlyStar == true && toggleOnlyBookmark == true) && toggleOnlyHidden == false {
+                            VStack(spacing: 20) {
+                                HStack {
+                                    Image(systemName: "star.fill")
+                                    Image(systemName: "plus")
+                                        .font(.subheadline)
+                                    Image(systemName: "bookmark.fill")
+                                }
+                                    .font(.system(size: 50))
+                                    .padding()
+                                    .background(.tertiary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                                Text("No Starred Bookmarked Notes")
+                                HStack {
+                                    Text("Swipe on a note to star or/and bookmark.")
+                                }
+                                Spacer()
+                            }
+                            .padding(.top, 50)
+                        }
                         if groupedHiddenNotes.isEmpty && toggleOnlyHidden == true && toggleOnlyStar == false && toggleOnlyBookmark == false {
                             VStack(spacing: 20) {
                                 HStack {
@@ -335,7 +357,7 @@ struct AllNotesView: View {
                             }
                             .padding(.top, 50)
                         }
-                        if groupedHiddenNotes.isEmpty && toggleOnlyHidden == true && toggleOnlyBookmark == true && toggleOnlyStar == false{
+                        if groupedHiddenNotes.isEmpty && toggleOnlyHidden == true && toggleOnlyBookmark == true && toggleOnlyStar == false {
                             VStack(spacing: 20) {
                                 HStack {
                                     Image(systemName: "eye.slash")
@@ -355,6 +377,29 @@ struct AllNotesView: View {
                                         .background(.tertiary)
                                         .clipShape(Circle())
                                     Text("to bookmark.")
+                                }
+                                Spacer()
+                            }
+                            .padding(.top, 50)
+                        }
+                        if groupedHiddenNotes.isEmpty && toggleOnlyHidden == true && (toggleOnlyBookmark == true && toggleOnlyStar == true) {
+                            VStack(spacing: 20) {
+                                HStack {
+                                    Image(systemName: "eye.slash")
+                                    Image(systemName: "plus")
+                                        .font(.subheadline)
+                                    Image(systemName: "bookmark.fill")
+                                    Image(systemName: "plus")
+                                        .font(.subheadline)
+                                    Image(systemName: "star.fill")
+                                }
+                                    .font(.system(size: 35))
+                                    .padding()
+                                    .background(.tertiary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                                Text("No Hidden Starred Bookmarked Notes")
+                                HStack {
+                                    Text("Swipe on a hidden note to star or/and bookmark.")
                                 }
                                 Spacer()
                             }
@@ -405,7 +450,7 @@ struct AllNotesView: View {
                 notes[$0]
             }.forEach(managedObjectContext.delete)
             
-            DataController().save(context: managedObjectContext)
+            DataController.shared.save(context: managedObjectContext)
         }
     }
 }

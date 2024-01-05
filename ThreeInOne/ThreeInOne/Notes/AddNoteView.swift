@@ -42,7 +42,7 @@ struct AddNoteView: View {
                         if note_desc.trimmingCharacters(in: .whitespaces) == "" {
                             note_desc = "Note Description"
                         }
-                        DataController().addNote(name: name, note_desc: note_desc, heart: heart, bookmark: bookmark, hidden: hidden, context: managedObjectContext)
+                        DataController.shared.addNote(name: name, note_desc: note_desc, heart: heart, bookmark: bookmark, hidden: hidden, context: managedObjectContext)
                         dismiss()
                     } label: {
                         Label("Add Note", systemImage: "plus")
