@@ -14,7 +14,7 @@ struct AddNoteView: View {
     
     @State private var name: String = ""
     @State private var note_desc: String = ""
-    @State private var heart: Bool = false
+    @State private var star: Bool = false
     @State private var bookmark: Bool = false
     @State private var hidden: Bool = false
     
@@ -42,7 +42,7 @@ struct AddNoteView: View {
                         if note_desc.trimmingCharacters(in: .whitespaces) == "" {
                             note_desc = "Note Description"
                         }
-                        DataController.shared.addNote(name: name, note_desc: note_desc, heart: heart, bookmark: bookmark, hidden: hidden, context: managedObjectContext)
+                        DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, context: managedObjectContext)
                         dismiss()
                     } label: {
                         Label("Add Note", systemImage: "plus")

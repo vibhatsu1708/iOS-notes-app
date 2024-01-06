@@ -25,10 +25,10 @@ struct AllNotesView: View {
     var filteredNotes: [Note] {
         guard !searchText.isEmpty else {
             if toggleOnlyStar && toggleOnlyBookmark {
-                return notes.filter { $0.heart && $0.bookmark }
+                return notes.filter { $0.star && $0.bookmark }
             }
             if toggleOnlyStar {
-                return notes.filter { $0.heart }
+                return notes.filter { $0.star }
             }
             if toggleOnlyBookmark {
                 return notes.filter { $0.bookmark }
@@ -38,12 +38,12 @@ struct AllNotesView: View {
 
         return notes.filter {
             if toggleOnlyStar && toggleOnlyBookmark {
-                return ($0.bookmark && $0.heart) &&
+                return ($0.bookmark && $0.star) &&
                     ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
                     $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
             }
             if toggleOnlyStar {
-                return $0.heart && ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false || $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
+                return $0.star && ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false || $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
             }
             if toggleOnlyBookmark {
                 return $0.bookmark &&
@@ -162,7 +162,7 @@ struct AllNotesView: View {
                                                             .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "0968e5")), Color(UIColor(hex: "71c3f7"))], startPoint: .topLeading, endPoint: .bottomTrailing))
                                                             .shadow(radius: 15.0)
                                                     }
-                                                    if note.heart {
+                                                    if note.star {
                                                         Image(systemName: "star.fill")
                                                             .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f9bc2c")), Color(UIColor(hex: "f74c06"))], startPoint: .topLeading, endPoint: .bottomTrailing))
                                                             .shadow(radius: 15.0)
@@ -196,10 +196,10 @@ struct AllNotesView: View {
                                                 .tint(Color(UIColor(hex: "4F4789")))
                                         }
                                         Button {
-                                            note.heart.toggle()
+                                            note.star.toggle()
                                             DataController.shared.save(context: managedObjectContext)
                                         } label: {
-                                            Image(systemName: note.heart ? "star.slash.fill" : "star.fill")
+                                            Image(systemName: note.star ? "star.slash.fill" : "star.fill")
                                                 .tint(Color(UIColor(hex: "f74c06")))
                                         }
                                         Button {
