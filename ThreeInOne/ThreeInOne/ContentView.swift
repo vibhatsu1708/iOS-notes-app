@@ -29,11 +29,11 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $tabSelection) {
-            AllNotesView(isCustomTabBarHidden: $isCustomTabBarHidden)
+            AllPurchasesView(isCustomTabBarHidden: $isCustomTabBarHidden)
                 .tag(1)
             AllRemindersView(isCustomTabBarHidden: $isCustomTabBarHidden)
                 .tag(2)
-            AllPurchasesView(isCustomTabBarHidden: $isCustomTabBarHidden)
+            AllNotesView(isCustomTabBarHidden: $isCustomTabBarHidden)
                 .tag(3)
         }
         .overlay(alignment: .bottom) {
