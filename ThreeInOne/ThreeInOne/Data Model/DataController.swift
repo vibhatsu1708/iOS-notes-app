@@ -15,17 +15,22 @@ class DataController: ObservableObject {
     
     //MARK: - Data Controller init
     init() {
-        loadPersistentData()
-    }
-    
-    //MARK: - to load the data
-    func loadPersistentData() {
-        self.dataContainer.loadPersistentStores { desc, error in
+//        loadPersistentData()
+        dataContainer.loadPersistentStores { desc, error in
             if let error = error {
-                print("Error: \(error)")
+                print("Error: \(error.localizedDescription)")
             }
         }
     }
+    
+    //MARK: - to load the data
+//    func loadPersistentData() {
+//        self.dataContainer.loadPersistentStores { desc, error in
+//            if let error = error {
+//                print("Error: \(error)")
+//            }
+//        }
+//    }
     
     //MARK: - to save the data
     func save(context: NSManagedObjectContext) {
