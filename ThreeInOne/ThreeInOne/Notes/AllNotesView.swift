@@ -413,7 +413,7 @@ struct AllNotesView: View {
                         EditButton()
                     }
                 }
-                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always)) 
+                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             }
 
             VStack {
@@ -446,13 +446,21 @@ struct AllNotesView: View {
     
     private func deleteNote(offsets: IndexSet) {
         withAnimation {
-            offsets.map {
-                notes[$0]
-            }.forEach(managedObjectContext.delete)
 //            for index in offsets {
 //                let note = notes[index]
 //                managedObjectContext.delete(note)
 //            }
+//            DataController.shared.save(context: managedObjectContext)
+            
+            for index in offsets {
+                guard index < notes.count else { continue }
+                
+                let note = notes[index]
+                
+                guard let existingNote = managedObjectContext.object(with: note.objectID) as? Note else { continue }
+                
+                managedObjectContext.delete(existingNote)
+            }
             DataController.shared.save(context: managedObjectContext)
         }
     }

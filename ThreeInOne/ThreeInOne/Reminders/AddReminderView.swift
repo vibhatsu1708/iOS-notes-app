@@ -17,6 +17,7 @@ struct AddReminderView: View {
     @State private var completed: Bool = false
     @State private var flag: Bool = false
     @State private var tags: String = ""
+    @State private var deleteFlag: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -45,7 +46,7 @@ struct AddReminderView: View {
                 if name.trimmingCharacters(in: .whitespaces) == "" {
                     name = "New Todo"
                 }
-                DataController.shared.addReminder(name: name, reminder_desc: reminder_desc, completed: completed, flag: flag, tags: tags, context: managedObjectContext)
+                DataController.shared.addReminder(name: name, reminder_desc: reminder_desc, completed: completed, flag: flag, tags: tags, deleteFlag: deleteFlag, context: managedObjectContext)
                 dismiss()
             } label: {
                 Label("Add Todo", systemImage: "plus")

@@ -70,7 +70,7 @@ class DataController: ObservableObject {
     }
     
     //MARK: - To add a new Reminder
-    func addReminder(name: String, reminder_desc: String, completed: Bool, flag: Bool, tags: String, context: NSManagedObjectContext) {
+    func addReminder(name: String, reminder_desc: String, completed: Bool, flag: Bool, tags: String, deleteFlag: Bool, context: NSManagedObjectContext) {
         let reminder = Reminder(context: context)
         reminder.id = UUID()
         reminder.date = Date()
@@ -79,6 +79,7 @@ class DataController: ObservableObject {
         reminder.completed = completed
         reminder.flag = flag
         reminder.tags = tags
+        reminder.deleteFlag = deleteFlag
         
         save(context: context)
     }

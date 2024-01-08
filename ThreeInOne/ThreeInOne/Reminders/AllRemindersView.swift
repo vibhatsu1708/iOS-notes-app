@@ -247,8 +247,16 @@ struct AllRemindersView: View {
                                                 .tint(Color(UIColor(hex: "392d69")))
                                         }
                                     }
+                                    .swipeActions(edge: .trailing) {
+                                        Button {
+                                            reminder.deleteFlag = true
+                                            deleteReminder()
+                                        } label: {
+                                            Image(systemName: "trash.fill")
+                                        }
+                                    }
                                 }
-                                .onDelete(perform: deleteReminder)
+//                                .onDelete(perform: deleteReminder)
                                 .padding(.vertical)
                             }
                         }
@@ -421,15 +429,29 @@ struct AllRemindersView: View {
         }
     }
     
-    private func deleteReminder(offsets: IndexSet) {
-        withAnimation {
-            offsets.map {
-                reminders[$0]
-            }.forEach(managedObjectContext.delete)
-            
-            DataController.shared.save(context: managedObjectContext)
+//    private func deleteReminder(offsets: IndexSet) {
+//        withAnimation {
+//            for index in offsets {
+//                guard index < reminders.count else { continue }
+//                
+//                let reminder = reminders[index]
+//                
+//                guard let existingReminder = managedObjectContext.object(with: reminder.objectID) as? Reminder else { continue }
+//                
+//                managedObjectContext.delete(existingReminder)
+//            }
+//            DataController.shared.save(context: managedObjectContext)
+//        }
+//    }
+    
+    private func deleteReminder() {
+        let reminderToDelete = reminders.filter { $0.deleteFlag == true }
+        for reminder in reminderToDelete {
+            managedObjectContext.delete(reminder)
         }
+        DataController.shared.save(context: managedObjectContext)
     }
+    
     private func updateRemindersCount() {
         totalCompleted = calculateTotalCompleted()
         totalNotCompleted = calculateTotalNotCompleted()
