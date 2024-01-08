@@ -28,6 +28,7 @@
 		141FFFB62B2EA5B100E06199 /* AddPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFFB52B2EA5B100E06199 /* AddPurchaseView.swift */; };
 		141FFFF72B2EB96B00E06199 /* EditPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFFF62B2EB96B00E06199 /* EditPurchaseView.swift */; };
 		143889DB2B34393700028415 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143889DA2B34393700028415 /* DateFormatter.swift */; };
+		14D416A72B4C7894008883C5 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D416A62B4C7894008883C5 /* SplashScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		141FFFB52B2EA5B100E06199 /* AddPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPurchaseView.swift; sourceTree = "<group>"; };
 		141FFFF62B2EB96B00E06199 /* EditPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPurchaseView.swift; sourceTree = "<group>"; };
 		143889DA2B34393700028415 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		14D416A52B4C7668008883C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14D416A62B4C7894008883C5 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,9 +125,9 @@
 		141FFF752B2E9F5200E06199 /* ThreeInOne */ = {
 			isa = PBXGroup;
 			children = (
+				14D416A52B4C7668008883C5 /* Info.plist */,
 				141FFF762B2E9F5200E06199 /* ThreeInOneApp.swift */,
-				141FFF782B2E9F5200E06199 /* ContentView.swift */,
-				140F57042B417C43008302A7 /* CustomTabView.swift */,
+				14D416A92B4C7F87008883C5 /* MainView */,
 				14AC4B972B3357A30090CE9A /* Helper */,
 				14AC4B942B3357730090CE9A /* Notes */,
 				14AC4B962B3357950090CE9A /* Reminders */,
@@ -207,6 +210,16 @@
 				141FFFAB2B2EA0D800E06199 /* TimeFormatter.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		14D416A92B4C7F87008883C5 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				14D416A62B4C7894008883C5 /* SplashScreenView.swift */,
+				141FFF782B2E9F5200E06199 /* ContentView.swift */,
+				140F57042B417C43008302A7 /* CustomTabView.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14D416A72B4C7894008883C5 /* SplashScreenView.swift in Sources */,
 				141FFFB22B2EA23900E06199 /* EditReminderView.swift in Sources */,
 				141FFFA82B2EA06C00E06199 /* AddNoteView.swift in Sources */,
 				141FFFAC2B2EA0D800E06199 /* TimeFormatter.swift in Sources */,
@@ -521,6 +535,7 @@
 				DEVELOPMENT_TEAM = 39X532FCX5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ThreeInOne/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -550,6 +565,7 @@
 				DEVELOPMENT_TEAM = 39X532FCX5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ThreeInOne/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

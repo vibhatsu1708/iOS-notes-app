@@ -13,12 +13,12 @@ struct CustomTabView: View {
     
     let tabBarItems: [(image: String, title: String, accentColor: String)] = [
         ("creditcard.fill", "Todos", "6AB547"),
-        ("text.badge.checkmark", "Todos", "FFBA08"),
+        ("text.badge.checkmark", "Todos", "F64740"),
         ("note.text", "Notes", "8A4FFF")
     ]
     
     // for default value of the stroke color, set the value to the above array's first accentColor value.
-    @State private var currentTabBarStrokeColor: String = "8A4FFF"
+    @State private var currentTabBarStrokeColor: String = "6AB547"
     
     var body: some View {
         ZStack {

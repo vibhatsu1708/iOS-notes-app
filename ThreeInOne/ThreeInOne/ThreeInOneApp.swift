@@ -13,7 +13,7 @@ struct ThreeInOneApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashScreenView()
                 .environment(\.managedObjectContext, dataController.dataContainer.viewContext)
         }
     }
