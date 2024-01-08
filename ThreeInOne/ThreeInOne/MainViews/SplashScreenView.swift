@@ -9,8 +9,6 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @State private var isActive: Bool = false
-    @State private var size = 0.8
-    @State private var opacity = 0.5
     
     var body: some View {
         if isActive {
@@ -32,14 +30,6 @@ struct SplashScreenView: View {
                                 .foregroundStyle(Color(UIColor(hex: "8A4FFF")))
                         }
                         .frame(height: 15)
-                    }
-                }
-                .scaleEffect(size)
-                .opacity(opacity)
-                .onAppear {
-                    withAnimation(.easeInOut(duration: 1.5)) {
-                        self.size = 1.0
-                        self.opacity = 1.0
                     }
                 }
             }
