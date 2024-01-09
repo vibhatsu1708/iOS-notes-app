@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		140F57052B417C43008302A7 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140F57042B417C43008302A7 /* CustomTabView.swift */; };
+		1414868C2B4DE7BA00076565 /* CustomTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1414868B2B4DE7BA00076565 /* CustomTabViewModel.swift */; };
 		141FFF772B2E9F5200E06199 /* ThreeInOneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFF762B2E9F5200E06199 /* ThreeInOneApp.swift */; };
 		141FFF792B2E9F5200E06199 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFF782B2E9F5200E06199 /* ContentView.swift */; };
 		141FFF7B2B2E9F5400E06199 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 141FFF7A2B2E9F5400E06199 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		140F57042B417C43008302A7 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
+		1414868B2B4DE7BA00076565 /* CustomTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabViewModel.swift; sourceTree = "<group>"; };
 		141FFF732B2E9F5200E06199 /* ThreeInOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThreeInOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		141FFF762B2E9F5200E06199 /* ThreeInOneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeInOneApp.swift; sourceTree = "<group>"; };
 		141FFF782B2E9F5200E06199 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				141FFFA52B2EA01B00E06199 /* AllNotesView.swift */,
+				1414868B2B4DE7BA00076565 /* CustomTabViewModel.swift */,
 				141FFFA72B2EA06C00E06199 /* AddNoteView.swift */,
 				141FFFA92B2EA0B100E06199 /* EditNoteView.swift */,
 			);
@@ -354,6 +357,7 @@
 			files = (
 				14D416A72B4C7894008883C5 /* SplashScreenView.swift in Sources */,
 				141FFFB22B2EA23900E06199 /* EditReminderView.swift in Sources */,
+				1414868C2B4DE7BA00076565 /* CustomTabViewModel.swift in Sources */,
 				141FFFA82B2EA06C00E06199 /* AddNoteView.swift in Sources */,
 				141FFFAC2B2EA0D800E06199 /* TimeFormatter.swift in Sources */,
 				141FFFA22B2E9F7300E06199 /* DataModel.xcdatamodeld in Sources */,

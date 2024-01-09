@@ -12,6 +12,8 @@ struct AllPurchasesView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var purchases: FetchedResults<Purchase>
     
+    @ObservedObject private var customTabViewModel = CustomTabViewModel()
+    
     @Binding var isCustomTabBarHidden: Bool
 
     @State private var searchText: String = ""
@@ -73,12 +75,13 @@ struct AllPurchasesView: View {
                     }
                     .frame(maxWidth: .infinity)
                 }
+                .background(Color(UIColor(hex: customTabViewModel.tabBarItems[0].accentColor)).opacity(0.3))
                 .navigationTitle("Your Purchases")
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        EditButton()
-                    }
-                }
+//                .toolbar {
+//                    ToolbarItem(placement: .topBarLeading) {
+//                        EditButton()
+//                    }
+//                }
             }
             .searchable(text: $searchText)
 

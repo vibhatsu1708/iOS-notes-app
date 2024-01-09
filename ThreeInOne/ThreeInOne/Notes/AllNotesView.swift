@@ -14,6 +14,10 @@ struct AllNotesView: View {
         entity: Note.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Note.date, ascending: false)]) var notes: FetchedResults<Note>
     
+    @ObservedObject private var customTabViewModel = CustomTabViewModel()
+    
+    @Binding var isCustomTabBarHidden: Bool
+    
     @State private var toggleOnlyStar: Bool = false
     @State private var toggleOnlyBookmark: Bool = false
     @State private var toggleOnlyHidden: Bool = false
@@ -21,8 +25,6 @@ struct AllNotesView: View {
     @State private var totalStarred: Int = 0
     @State private var totalBookmarked: Int = 0
     @State private var totalHidden: Int = 0
-    
-    @Binding var isCustomTabBarHidden: Bool
     
     @State private var searchText: String = ""
     
@@ -166,7 +168,6 @@ struct AllNotesView: View {
                         .frame(height: 50)
                     }
                     .padding(.horizontal)
-                    Divider()
                     List {
                         ForEach(toggleOnlyHidden ? groupedHiddenNotes.keys.sorted(by: >) : groupedNotes.keys.sorted(by: >), id: \.self) { date in
                             Section(header: Text(formatDate(date: date))) {
@@ -402,12 +403,13 @@ struct AllNotesView: View {
                         }
                     }
                 }
+                .background(Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)).opacity(0.3))
                 .navigationTitle("Your Notes")
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        EditButton()
-                    }
-                }
+//                .toolbar {
+//                    ToolbarItem(placement: .topBarLeading) {
+//                        EditButton()
+//                    }
+//                }
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
                 .onAppear {
                     updateNotesCount()

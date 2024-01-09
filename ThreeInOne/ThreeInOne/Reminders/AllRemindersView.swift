@@ -14,6 +14,8 @@ struct AllRemindersView: View {
         entity: Reminder.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Reminder.date, ascending: false)]) var reminders: FetchedResults<Reminder>
     
+    @ObservedObject private var customTabViewModel = CustomTabViewModel()
+    
     @Binding var isCustomTabBarHidden: Bool
 
     @State private var toggleOnlyCompleted: Bool = false
@@ -189,7 +191,6 @@ struct AllRemindersView: View {
                         .frame(height: 50)
                     }
                     .padding(.horizontal)
-                    Divider()
                     List {
                         ForEach(groupedReminders.keys.sorted(by: >), id: \.self) { date in
                             Section(header: Text(formatDate(date: date))) {
@@ -355,12 +356,13 @@ struct AllRemindersView: View {
                         }
                     }
                 }
+                .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)).opacity(0.3))
                 .navigationTitle("Your Todos")
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        EditButton()
-                    }
-                }
+//                .toolbar {
+//                    ToolbarItem(placement: .topBarLeading) {
+//                        EditButton()
+//                    }
+//                }
             }
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             .onAppear {
