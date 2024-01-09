@@ -18,6 +18,10 @@ struct AllNotesView: View {
     @State private var toggleOnlyBookmark: Bool = false
     @State private var toggleOnlyHidden: Bool = false
     
+    @State private var totalStarred: Int = 0
+    @State private var totalBookmarked: Int = 0
+    @State private var totalHidden: Int = 0
+    
     @Binding var isCustomTabBarHidden: Bool
     
     @State private var searchText: String = ""
@@ -99,11 +103,17 @@ struct AllNotesView: View {
                             Button {
                                 toggleOnlyStar.toggle()
                             } label: {
-                                Group {
-                                    Image(systemName: "star.fill")
-                                        .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f9bc2c")), Color(UIColor(hex: "f74c06"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                        .opacity(toggleOnlyStar ? 1.0 : 0.5)
-                                    Text("Star Notes")
+                                HStack {
+                                    Group {
+                                        Image(systemName: "star.fill")
+                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f9bc2c")), Color(UIColor(hex: "f74c06"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                            .opacity(toggleOnlyStar ? 1.0 : 0.5)
+                                        Text("Star")
+                                    }
+                                    
+                                    Text("\(totalStarred)")
+                                        .foregroundStyle(.secondary)
+                                        .padding(.leading, 10)
                                 }
                             }
                             .padding(8)
@@ -114,12 +124,18 @@ struct AllNotesView: View {
                             Button {
                                 toggleOnlyBookmark.toggle()
                             } label: {
-                                Group {
-                                    Image(systemName: "bookmark.fill")
-                                        .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "0968e5")), Color(UIColor(hex: "71c3f7"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                        .opacity(toggleOnlyBookmark ? 1.0 : 0.5)
-                                    Text("Bookmark Notes")
+                                HStack {
+                                    Group {
+                                        Image(systemName: "bookmark.fill")
+                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "0968e5")), Color(UIColor(hex: "71c3f7"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                            .opacity(toggleOnlyBookmark ? 1.0 : 0.5)
+                                        Text("Bookmark")
+                                    }
                                 }
+                                
+                                Text("\(totalBookmarked)")
+                                    .foregroundStyle(.secondary)
+                                    .padding(.leading, 10)
                             }
                             .padding(8)
                             .foregroundStyle(Color.newFont)
@@ -129,12 +145,18 @@ struct AllNotesView: View {
                             Button {
                                 toggleOnlyHidden.toggle()
                             } label: {
-                                Group {
-                                    Image(systemName: "eye.slash")
-                                        .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "A06CD5")), Color(UIColor(hex: "6247AA"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                        .opacity(toggleOnlyHidden ? 1.0 : 0.5)
-                                    Text("Hidden Notes")
+                                HStack {
+                                    Group {
+                                        Image(systemName: "eye.slash")
+                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "A06CD5")), Color(UIColor(hex: "6247AA"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                            .opacity(toggleOnlyHidden ? 1.0 : 0.5)
+                                        Text("Hidden")
+                                    }
                                 }
+                                
+                                Text("\(totalHidden)")
+                                    .foregroundStyle(.secondary)
+                                    .padding(.leading, 10)
                             }
                             .padding(8)
                             .foregroundStyle(Color.newFont)
@@ -190,6 +212,7 @@ struct AllNotesView: View {
                                     .swipeActions(edge: .leading) {
                                         Button {
                                             note.hidden.toggle()
+                                            updateNotesCount()
                                             DataController.shared.save(context: managedObjectContext)
                                         } label: {
                                             Image(systemName: note.hidden ? "eye.slash" : "eye")
@@ -197,6 +220,7 @@ struct AllNotesView: View {
                                         }
                                         Button {
                                             note.star.toggle()
+                                            updateNotesCount()
                                             DataController.shared.save(context: managedObjectContext)
                                         } label: {
                                             Image(systemName: note.star ? "star.slash.fill" : "star.fill")
@@ -204,6 +228,7 @@ struct AllNotesView: View {
                                         }
                                         Button {
                                             note.bookmark.toggle()
+                                            updateNotesCount()
                                             DataController.shared.save(context: managedObjectContext)
                                         } label: {
                                             Image(systemName: note.bookmark ? "bookmark.slash.fill" : "bookmark.fill")
@@ -384,6 +409,12 @@ struct AllNotesView: View {
                     }
                 }
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+                .onAppear {
+                    updateNotesCount()
+                }
+                .onChange(of: groupedNotes) {
+                    updateNotesCount()
+                }
             }
 
             VStack {
@@ -411,6 +442,27 @@ struct AllNotesView: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 120)
+        }
+    }
+    
+    private func updateNotesCount() {
+        totalStarred = calculateTotalStarred()
+        totalBookmarked = calculateTotalNotBookmarked()
+        totalHidden = calculateTotalHidden()
+    }
+    private func calculateTotalStarred() -> Int {
+        return notes.reduce(0) {
+            $0 + ($1.star ? 1 : 0)
+        }
+    }
+    private func calculateTotalNotBookmarked() -> Int {
+        return notes.reduce(0) {
+            $0 + ($1.bookmark ? 1 : 0)
+        }
+    }
+    private func calculateTotalHidden() -> Int {
+        return notes.reduce(0) {
+            $0 + ($1.hidden ? 1 : 0)
         }
     }
     
