@@ -11,12 +11,7 @@ struct CustomTabView: View {
     @Binding var tabSelection: Int
     @Namespace private var animationNamespace
     
-    // Kept the title for understandability of to what color and what section of the tab bar, what properties belong.
-    let tabBarItems: [(image: String, title: String, accentColor: String)] = [
-        ("creditcard.fill", "Budget Tracker", "6AB547"),
-        ("text.badge.checkmark", "Todos", "F64740"),
-        ("note.text", "Notes", "8A4FFF")
-    ]
+    @ObservedObject private var customTabViewModel = CustomTabViewModel()
     
     // for default value of the stroke color, set the value to the above array's first accentColor value.
     @State private var currentTabBarStrokeColor: String = "6AB547"
@@ -41,15 +36,15 @@ struct CustomTabView: View {
                 ForEach(0..<3) { index in
                     Button {
                         tabSelection = index + 1
-                        currentTabBarStrokeColor = tabBarItems[index].accentColor
+                        currentTabBarStrokeColor = customTabViewModel.tabBarItems[index].accentColor
                     } label: {
                         VStack(spacing: 10) {
-                            Image(systemName: tabBarItems[index].image)
+                            Image(systemName: customTabViewModel.tabBarItems[index].image)
                                 .font(.title)
                             if index+1 == tabSelection {
                                 Capsule()
                                     .frame(width: 20, height: 5)
-                                    .foregroundStyle(index+1 == tabSelection ? Color(UIColor(hex: tabBarItems[index].accentColor)) : Color.clear)
+                                    .foregroundStyle(index+1 == tabSelection ? Color(UIColor(hex: customTabViewModel.tabBarItems[index].accentColor)) : Color.clear)
                             }
                         }
                         .foregroundStyle(Color.newFont)
