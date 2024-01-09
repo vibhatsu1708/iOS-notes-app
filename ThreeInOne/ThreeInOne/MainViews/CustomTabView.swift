@@ -11,8 +11,9 @@ struct CustomTabView: View {
     @Binding var tabSelection: Int
     @Namespace private var animationNamespace
     
+    // Kept the title for understandability of to what color and what section of the tab bar, what properties belong.
     let tabBarItems: [(image: String, title: String, accentColor: String)] = [
-        ("creditcard.fill", "Todos", "6AB547"),
+        ("creditcard.fill", "Budget Tracker", "6AB547"),
         ("text.badge.checkmark", "Todos", "F64740"),
         ("note.text", "Notes", "8A4FFF")
     ]
