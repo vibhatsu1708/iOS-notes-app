@@ -226,12 +226,7 @@ struct AllNotesView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Notes noted")
                                 HStack {
-                                    Text("Click on")
-                                    Image(systemName: "note.text")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to get started.")
+                                    Text("Tap on the button to create a Note.")
                                 }
                                 Spacer()
                             }
@@ -251,12 +246,7 @@ struct AllNotesView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Starred Notes")
                                 HStack {
-                                    Text("Swipe")
-                                    Image(systemName: "star.fill")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to Star a note.")
+                                    Text("Swipe on a Note to Star a Note.")
                                 }
                                 Spacer()
                             }
@@ -276,12 +266,7 @@ struct AllNotesView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Bookmarked Notes")
                                 HStack {
-                                    Text("Swipe")
-                                    Image(systemName: "bookmark.fill")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to Bookmark a note.")
+                                    Text("Swipe on a Note to Bookmark a Note.")
                                 }
                                 Spacer()
                             }
@@ -301,7 +286,7 @@ struct AllNotesView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Starred Bookmarked Notes")
                                 HStack {
-                                    Text("Swipe on a note to star or/and bookmark.")
+                                    Text("Swipe on a Note to Star or/and Bookmark.")
                                 }
                                 Spacer()
                             }
@@ -321,12 +306,7 @@ struct AllNotesView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Hidden Notes")
                                 HStack {
-                                    Text("Swipe on a note")
-                                    Image(systemName: "eye.slash")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to hide.")
+                                    Text("Swipe on a Note to Hide.")
                                 }
                                 Spacer()
                             }
@@ -346,12 +326,7 @@ struct AllNotesView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Hidden Starred Notes")
                                 HStack {
-                                    Text("Swipe on a hidden note")
-                                    Image(systemName: "star.fill")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to star.")
+                                    Text("Swipe on a Hidden Note to Star.")
                                 }
                                 Spacer()
                             }
@@ -371,12 +346,7 @@ struct AllNotesView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Hidden Bookmarked Notes")
                                 HStack {
-                                    Text("Swipe on a hidden note")
-                                    Image(systemName: "bookmark.fill")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to bookmark.")
+                                    Text("Swipe on a Hidden Note to Bookmark.")
                                 }
                                 Spacer()
                             }
@@ -399,7 +369,7 @@ struct AllNotesView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Hidden Starred Bookmarked Notes")
                                 HStack {
-                                    Text("Swipe on a hidden note to star or/and bookmark.")
+                                    Text("Swipe on a Hidden Note to Star or/and Bookmark.")
                                 }
                                 Spacer()
                             }

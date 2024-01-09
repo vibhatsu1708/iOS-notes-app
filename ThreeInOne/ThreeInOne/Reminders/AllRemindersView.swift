@@ -177,8 +177,8 @@ struct AllRemindersView: View {
                                 confirmationForDeletionOfCompletedReminders = true
                             } label: {
                                 Image(systemName: "trash.fill")
-                            }.confirmationDialog("Are you sure you want to DELETE all the COMPLETED TODOS?", isPresented: $confirmationForDeletionOfCompletedReminders, titleVisibility: .visible, actions: {
-                                Button("Yes, DELETE it all", role: .destructive, action: deleteCompletedReminders)
+                            }.confirmationDialog("Are you sure you want to Delete all the Completed Todos?", isPresented: $confirmationForDeletionOfCompletedReminders, titleVisibility: .visible, actions: {
+                                Button("Delete", role: .destructive, action: deleteCompletedReminders)
                                 Button("Cancel", role: .cancel, action: {})
                             })
                             .padding(8)
@@ -272,12 +272,7 @@ struct AllRemindersView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Todos to do")
                                 HStack {
-                                    Text("Tap on")
-                                    Image(systemName: "checklist")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to add a Todo.")
+                                    Text("Tap on the button to add a Todo.")
                                 }
                                 Spacer()
                             }
@@ -292,12 +287,7 @@ struct AllRemindersView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Flagged Todos to do")
                                 HStack {
-                                    Text("Swipe on a Todo")
-                                    Image(systemName: "flag.fill")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to flag.")
+                                    Text("Swipe on a Todo to flag.")
                                 }
                                 Spacer()
                             }
@@ -312,12 +302,7 @@ struct AllRemindersView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Completed Todos")
                                 HStack {
-                                    Text("Swipe on a Todo")
-                                    Image(systemName: "checklist")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to complete a Todo.")
+                                    Text("Swipe on a Todo to Complete a Todo.")
                                 }
                                 Spacer()
                             }
@@ -332,12 +317,7 @@ struct AllRemindersView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Incompleted Todos")
                                 HStack {
-                                    Text("Tap on")
-                                    Image(systemName: "checklist")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to add a todo.")
+                                    Text("Tap on the button to add a todo.")
                                 }
                                 Spacer()
                             }
@@ -352,12 +332,7 @@ struct AllRemindersView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Flagged Completed Todos")
                                 HStack {
-                                    Text("Swipe on an Completed Todo")
-                                    Image(systemName: "checklist")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to add a todo.")
+                                    Text("Swipe on a Completed Todo to Flag a Todo.")
                                 }
                                 Spacer()
                             }
@@ -370,14 +345,9 @@ struct AllRemindersView: View {
                                     .padding()
                                     .background(.tertiary)
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                                Text("No Flagged Completed Todos")
+                                Text("No Flagged Incompleted Todos")
                                 HStack {
-                                    Text("Swipe on an Completed Todo")
-                                    Image(systemName: "checklist")
-                                        .padding(10)
-                                        .background(.tertiary)
-                                        .clipShape(Circle())
-                                    Text("to add a todo.")
+                                    Text("Swipe on a Incompleted Todo to Flag a Todo.")
                                 }
                                 Spacer()
                             }
