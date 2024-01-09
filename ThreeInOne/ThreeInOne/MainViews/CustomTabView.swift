@@ -14,7 +14,7 @@ struct CustomTabView: View {
     @ObservedObject private var customTabViewModel = CustomTabViewModel()
     
     // for default value of the stroke color, set the value to the above array's first accentColor value.
-    @State private var currentTabBarStrokeColor: String = "6AB547"
+    @State private var currentTabBarStrokeColor: String = CustomTabViewModel().tabBarItems[0].accentColor
     
     var body: some View {
         ZStack {
