@@ -12,6 +12,9 @@ struct AddNoteView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
     
+    // For bringing focus onto the textfields.
+    @FocusState var focus: FocusedField?
+    
     @State private var name: String = ""
     @State private var note_desc: String = ""
     @State private var star: Bool = false
@@ -27,11 +30,22 @@ struct AddNoteView: View {
                             .foregroundStyle(Color.newFont)
                             .font(.headline)
                             .bold()
+                            .focused($focus, equals: .name)
+                            .onSubmit {
+                                focus = .note_desc
+                            }
                     }
                     Section {
                         TextField("Note Description", text: $note_desc, axis: .vertical)
                             .foregroundStyle(Color.newFont)
                             .font(.subheadline)
+                            .focused($focus, equals: .note_desc)
+                            .onSubmit {
+                                if name.trimmingCharacters(in: .whitespaces) != "" {
+                                    DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, context: managedObjectContext)
+                                    dismiss()
+                                }
+                            }
                     }
                 }
                 Group {
@@ -57,6 +71,15 @@ struct AddNoteView: View {
             }
             .navigationTitle("New Note")
         }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                focus = .name
+            }
+        }
+    }
+    enum FocusedField: Hashable {
+        case name, note_desc
+        // will add tags when the tags feature is implemented.
     }
 }
 

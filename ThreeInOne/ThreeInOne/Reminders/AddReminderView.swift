@@ -12,6 +12,9 @@ struct AddReminderView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
     
+    // For bringing focus onto the textfields.
+    @FocusState var focus: FocusedField?
+    
     @State private var name: String = ""
     @State private var reminder_desc: String = ""
     @State private var completed: Bool = false
@@ -27,11 +30,16 @@ struct AddReminderView: View {
                         .foregroundStyle(Color.newFont)
                         .bold()
                         .font(.headline)
+                        .focused($focus, equals: .name)
+                        .onSubmit {
+                            focus = .reminder_desc
+                        }
                 }
                 Section {
                     TextField("Todo Description", text: $reminder_desc, axis: .vertical)
                         .foregroundStyle(Color.newFont)
                         .font(.subheadline)
+                        .focused($focus, equals: .reminder_desc)
                 }
                 Section {
                     TextField("Tags", text: $tags, axis: .vertical)
@@ -40,6 +48,11 @@ struct AddReminderView: View {
                 }
             }
             .navigationTitle("New Todo")
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                focus = .name
+            }
         }
         Group {
             Button {
@@ -58,6 +71,10 @@ struct AddReminderView: View {
             .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
             .clipShape(RoundedRectangle(cornerRadius: 1000.0))
         }
+    }
+    
+    enum FocusedField: Hashable {
+        case name, reminder_desc
     }
 }
 
