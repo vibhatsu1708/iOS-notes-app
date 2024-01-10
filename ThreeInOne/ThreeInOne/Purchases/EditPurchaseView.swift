@@ -13,6 +13,8 @@ struct EditPurchaseView: View {
     
     var purchase: FetchedResults<Purchase>.Element
     
+    @ObservedObject private var customTabViewModel = CustomTabViewModel()
+    
     @Binding var isCustomTabBarHidden: Bool
     
     @State private var disabledEditButton: Bool = true
@@ -107,8 +109,8 @@ struct EditPurchaseView: View {
         .padding()
         .bold()
         .font(.title3)
-        .background(!disabledEditButton ? LinearGradient(colors: [Color(UIColor(hex: "F3C178")), Color(UIColor(hex: "FE5E41"))], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [Color(UIColor(hex: "DEDEE0"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-        .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
+        .background(!disabledEditButton ? Color(UIColor(hex: customTabViewModel.tabBarItems[0].accentColor)) : Color(UIColor(hex: "DEDEE0")))
+        .foregroundStyle(Color.newFont)
         .clipShape(RoundedRectangle(cornerRadius: 1000.0))
         .onAppear {
             isCustomTabBarHidden = true

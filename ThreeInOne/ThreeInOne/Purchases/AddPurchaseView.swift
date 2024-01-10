@@ -12,6 +12,8 @@ struct AddPurchaseView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
     
+    @ObservedObject private var customTabViewModel = CustomTabViewModel()
+    
     @State private var name: String = ""
     @State private var purchase_desc: String = ""
     @State private var amount: String = ""
@@ -72,8 +74,8 @@ struct AddPurchaseView: View {
                     .padding()
                     .bold()
                     .font(.title3)
-                    .background(LinearGradient(colors: [Color(UIColor(hex: "D5D887")), Color(UIColor(hex: "A1CF6B")), Color(UIColor(hex: "7AC74F"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
+                    .background(Color(UIColor(hex: customTabViewModel.tabBarItems[0].accentColor)))
+                    .foregroundStyle(Color.newFont)
                     .clipShape(RoundedRectangle(cornerRadius: 1000.0))
                 }
             }

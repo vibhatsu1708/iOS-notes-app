@@ -15,6 +15,8 @@ struct AddReminderView: View {
     // For bringing focus onto the textfields.
     @FocusState var focus: FocusedField?
     
+    @ObservedObject private var customTabViewModel = CustomTabViewModel()
+    
     @State private var name: String = ""
     @State private var reminder_desc: String = ""
     @State private var completed: Bool = false
@@ -31,9 +33,6 @@ struct AddReminderView: View {
                         .bold()
                         .font(.headline)
                         .focused($focus, equals: .name)
-                        .onSubmit {
-                            focus = .reminder_desc
-                        }
                 }
                 Section {
                     TextField("Todo Description", text: $reminder_desc, axis: .vertical)
@@ -67,8 +66,8 @@ struct AddReminderView: View {
             .padding()
             .bold()
             .font(.title3)
-            .background(LinearGradient(colors: [Color(UIColor(hex: "F3C178")), Color(UIColor(hex: "FE5E41"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-            .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
+            .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)))
+            .foregroundStyle(Color.newFont)
             .clipShape(RoundedRectangle(cornerRadius: 1000.0))
         }
     }
