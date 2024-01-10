@@ -241,6 +241,7 @@ struct AllNotesView: View {
                             }
                         }
                     }
+//                    .scrollContentBackground(.hidden)
                     .frame(maxWidth: .infinity)
                     .overlay {
                         if groupedNotes.isEmpty && toggleOnlyHidden == false && toggleOnlyBookmark == false && toggleOnlyStar == false {
@@ -403,7 +404,7 @@ struct AllNotesView: View {
                         }
                     }
                 }
-                .background(Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)).opacity(0.3))
+                .background(LinearGradient(colors: [Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)).opacity(0.5)], startPoint: .top, endPoint: .bottom))
                 .navigationTitle("Your Notes")
 //                .toolbar {
 //                    ToolbarItem(placement: .topBarLeading) {
@@ -436,7 +437,7 @@ struct AllNotesView: View {
                     .font(.title)
                     .bold()
                     .frame(width: 80, height: 80)
-                    .background(LinearGradient(colors: [Color(UIColor(hex: "F87666")), Color(UIColor(hex: "8A4FFF"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .background(Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)))
                     .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
                     .clipShape(Circle())
                     .shadow(radius: 30)

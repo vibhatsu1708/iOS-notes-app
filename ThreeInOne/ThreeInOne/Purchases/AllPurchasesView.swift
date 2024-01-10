@@ -102,7 +102,7 @@ struct AllPurchasesView: View {
                     .font(.title)
                     .bold()
                     .frame(width: 80, height: 80)
-                    .background(LinearGradient(colors: [Color(UIColor(hex: "D5D887")), Color(UIColor(hex: "A1CF6B")), Color(UIColor(hex: "7AC74F"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .background(Color(UIColor(hex: customTabViewModel.tabBarItems[0].accentColor)))
                     .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
                     .clipShape(Circle())
                     .shadow(radius: 30)

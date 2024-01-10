@@ -356,7 +356,7 @@ struct AllRemindersView: View {
                         }
                     }
                 }
-                .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)).opacity(0.3))
+                .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)).opacity(0.5))
                 .navigationTitle("Your Todos")
 //                .toolbar {
 //                    ToolbarItem(placement: .topBarLeading) {
@@ -390,7 +390,7 @@ struct AllRemindersView: View {
                     .font(.title)
                     .bold()
                     .frame(width: 80, height: 80)
-                    .background(LinearGradient(colors: [Color(UIColor(hex: "FFBA08")), Color(UIColor(hex: "FE5E41"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)))
                     .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
                     .clipShape(Circle())
                     .shadow(radius: 30)
