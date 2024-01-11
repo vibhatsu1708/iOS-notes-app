@@ -97,10 +97,10 @@ struct AllNotesView: View {
                                 }
                                 .bold()
                             }
-                            .padding(8)
+                            .padding(10)
                             .foregroundStyle(Color.newFont)
                             .background(.quaternary)
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .clipShape(Capsule())
                             
                             Button {
                                 toggleOnlyStar.toggle()
@@ -110,18 +110,19 @@ struct AllNotesView: View {
                                         Image(systemName: "star.fill")
                                             .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f9bc2c")), Color(UIColor(hex: "f74c06"))], startPoint: .topLeading, endPoint: .bottomTrailing))
                                             .opacity(toggleOnlyStar ? 1.0 : 0.5)
+                                            .padding(.leading, 10)
                                         Text("Star")
                                     }
                                     
                                     Text("\(totalStarred)")
                                         .foregroundStyle(.secondary)
-                                        .padding(.leading, 10)
+                                        .padding(.horizontal, 10)
                                 }
                             }
-                            .padding(8)
+                            .padding(10)
                             .foregroundStyle(Color.newFont)
                             .background(.quaternary)
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .clipShape(Capsule())
                             
                             Button {
                                 toggleOnlyBookmark.toggle()
@@ -131,18 +132,19 @@ struct AllNotesView: View {
                                         Image(systemName: "bookmark.fill")
                                             .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "0968e5")), Color(UIColor(hex: "71c3f7"))], startPoint: .topLeading, endPoint: .bottomTrailing))
                                             .opacity(toggleOnlyBookmark ? 1.0 : 0.5)
+                                            .padding(.leading, 10)
                                         Text("Bookmark")
                                     }
                                 }
                                 
                                 Text("\(totalBookmarked)")
                                     .foregroundStyle(.secondary)
-                                    .padding(.leading, 10)
+                                    .padding(.horizontal, 10)
                             }
-                            .padding(8)
+                            .padding(10)
                             .foregroundStyle(Color.newFont)
                             .background(.quaternary)
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .clipShape(Capsule())
                             
                             Button {
                                 toggleOnlyHidden.toggle()
@@ -150,22 +152,24 @@ struct AllNotesView: View {
                                 HStack {
                                     Group {
                                         Image(systemName: "eye.slash")
-                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "A06CD5")), Color(UIColor(hex: "6247AA"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                            .foregroundStyle(Color.white)
                                             .opacity(toggleOnlyHidden ? 1.0 : 0.5)
+                                            .padding(.leading, 10)
                                         Text("Hidden")
                                     }
                                 }
                                 
                                 Text("\(totalHidden)")
                                     .foregroundStyle(.secondary)
-                                    .padding(.leading, 10)
+                                    .padding(.horizontal, 10)
                             }
-                            .padding(8)
+                            .padding(10)
                             .foregroundStyle(Color.newFont)
                             .background(.quaternary)
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .clipShape(Capsule())
                         }
-                        .frame(height: 50)
+                        .frame(minHeight: 50)
+                        .frame(maxHeight: 60)
                     }
                     .padding(.horizontal)
                     List {

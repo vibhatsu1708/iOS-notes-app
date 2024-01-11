@@ -104,10 +104,10 @@ struct AllRemindersView: View {
                                 }
                                 .bold()
                             }
-                            .padding(8)
+                            .padding(10)
                             .foregroundStyle(Color.newFont)
                             .background(.quaternary)
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .clipShape(Capsule())
                             
                             Button {
                                 toggleOnlyFlag.toggle()
@@ -116,18 +116,19 @@ struct AllRemindersView: View {
                                     Image(systemName: "flag.fill")
                                         .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f83d5c")), Color(UIColor(hex: "fd4b2f"))], startPoint: .topLeading, endPoint: .bottomTrailing))
                                         .opacity(toggleOnlyFlag ? 1.0 : 0.5)
+                                        .padding(.leading, 10)
                                     
                                     Text("Flagged")
                                     Text("\(totalFlagged)")
                                         .foregroundStyle(.secondary)
-                                        .padding(.leading, 10)
+                                        .padding(.horizontal, 10)
                                 }
                                 .clipShape(RoundedRectangle(cornerRadius: 25.0))
                             }
-                            .padding(8)
+                            .padding(10)
                             .foregroundStyle(Color.newFont)
                             .background(.quaternary)
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .clipShape(Capsule())
                             
                             Button {
                                 if toggleOnlyNotCompleted {
@@ -140,17 +141,18 @@ struct AllRemindersView: View {
                                         .frame(height: 15)
                                         .foregroundStyle(Color(UIColor(hex: "5863F8")))
                                         .opacity(toggleOnlyCompleted ? 1.0 : 0.5)
+                                        .padding(.leading, 10)
                                     Text("Completed")
                                     Text("\(totalCompleted)")
                                         .foregroundStyle(.secondary)
-                                        .padding(.leading, 10)
+                                        .padding(.horizontal, 10)
                                 }
                                 .clipShape(RoundedRectangle(cornerRadius: 25.0))
                             }
-                            .padding(8)
+                            .padding(10)
                             .foregroundStyle(Color.newFont)
                             .background(.quaternary)
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .clipShape(Capsule())
                             
                             Button {
                                 if toggleOnlyCompleted {
@@ -163,17 +165,18 @@ struct AllRemindersView: View {
                                         .frame(height: 15)
                                         .foregroundStyle(Color(UIColor(hex: "FF686B")))
                                         .opacity(toggleOnlyNotCompleted ? 1.0 : 0.5)
+                                        .padding(.leading, 10)
                                     Text("Not Completed")
                                     Text("\(totalNotCompleted)")
                                         .foregroundStyle(.secondary)
-                                        .padding(.leading, 10)
+                                        .padding(.horizontal, 10)
                                 }
                                 .clipShape(RoundedRectangle(cornerRadius: 25.0))
                             }
-                            .padding(8)
+                            .padding(10)
                             .foregroundStyle(Color.newFont)
                             .background(.quaternary)
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .clipShape(Capsule())
                             
                             Button {
                                 confirmationForDeletionOfCompletedReminders = true
@@ -183,12 +186,13 @@ struct AllRemindersView: View {
                                 Button("Delete", role: .destructive, action: deleteCompletedReminders)
                                 Button("Cancel", role: .cancel, action: {})
                             })
-                            .padding(8)
+                            .padding(10)
                             .background(Color(UIColor(hex: "E71D36")).opacity(0.3))
                             .foregroundStyle(Color.newFont.opacity(0.7))
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .clipShape(Circle())
                         }
-                        .frame(height: 50)
+                        .frame(minHeight: 50)
+                        .frame(maxHeight: 60)
                     }
                     .padding(.horizontal)
                     List {
