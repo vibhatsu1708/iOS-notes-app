@@ -370,6 +370,7 @@ struct AllRemindersView: View {
                 }
                 .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)).opacity(0.5))
                 .navigationTitle("Your Todos")
+                .navigationBarTitleDisplayMode(.large)
 //                .toolbar {
 //                    ToolbarItem(placement: .topBarLeading) {
 //                        EditButton()

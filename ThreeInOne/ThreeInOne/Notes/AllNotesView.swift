@@ -420,6 +420,7 @@ struct AllNotesView: View {
                 }
                 .background(LinearGradient(colors: [Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)).opacity(0.5)], startPoint: .top, endPoint: .bottom))
                 .navigationTitle("Your Notes")
+                .navigationBarTitleDisplayMode(.large)
 //                .toolbar {
 //                    ToolbarItem(placement: .topBarLeading) {
 //                        EditButton()
