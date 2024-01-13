@@ -180,7 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				141FFFA52B2EA01B00E06199 /* AllNotesView.swift */,
-				1414868B2B4DE7BA00076565 /* CustomTabViewModel.swift */,
 				141FFFA72B2EA06C00E06199 /* AddNoteView.swift */,
 				141FFFA92B2EA0B100E06199 /* EditNoteView.swift */,
 			);
@@ -211,6 +210,7 @@
 			children = (
 				143889DA2B34393700028415 /* DateFormatter.swift */,
 				141FFFAB2B2EA0D800E06199 /* TimeFormatter.swift */,
+				1414868B2B4DE7BA00076565 /* CustomTabViewModel.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";

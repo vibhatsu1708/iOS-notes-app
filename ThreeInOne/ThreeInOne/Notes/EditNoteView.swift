@@ -27,53 +27,61 @@ struct EditNoteView: View {
     @State private var hidden: Bool = false
     
     var body: some View {
-        Form {
-            Section("Note Name") {
-                TextField("\(note.name!)", text: $name, axis: .vertical)
-                    .bold()
-                    .font(.headline)
-                    .onAppear {
-                        name = note.name!
+        NavigationStack {
+            VStack {
+                VStack {
+                    Section {
+                        TextField("Note Name\(note.name!)", text: $name, axis: .vertical)
+                            .bold()
+                            .font(.title)
+                            .onAppear {
+                                name = note.name!
+                            }
+                            .onChange(of: name) { _, _ in
+                                updateButtonState()
+                            }
                     }
-                    .onChange(of: name) { _, _ in
-                        updateButtonState()
+                    Section {
+                        TextField("Note Description\(note.note_desc!)", text: $note_desc, axis: .vertical)
+                            .font(.title3)
+                            .onAppear {
+                                note_desc = note.note_desc!
+                            }
+                            .onChange(of: note_desc) { _, _ in
+                                updateButtonState()
+                            }
                     }
-            }
-            Section("Note Description") {
-                TextField("\(note.note_desc!)", text: $note_desc, axis: .vertical)
-                    .font(.subheadline)
-                    .onAppear {
-                        note_desc = note.note_desc!
+                }
+                .padding()
+                Spacer()
+                Button {
+                    if name.trimmingCharacters(in: .whitespaces) == "" {
+                        name = "New Note"
                     }
-                    .onChange(of: note_desc) { _, _ in
-                        updateButtonState()
+                    if note_desc.trimmingCharacters(in: .whitespaces) == "" {
+                        note_desc = "Note Description"
                     }
+                    
+                    DataController().editNote(note: note, name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, context: managedObjectContext)
+                    dismiss()
+                } label: {
+                    Label("Add Changes", systemImage: "plus")
+                }.disabled(disabledEditButton)
+                .padding()
+                .bold()
+                .font(.title3)
+                .background(!disabledEditButton ? Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)) : Color(UIColor(hex: "DEDEE0")))
+                .foregroundStyle(Color.newFont)
+                .clipShape(RoundedRectangle(cornerRadius: 1000.0))
+                .onAppear {
+                    isCustomTabBarHidden = true
+                }
+                .onDisappear {
+                    isCustomTabBarHidden = false
+                }
             }
-        }
-        Button {
-            if name.trimmingCharacters(in: .whitespaces) == "" {
-                name = "New Note"
-            }
-            if note_desc.trimmingCharacters(in: .whitespaces) == "" {
-                note_desc = "Note Description"
-            }
-            
-            DataController().editNote(note: note, name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, context: managedObjectContext)
-            dismiss()
-        } label: {
-            Label("Add Changes", systemImage: "plus")
-        }.disabled(disabledEditButton)
-        .padding()
-        .bold()
-        .font(.title3)
-        .background(!disabledEditButton ? Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)) : Color(UIColor(hex: "DEDEE0")))
-        .foregroundStyle(Color.newFont)
-        .clipShape(RoundedRectangle(cornerRadius: 1000.0))
-        .onAppear {
-            isCustomTabBarHidden = true
-        }
-        .onDisappear {
-            isCustomTabBarHidden = false
+            .navigationTitle("Edit Note")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     

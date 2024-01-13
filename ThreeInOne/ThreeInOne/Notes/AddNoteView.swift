@@ -26,11 +26,11 @@ struct AddNoteView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Form {
+                VStack {
                     Section {
                         TextField("Note Name", text: $name, axis: .vertical)
                             .foregroundStyle(Color.newFont)
-                            .font(.headline)
+                            .font(.title)
                             .bold()
                             .focused($focus, equals: .name)
                             .onSubmit {
@@ -40,7 +40,7 @@ struct AddNoteView: View {
                     Section {
                         TextField("Note Description", text: $note_desc, axis: .vertical)
                             .foregroundStyle(Color.newFont)
-                            .font(.subheadline)
+                            .font(.title3)
                             .focused($focus, equals: .note_desc)
                             .onSubmit {
                                 if name.trimmingCharacters(in: .whitespaces) != "" {
@@ -50,6 +50,8 @@ struct AddNoteView: View {
                             }
                     }
                 }
+                .padding()
+                Spacer()
                 Group {
                     Button {
                         if name.trimmingCharacters(in: .whitespaces) == "" {
@@ -71,7 +73,9 @@ struct AddNoteView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 1000.0))
                 }
             }
+//            .background(Color.yellow.opacity(0.3))
             .navigationTitle("New Note")
+            .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
