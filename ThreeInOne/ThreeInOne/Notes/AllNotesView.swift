@@ -112,7 +112,8 @@ struct AllNotesView: View {
                                 HStack {
                                     Group {
                                         Image(systemName: "star.fill")
-                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f9bc2c")), Color(UIColor(hex: "f74c06"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+//                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f9bc2c")), Color(UIColor(hex: "f74c06"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                            .foregroundStyle(Color.newFont)
                                             .opacity(toggleOnlyStar ? 1.0 : 0.5)
                                             .padding(.leading, 10)
                                         Text("Star")
@@ -134,7 +135,8 @@ struct AllNotesView: View {
                                 HStack {
                                     Group {
                                         Image(systemName: "bookmark.fill")
-                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "0968e5")), Color(UIColor(hex: "71c3f7"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+//                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "0968e5")), Color(UIColor(hex: "71c3f7"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                            .foregroundStyle(Color.newFont)
                                             .opacity(toggleOnlyBookmark ? 1.0 : 0.5)
                                             .padding(.leading, 10)
                                         Text("Bookmark")
