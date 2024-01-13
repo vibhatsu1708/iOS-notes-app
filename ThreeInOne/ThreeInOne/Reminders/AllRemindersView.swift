@@ -16,7 +16,11 @@ struct AllRemindersView: View {
     
     @ObservedObject private var customTabViewModel = CustomTabViewModel()
     
+    // For hiding the Custom Tab Bar when in Edit View or Add View.
     @Binding var isCustomTabBarHidden: Bool
+    
+    // For hiding the Add button when in Edit View.
+    @Binding var isAddButtonHidden: Bool
 
     @State private var toggleOnlyCompleted: Bool = false
     @State private var toggleOnlyNotCompleted: Bool = false
@@ -199,7 +203,7 @@ struct AllRemindersView: View {
                         ForEach(groupedReminders.keys.sorted(by: >), id: \.self) { date in
                             Section(header: Text(formatDate(date: date))) {
                                 ForEach(groupedReminders[date]!) { reminder in
-                                    NavigationLink(destination: EditReminderView(reminder: reminder, isCustomTabBarHidden: $isCustomTabBarHidden)) {
+                                    NavigationLink(destination: EditReminderView(reminder: reminder, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)) {
                                         HStack(alignment: .top) {
                                             VStack(alignment: .leading, spacing: 10) {
                                                 HStack(alignment: .firstTextBaseline, spacing: 10) {
@@ -400,6 +404,7 @@ struct AllRemindersView: View {
                     .shadow(radius: 30)
                 }
             }
+            .opacity(isAddButtonHidden ? 0.0 : 1.0)
             .padding(.horizontal, 20)
             .padding(.vertical, 120)
         }
@@ -458,5 +463,5 @@ struct AllRemindersView: View {
 }
 
 #Preview {
-    AllRemindersView(isCustomTabBarHidden: .constant(true))
+    AllRemindersView(isCustomTabBarHidden: .constant(true), isAddButtonHidden: .constant(true))
 }

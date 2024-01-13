@@ -17,6 +17,8 @@ struct EditPurchaseView: View {
     
     @Binding var isCustomTabBarHidden: Bool
     
+    @Binding var isAddButtonHidden: Bool
+    
     @State private var disabledEditButton: Bool = true
     
     @State private var name: String = ""
@@ -114,9 +116,11 @@ struct EditPurchaseView: View {
         .clipShape(RoundedRectangle(cornerRadius: 1000.0))
         .onAppear {
             isCustomTabBarHidden = true
+            isAddButtonHidden = true
         }
         .onDisappear {
             isCustomTabBarHidden = false
+            isAddButtonHidden = false
         }
     }
     

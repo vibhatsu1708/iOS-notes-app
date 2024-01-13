@@ -16,7 +16,11 @@ struct AllNotesView: View {
     
     @ObservedObject private var customTabViewModel = CustomTabViewModel()
     
+    // For hiding the custom tab bar when in Add view or Edit View.
     @Binding var isCustomTabBarHidden: Bool
+    
+    // For hiding the Add button when in Edit View.
+    @Binding var isAddButtonHidden: Bool
     
     @State private var toggleOnlyStar: Bool = false
     @State private var toggleOnlyBookmark: Bool = false
@@ -176,7 +180,7 @@ struct AllNotesView: View {
                         ForEach(toggleOnlyHidden ? groupedHiddenNotes.keys.sorted(by: >) : groupedNotes.keys.sorted(by: >), id: \.self) { date in
                             Section(header: Text(formatDate(date: date))) {
                                 ForEach(toggleOnlyHidden ? groupedHiddenNotes[date]! : groupedNotes[date]!) { note in
-                                    NavigationLink(destination: EditNoteView(note: note, isCustomTabBarHidden: $isCustomTabBarHidden)) {
+                                    NavigationLink(destination: EditNoteView(note: note, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)) {
                                         HStack(alignment: .top) {
                                             VStack(alignment: .leading, spacing: 10) {
                                                 HStack(alignment: .top) {
@@ -447,6 +451,7 @@ struct AllNotesView: View {
                     .shadow(radius: 30)
                 }
             }
+            .opacity(isAddButtonHidden ? 0.0 : 1.0)
             .padding(.horizontal, 20)
             .padding(.vertical, 120)
         }
@@ -497,5 +502,5 @@ struct AllNotesView: View {
 
 
 #Preview {
-    AllNotesView(isCustomTabBarHidden: .constant(true))
+    AllNotesView(isCustomTabBarHidden: .constant(true), isAddButtonHidden: .constant(true))
 }

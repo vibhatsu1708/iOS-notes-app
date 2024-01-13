@@ -20,7 +20,8 @@ struct ContentView: View {
     @State private var tabSelection: Int = 1
     // For hiding the custom tab bar when entering the edit view for notes/reminders/budget logs.
     @State private var isCustomTabBarHidden: Bool = false
-    // To hide the background color of the tab bar, hide the reserved space for the tab bar at the bottom.
+    // For hiding the add button when in edit view.
+    @State private var isAddButtonHidden: Bool = false
     
     // To hide the default tab bar background.
     init() {
@@ -29,11 +30,11 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $tabSelection) {
-            AllPurchasesView(isCustomTabBarHidden: $isCustomTabBarHidden)
+            AllPurchasesView(isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)
                 .tag(1)
-            AllRemindersView(isCustomTabBarHidden: $isCustomTabBarHidden)
+            AllRemindersView(isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)
                 .tag(2)
-            AllNotesView(isCustomTabBarHidden: $isCustomTabBarHidden)
+            AllNotesView(isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)
                 .tag(3)
         }
         .overlay(alignment: .bottom) {
