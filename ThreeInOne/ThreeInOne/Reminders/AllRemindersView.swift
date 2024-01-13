@@ -113,6 +113,10 @@ struct AllRemindersView: View {
                             .background(.quaternary)
                             .clipShape(Capsule())
                             
+                            Circle()
+                                .frame(height: 5)
+                                .opacity(0.5)
+                            
                             Button {
                                 toggleOnlyFlag.toggle()
                             } label: {
@@ -195,9 +199,9 @@ struct AllRemindersView: View {
                             .foregroundStyle(Color.newFont.opacity(0.7))
                             .clipShape(Circle())
                         }
-                        .frame(minHeight: 50)
-                        .frame(maxHeight: 60)
                     }
+                    .frame(minHeight: 50)
+                    .frame(maxHeight: 60)
                     .padding(.horizontal)
                     List {
                         ForEach(groupedReminders.keys.sorted(by: >), id: \.self) { date in

@@ -106,6 +106,10 @@ struct AllNotesView: View {
                             .background(.quaternary)
                             .clipShape(Capsule())
                             
+                            Circle()
+                                .frame(height: 5)
+                                .opacity(0.5)
+                            
                             Button {
                                 toggleOnlyStar.toggle()
                             } label: {
