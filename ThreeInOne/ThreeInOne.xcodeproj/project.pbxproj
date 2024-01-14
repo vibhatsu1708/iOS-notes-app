@@ -129,6 +129,7 @@
 			children = (
 				14D416A52B4C7668008883C5 /* Info.plist */,
 				141FFF762B2E9F5200E06199 /* ThreeInOneApp.swift */,
+				148CB5E52B53E169001FCB81 /* CustomTabView */,
 				14D416A92B4C7F87008883C5 /* MainViews */,
 				14AC4B972B3357A30090CE9A /* Helper */,
 				14AC4B942B3357730090CE9A /* Notes */,
@@ -164,6 +165,15 @@
 				141FFF932B2E9F5500E06199 /* ThreeInOneUITestsLaunchTests.swift */,
 			);
 			path = ThreeInOneUITests;
+			sourceTree = "<group>";
+		};
+		148CB5E52B53E169001FCB81 /* CustomTabView */ = {
+			isa = PBXGroup;
+			children = (
+				140F57042B417C43008302A7 /* CustomTabView.swift */,
+				1414868B2B4DE7BA00076565 /* CustomTabViewModel.swift */,
+			);
+			path = CustomTabView;
 			sourceTree = "<group>";
 		};
 		14AC4B932B33574D0090CE9A /* Purchases */ = {
@@ -210,7 +220,6 @@
 			children = (
 				143889DA2B34393700028415 /* DateFormatter.swift */,
 				141FFFAB2B2EA0D800E06199 /* TimeFormatter.swift */,
-				1414868B2B4DE7BA00076565 /* CustomTabViewModel.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -220,7 +229,6 @@
 			children = (
 				14D416A62B4C7894008883C5 /* SplashScreenView.swift */,
 				141FFF782B2E9F5200E06199 /* ContentView.swift */,
-				140F57042B417C43008302A7 /* CustomTabView.swift */,
 			);
 			path = MainViews;
 			sourceTree = "<group>";

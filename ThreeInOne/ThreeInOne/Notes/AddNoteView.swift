@@ -22,6 +22,7 @@ struct AddNoteView: View {
     @State private var star: Bool = false
     @State private var bookmark: Bool = false
     @State private var hidden: Bool = false
+    @State private var background_color: String = ""
     
     var body: some View {
         NavigationStack {
@@ -44,7 +45,7 @@ struct AddNoteView: View {
                             .focused($focus, equals: .note_desc)
                             .onSubmit {
                                 if name.trimmingCharacters(in: .whitespaces) != "" {
-                                    DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, context: managedObjectContext)
+                                    DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, background_color: background_color, context: managedObjectContext)
                                     dismiss()
                                 }
                             }
@@ -60,7 +61,7 @@ struct AddNoteView: View {
                         if note_desc.trimmingCharacters(in: .whitespaces) == "" {
                             note_desc = "Note Description"
                         }
-                        DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, context: managedObjectContext)
+                        DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, background_color: background_color, context: managedObjectContext)
                         dismiss()
                     } label: {
                         Label("Add Note", systemImage: "plus")
@@ -73,7 +74,8 @@ struct AddNoteView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 1000.0))
                 }
             }
-//            .background(Color.yellow.opacity(0.3))
+//            .background(bgColor == [0.0, 0.0, 0.0] ? Color.clear : Color(red: bgColor[0], green: bgColor[1], blue: bgColor[2]).opacity(0.3))
+//            .background(Color(red: bgColor[0], green: bgColor[1], blue: bgColor[2]).opacity(0.3))
             .navigationTitle("New Note")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -83,9 +85,21 @@ struct AddNoteView: View {
             }
         }
     }
+    
     enum FocusedField: Hashable {
         case name, note_desc
         // will add tags when the tags feature is implemented.
+    }
+    
+    private func updateBackgroundColor(backgroundColor: String) -> [Double] {
+        let newBackgroundColor = backgroundColor.split(separator: " ").map { String($0) }
+        let red: Double = Double(newBackgroundColor[1])!
+        let green: Double = Double(newBackgroundColor[2])!
+        let blue: Double = Double(newBackgroundColor[3])!
+        
+        let RGBColors: [Double] = [red, green, blue]
+        
+        return RGBColors
     }
 }
 

@@ -44,7 +44,7 @@ class DataController: ObservableObject {
     
     
     //MARK: - to add a new note
-    func addNote(name: String, note_desc: String, star: Bool, bookmark: Bool, hidden: Bool, context: NSManagedObjectContext) {
+    func addNote(name: String, note_desc: String, star: Bool, bookmark: Bool, hidden: Bool, background_color: String, context: NSManagedObjectContext) {
         let note = Note(context: context)
         note.id = UUID()
         note.date = Date()
@@ -53,18 +53,20 @@ class DataController: ObservableObject {
         note.star = star
         note.bookmark = bookmark
         note.hidden = hidden
+        note.background_color = background_color
         
         save(context: context)
     }
     
     //MARK: - to edit a note
-    func editNote(note: Note, name: String, note_desc: String, star: Bool, bookmark: Bool, hidden: Bool, context: NSManagedObjectContext) {
+    func editNote(note: Note, name: String, note_desc: String, star: Bool, bookmark: Bool, hidden: Bool, background_color: String, context: NSManagedObjectContext) {
         note.date = Date()
         note.name = name
         note.note_desc = note_desc
         note.star = star
         note.bookmark = bookmark
         note.hidden = hidden
+        note.background_color = background_color
         
         save(context: context)
     }
