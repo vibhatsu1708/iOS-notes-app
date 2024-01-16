@@ -24,9 +24,6 @@ struct EditNoteView: View {
     
     @State private var name = ""
     @State private var note_desc: String = ""
-    @State private var star: Bool = false
-    @State private var bookmark: Bool = false
-    @State private var hidden: Bool = false
     @State private var background_color: String = ""
     
     var body: some View {
@@ -65,7 +62,7 @@ struct EditNoteView: View {
                         note_desc = "Note Description"
                     }
                     
-                    DataController().editNote(note: note, name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, background_color: background_color, context: managedObjectContext)
+                    DataController().editNote(note: note, name: name, note_desc: note_desc, background_color: background_color, context: managedObjectContext)
                     dismiss()
                 } label: {
                     Label("Add Changes", systemImage: "plus")
