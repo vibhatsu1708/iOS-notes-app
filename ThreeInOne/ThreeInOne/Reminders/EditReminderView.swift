@@ -26,6 +26,9 @@ struct EditReminderView: View {
     @State private var reminder_desc: String = ""
     @State private var tags: String = ""
     
+    // For presenting the sheet of the edit reminder view
+    @State var editReminderViewToggle: Bool
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -53,7 +56,23 @@ struct EditReminderView: View {
                 }
             }
             .navigationTitle("Edit Todo")
+            .toolbar {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .padding(10)
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .background(Color.secondary)
+                        .clipShape(Circle())
+                        .padding(.top)
+                }
+            }
         }
+        .interactiveDismissDisabled()
+
         Button {
             if name.trimmingCharacters(in: .whitespaces) == "" {
                 name = "New Todo"

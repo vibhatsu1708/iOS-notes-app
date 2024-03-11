@@ -75,7 +75,7 @@ struct AllPurchasesView: View {
                                 }
                             }
                         }
-                        .onDelete(perform: deletePurchase)
+//                        .onDelete(perform: deletePurchase)
                         .padding(.vertical)
                     }
                     .frame(maxWidth: .infinity)
@@ -83,11 +83,6 @@ struct AllPurchasesView: View {
                 .background(Color(UIColor(hex: customTabViewModel.tabBarItems[0].accentColor)).opacity(0.3))
                 .navigationTitle("Your Purchases")
                 .navigationBarTitleDisplayMode(.large)
-//                .toolbar {
-//                    ToolbarItem(placement: .topBarLeading) {
-//                        EditButton()
-//                    }
-//                }
             }
             .searchable(text: $searchText)
 

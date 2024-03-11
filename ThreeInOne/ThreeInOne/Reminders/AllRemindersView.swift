@@ -33,6 +33,11 @@ struct AllRemindersView: View {
     @State private var totalNotCompleted: Int = 0
     @State private var totalFlagged: Int = 0
     
+    // For presenting the sheet of the edit reminder view
+    @State var editReminderViewToggle: Bool = false
+    
+    @State var selectedReminder: Reminder? = nil
+    
     var filteredReminders: [Reminder] {
         guard !searchText.isEmpty else {
             if toggleOnlyFlag && toggleOnlyCompleted {
@@ -87,7 +92,6 @@ struct AllRemindersView: View {
 
     @State private var showingAddReminder: Bool = false
     @State private var showingEditReminder: Bool = false
-    @State private var selectedReminder: Reminder?
     
     @State private var confirmationForDeletionOfCompletedReminders: Bool = false
     
@@ -110,8 +114,13 @@ struct AllRemindersView: View {
                             }
                             .padding(10)
                             .foregroundStyle(Color.newFont)
-                            .background(.quaternary)
-                            .clipShape(Capsule())
+                            .background(Color.white.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10.0)
+                                    .strokeBorder(Color.white.opacity(0.1), lineWidth: 2)
+                            }
+                            .padding(.leading)
                             
                             Circle()
                                 .frame(height: 5)
@@ -135,7 +144,7 @@ struct AllRemindersView: View {
                             }
                             .padding(10)
                             .foregroundStyle(Color.newFont)
-                            .background(.quaternary)
+                            .background(toggleOnlyFlag ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
                             .clipShape(Capsule())
                             
                             Button {
@@ -159,7 +168,7 @@ struct AllRemindersView: View {
                             }
                             .padding(10)
                             .foregroundStyle(Color.newFont)
-                            .background(.quaternary)
+                            .background(toggleOnlyCompleted ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
                             .clipShape(Capsule())
                             
                             Button {
@@ -183,7 +192,7 @@ struct AllRemindersView: View {
                             }
                             .padding(10)
                             .foregroundStyle(Color.newFont)
-                            .background(.quaternary)
+                            .background(toggleOnlyNotCompleted ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
                             .clipShape(Capsule())
                             
                             Button {
@@ -195,50 +204,49 @@ struct AllRemindersView: View {
                                 Button("Cancel", role: .cancel, action: {})
                             })
                             .padding(10)
-                            .background(Color(UIColor(hex: "E71D36")).opacity(0.3))
-                            .foregroundStyle(Color.newFont.opacity(0.7))
-                            .clipShape(Circle())
+                            .background(Color(UIColor(hex: "E71D36")).opacity(0.4))
+                            .foregroundStyle(Color.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .padding(.trailing)
                         }
                     }
                     .frame(minHeight: 50)
                     .frame(maxHeight: 60)
-                    .padding(.horizontal)
+                    
                     List {
                         ForEach(groupedReminders.keys.sorted(by: >), id: \.self) { date in
                             Section(header: Text(formatDate(date: date))) {
-                                ForEach(groupedReminders[date]!) { reminder in
-                                    NavigationLink(destination: EditReminderView(reminder: reminder, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)) {
-                                        HStack(alignment: .top) {
-                                            VStack(alignment: .leading, spacing: 10) {
-                                                HStack(alignment: .firstTextBaseline, spacing: 10) {
-                                                    Circle()
-                                                        .frame(height: 15)
-                                                        .foregroundStyle(reminder.completed ? Color(UIColor(hex: "5863F8")): Color(UIColor(hex: "FF686B")))
-                                                    Text(reminder.name!)
-                                                        .font(.headline)
-                                                        .bold()
-                                                }
-                                                
-                                                if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-                                                    Text(reminder.reminder_desc!)
-                                                        .font(.subheadline)
-                                                } else {
-                                                    Text(reminder.reminder_desc!)
-                                                        .font(.subheadline)
-                                                }
-                                                
+                                ForEach(groupedReminders[date]!, id:  \.self) { reminder in
+                                    HStack(alignment: .top) {
+                                        VStack(alignment: .leading, spacing: 10) {
+                                            HStack(alignment: .firstTextBaseline, spacing: 10) {
+                                                Circle()
+                                                    .frame(height: 15)
+                                                    .foregroundStyle(reminder.completed ? Color(UIColor(hex: "5863F8")): Color(UIColor(hex: "FF686B")))
+                                                Text(reminder.name!)
+                                                    .font(.headline)
+                                                    .bold()
+                                            }
+                                            
+                                            if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                                                Text(reminder.reminder_desc!)
+                                                    .font(.subheadline)
+                                            } else {
+                                                Text(reminder.reminder_desc!)
+                                                    .font(.subheadline)
+                                            }
+                                            
+                                            Spacer()
+                                            
+                                            HStack {
+                                                Text(calculateTime(date: reminder.date!))
+                                                    .font(.caption)
+                                                    .foregroundStyle(Color.gray)
+                                                    .italic()
                                                 Spacer()
-                                                
-                                                HStack {
-                                                    Text(calculateTime(date: reminder.date!))
-                                                        .font(.caption)
-                                                        .foregroundStyle(Color.gray)
-                                                        .italic()
-                                                    Spacer()
-                                                    Image(systemName: "flag.fill")
-                                                        .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f83d5c")), Color(UIColor(hex: "fd4b2f"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                        .opacity(reminder.flag ? 1.0 : 0.0)
-                                                }
+                                                Image(systemName: "flag.fill")
+                                                    .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f83d5c")), Color(UIColor(hex: "fd4b2f"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                    .opacity(reminder.flag ? 1.0 : 0.0)
                                             }
                                         }
                                     }
@@ -260,25 +268,35 @@ struct AllRemindersView: View {
                                                 .tint(Color(UIColor(hex: "392d69")))
                                         }
                                     }
-//                                    .swipeActions(edge: .trailing) {
-//                                        Button {
-//                                            reminder.deleteFlag = true
-//                                            deleteReminder()
-//                                        } label: {
-//                                            Image(systemName: "trash.fill")
-//                                        }
-//                                    }
+                                    .contextMenu {
+                                        Button {
+                                            selectedReminder = reminder
+                                            editReminderViewToggle = true
+                                        } label: {
+                                            Text("Edit")
+                                        }
+                                        
+                                        Button {
+                                        } label: {
+                                            Text("Delete")
+                                        }
+                                    }
                                 }
-                                .onDelete(perform: deleteReminder)
                                 .padding(.vertical)
                             }
                         }
+                    }
+                    .sheet(item: $selectedReminder) { reminder in
+                        EditReminderView(reminder: reminder, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden, editReminderViewToggle: editReminderViewToggle)
+                            .onDisappear {
+                                selectedReminder = nil
+                            }
                     }
                     .frame(maxWidth: .infinity)
                     .overlay {
                         if reminders.isEmpty && toggleOnlyFlag == false && toggleOnlyCompleted == false && toggleOnlyNotCompleted == false {
                             VStack(spacing: 20) {
-                                Image(systemName: "checklist.checked")
+                                Image(systemName: "checklist")
                                     .font(.system(size: 50))
                                     .padding()
                                     .background(.tertiary)
@@ -330,7 +348,7 @@ struct AllRemindersView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                                 Text("No Incompleted Todos")
                                 HStack {
-                                    Text("Tap on the button to add a todo.")
+                                    Text("Tap on the button to add a Todo.")
                                 }
                                 Spacer()
                             }
@@ -368,14 +386,7 @@ struct AllRemindersView: View {
                         }
                     }
                 }
-                .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)).opacity(0.5))
                 .navigationTitle("Your Todos")
-                .navigationBarTitleDisplayMode(.large)
-//                .toolbar {
-//                    ToolbarItem(placement: .topBarLeading) {
-//                        EditButton()
-//                    }
-//                }
             }
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             .onAppear {
@@ -417,27 +428,13 @@ struct AllRemindersView: View {
     
     private func deleteReminder(offsets: IndexSet) {
         withAnimation {
-            for index in offsets {
-                guard index < reminders.count else { continue }
-                
-                let reminder = reminders[index]
-                
-                guard let existingReminder = managedObjectContext.object(with: reminder.objectID) as? Reminder else { continue }
-                
-                managedObjectContext.delete(existingReminder)
-            }
+            offsets.map {
+                filteredReminders[$0]
+            }.forEach(managedObjectContext.delete)
+            
             DataController.shared.save(context: managedObjectContext)
         }
     }
-    
-//    private func deleteReminder() {
-//        let reminderToDelete = reminders.filter { $0.deleteFlag == true }
-//        for reminder in reminderToDelete {
-//            managedObjectContext.delete(reminder)
-//        }
-//        DataController.shared.save(context: managedObjectContext)
-//    }
-    
     private func updateRemindersCount() {
         totalCompleted = calculateTotalCompleted()
         totalNotCompleted = calculateTotalNotCompleted()

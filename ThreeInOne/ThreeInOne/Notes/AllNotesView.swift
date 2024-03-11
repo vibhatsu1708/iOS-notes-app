@@ -103,8 +103,13 @@ struct AllNotesView: View {
                             }
                             .padding(10)
                             .foregroundStyle(Color.newFont)
-                            .background(.quaternary)
-                            .clipShape(Capsule())
+                            .background(Color.white.opacity(0.1))
+                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10.0)
+                                    .strokeBorder(Color.white.opacity(0.1), lineWidth: 2)
+                            }
+                            .padding(.leading)
                             
                             Circle()
                                 .frame(height: 5)
@@ -116,7 +121,6 @@ struct AllNotesView: View {
                                 HStack {
                                     Group {
                                         Image(systemName: "star.fill")
-//                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f9bc2c")), Color(UIColor(hex: "f74c06"))], startPoint: .topLeading, endPoint: .bottomTrailing))
                                             .foregroundStyle(Color.newFont)
                                             .opacity(toggleOnlyStar ? 1.0 : 0.5)
                                             .padding(.leading, 10)
@@ -130,7 +134,7 @@ struct AllNotesView: View {
                             }
                             .padding(10)
                             .foregroundStyle(Color.newFont)
-                            .background(.quaternary)
+                            .background(toggleOnlyStar ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
                             .clipShape(Capsule())
                             
                             Button {
@@ -139,7 +143,6 @@ struct AllNotesView: View {
                                 HStack {
                                     Group {
                                         Image(systemName: "bookmark.fill")
-//                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "0968e5")), Color(UIColor(hex: "71c3f7"))], startPoint: .topLeading, endPoint: .bottomTrailing))
                                             .foregroundStyle(Color.newFont)
                                             .opacity(toggleOnlyBookmark ? 1.0 : 0.5)
                                             .padding(.leading, 10)
@@ -153,7 +156,7 @@ struct AllNotesView: View {
                             }
                             .padding(10)
                             .foregroundStyle(Color.newFont)
-                            .background(.quaternary)
+                            .background(toggleOnlyBookmark ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
                             .clipShape(Capsule())
                             
                             Button {
@@ -175,13 +178,14 @@ struct AllNotesView: View {
                             }
                             .padding(10)
                             .foregroundStyle(Color.newFont)
-                            .background(.quaternary)
+                            .background(toggleOnlyHidden ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
                             .clipShape(Capsule())
+                            .padding(.trailing)
                         }
                         .frame(minHeight: 50)
                         .frame(maxHeight: 60)
                     }
-                    .padding(.horizontal)
+                    
                     List {
                         ForEach(toggleOnlyHidden ? groupedHiddenNotes.keys.sorted(by: >) : groupedNotes.keys.sorted(by: >), id: \.self) { date in
                             Section(header: Text(formatDate(date: date))) {
@@ -255,7 +259,6 @@ struct AllNotesView: View {
                             }
                         }
                     }
-//                    .scrollContentBackground(.hidden)
                     .frame(maxWidth: .infinity)
                     .overlay {
                         if groupedNotes.isEmpty && toggleOnlyHidden == false && toggleOnlyBookmark == false && toggleOnlyStar == false {
@@ -418,14 +421,7 @@ struct AllNotesView: View {
                         }
                     }
                 }
-                .background(LinearGradient(colors: [Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)).opacity(0.5)], startPoint: .top, endPoint: .bottom))
-                .navigationTitle("Your Notes")
-                .navigationBarTitleDisplayMode(.large)
-//                .toolbar {
-//                    ToolbarItem(placement: .topBarLeading) {
-//                        EditButton()
-//                    }
-//                }
+                .navigationTitle("Notes")
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
                 .onAppear {
                     updateNotesCount()
