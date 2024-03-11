@@ -231,18 +231,11 @@ struct AllRemindersView: View {
                                             if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                                                 Text(reminder.reminder_desc!)
                                                     .font(.subheadline)
-                                            } else {
-                                                Text(reminder.reminder_desc!)
-                                                    .font(.subheadline)
                                             }
                                             
                                             Spacer()
                                             
                                             HStack {
-                                                Text(calculateTime(date: reminder.date!))
-                                                    .font(.caption)
-                                                    .foregroundStyle(Color.gray)
-                                                    .italic()
                                                 Spacer()
                                                 Image(systemName: "flag.fill")
                                                     .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f83d5c")), Color(UIColor(hex: "fd4b2f"))], startPoint: .topLeading, endPoint: .bottomTrailing))

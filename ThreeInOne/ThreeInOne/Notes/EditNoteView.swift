@@ -28,62 +28,75 @@ struct EditNoteView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                VStack {
-                    Section {
-                        TextField("Note Name\(note.name!)", text: $name, axis: .vertical)
-                            .bold()
-                            .font(.title)
-                            .onAppear {
-                                name = note.name!
-                            }
-                            .onChange(of: name) { _, _ in
-                                updateButtonState()
-                            }
-                    }
-                    Section {
-                        TextField("Note Description\(note.note_desc!)", text: $note_desc, axis: .vertical)
-                            .font(.title3)
-                            .onAppear {
-                                note_desc = note.note_desc!
-                            }
-                            .onChange(of: note_desc) { _, _ in
-                                updateButtonState()
-                            }
-                    }
+            Form {
+                Section("Note header") {
+                    TextField("...\(note.name!)", text: $name, axis: .vertical)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .onAppear {
+                            name = note.name!
+                        }
+                        .onChange(of: name) { _, _ in
+                            updateButtonState()
+                        }
                 }
-                .padding()
-                Spacer()
-                Button {
-                    if name.trimmingCharacters(in: .whitespaces) == "" {
-                        name = "New Note"
-                    }
-                    if note_desc.trimmingCharacters(in: .whitespaces) == "" {
-                        note_desc = "Note Description"
-                    }
-                    
-                    DataController().editNote(note: note, name: name, note_desc: note_desc, background_color: background_color, context: managedObjectContext)
-                    dismiss()
-                } label: {
-                    Label("Add Changes", systemImage: "plus")
-                }.disabled(disabledEditButton)
-                .padding()
-                .bold()
-                .font(.title3)
-                .background(!disabledEditButton ? Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)) : Color(UIColor(hex: "DEDEE0")))
-                .foregroundStyle(Color.newFont)
-                .clipShape(RoundedRectangle(cornerRadius: 1000.0))
-                .onAppear {
-                    isCustomTabBarHidden = true
-                    isAddButtonHidden = true
-                }
-                .onDisappear {
-                    isCustomTabBarHidden = false
-                    isAddButtonHidden = false
+                Section("Note description") {
+                    TextField("...\(note.note_desc!)", text: $note_desc, axis: .vertical)
+                        .font(.subheadline)
+                        .onAppear {
+                            note_desc = note.note_desc!
+                        }
+                        .onChange(of: note_desc) { _, _ in
+                            updateButtonState()
+                        }
                 }
             }
             .navigationTitle("Edit Note")
-            .navigationBarTitleDisplayMode(.inline)
+        }
+        .interactiveDismissDisabled()
+        
+        HStack {
+            // To save changes button
+            Button {
+                if name.trimmingCharacters(in: .whitespaces) == "" {
+                    name = "New note"
+                }
+                if note_desc.trimmingCharacters(in: .whitespaces) == "" {
+                    note_desc = "Note description"
+                }
+                
+                DataController().editNote(note: note, name: name, note_desc: note_desc, background_color: background_color, context: managedObjectContext)
+                dismiss()
+            } label: {
+                Label("Save changes", systemImage: "plus")
+            }.disabled(disabledEditButton)
+            .padding()
+            .font(.title3)
+            .fontWeight(.bold)
+            .foregroundStyle(Color.newFont)
+            .background(!disabledEditButton ? Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)) : Color(UIColor(hex: "DEDEE0")))
+            .clipShape(RoundedRectangle(cornerRadius: 1000.0))
+            .onAppear {
+                isCustomTabBarHidden = true
+                isAddButtonHidden = true
+            }
+            .onDisappear {
+                isCustomTabBarHidden = false
+                isAddButtonHidden = false
+            }
+            
+            // to dismiss the view if wanting to exit the edit view
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .padding()
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.white)
+                    .background(.tertiary)
+                    .clipShape(Circle())
+            }
         }
     }
     

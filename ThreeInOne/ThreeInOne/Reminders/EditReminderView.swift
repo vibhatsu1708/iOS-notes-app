@@ -29,10 +29,10 @@ struct EditReminderView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Todo Name") {
+                Section("Todo name") {
                     TextField("\(reminder.name!)", text: $name, axis: .vertical)
-                        .bold()
                         .font(.headline)
+                        .fontWeight(.bold)
                         .onAppear {
                             name = reminder.name!
                         }
@@ -41,7 +41,7 @@ struct EditReminderView: View {
                         }
                 }
                 
-                Section("Todo Description") {
+                Section("Todo description") {
                     TextField("\(reminder.reminder_desc!)", text: $reminder_desc, axis: .vertical)
                         .font(.subheadline)
                         .onAppear {
@@ -66,7 +66,7 @@ struct EditReminderView: View {
                 DataController().editReminder(reminder: reminder, name: name, reminder_desc: reminder_desc, tags: tags, context: managedObjectContext)
                 dismiss()
             } label: {
-                Label("Save Changes", systemImage: "plus")
+                Label("Save changes", systemImage: "plus")
             }.disabled(disabledEditButton)
             .padding()
             .font(.title3)
@@ -83,6 +83,7 @@ struct EditReminderView: View {
                 isAddButtonHidden = false
             }
             
+            // to dismiss the view if wanting to exit the edit view
             Button {
                 dismiss()
             } label: {
@@ -90,8 +91,8 @@ struct EditReminderView: View {
                     .padding()
                     .font(.title3)
                     .fontWeight(.bold)
-                    .background(.tertiary)
                     .foregroundStyle(Color.white)
+                    .background(.tertiary)
                     .clipShape(Circle())
             }
         }

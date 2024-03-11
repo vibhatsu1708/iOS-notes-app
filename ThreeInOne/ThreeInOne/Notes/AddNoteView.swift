@@ -26,62 +26,68 @@ struct AddNoteView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                VStack {
-                    Section {
-                        TextField("Note Name", text: $name, axis: .vertical)
-                            .foregroundStyle(Color.newFont)
-                            .font(.title)
-                            .bold()
-                            .focused($focus, equals: .name)
-                            .onSubmit {
-                                focus = .note_desc
-                            }
-                    }
-                    Section {
-                        TextField("Note Description", text: $note_desc, axis: .vertical)
-                            .foregroundStyle(Color.newFont)
-                            .font(.title3)
-                            .focused($focus, equals: .note_desc)
-                            .onSubmit {
-                                if name.trimmingCharacters(in: .whitespaces) != "" {
-                                    DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, background_color: background_color, context: managedObjectContext)
-                                    dismiss()
-                                }
-                            }
-                    }
+            Form {
+                Section {
+                    TextField("Note header...", text: $name, axis: .vertical)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .focused($focus, equals: .name)
+                        .onSubmit {
+                            focus = .note_desc
+                        }
                 }
-                .padding()
-                Spacer()
-                Group {
-                    Button {
-                        if name.trimmingCharacters(in: .whitespaces) == "" {
-                            name = "New Note"
+                Section {
+                    TextField("Note body...", text: $note_desc, axis: .vertical)
+                        .font(.subheadline)
+                        .focused($focus, equals: .note_desc)
+                        .onSubmit {
+                            if name.trimmingCharacters(in: .whitespaces) != "" {
+                                DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, background_color: background_color, context: managedObjectContext)
+                                dismiss()
+                            }
                         }
-                        if note_desc.trimmingCharacters(in: .whitespaces) == "" {
-                            note_desc = "Note Description"
-                        }
-                        DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, background_color: background_color, context: managedObjectContext)
-                        dismiss()
-                    } label: {
-                        Label("Add Note", systemImage: "plus")
-                    }
-                    .padding()
-                    .bold()
-                    .font(.title3)
-                    .background(Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)))
-                    .foregroundStyle(Color.newFont)
-                    .clipShape(RoundedRectangle(cornerRadius: 1000.0))
                 }
             }
-//            .background(bgColor == [0.0, 0.0, 0.0] ? Color.clear : Color(red: bgColor[0], green: bgColor[1], blue: bgColor[2]).opacity(0.3))
-//            .background(Color(red: bgColor[0], green: bgColor[1], blue: bgColor[2]).opacity(0.3))
             .navigationTitle("New Note")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .interactiveDismissDisabled()
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 focus = .name
+            }
+        }
+        HStack {
+            // To add the new note
+            Button {
+                if name.trimmingCharacters(in: .whitespaces) == "" {
+                    name = "New Note"
+                }
+                if note_desc.trimmingCharacters(in: .whitespaces) == "" {
+                    note_desc = "Note description"
+                }
+                DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, background_color: background_color, context: managedObjectContext)
+                dismiss()
+            } label: {
+                Label("Add Note", systemImage: "plus")
+            }
+            .padding()
+            .font(.title3)
+            .fontWeight(.bold)
+            .foregroundStyle(Color.newFont)
+            .background(Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)))
+            .clipShape(Capsule())
+            
+            // to dismiss the view if wanting to exit the edit view
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .padding()
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.white)
+                    .background(.tertiary)
+                    .clipShape(Circle())
             }
         }
     }
@@ -89,17 +95,6 @@ struct AddNoteView: View {
     enum FocusedField: Hashable {
         case name, note_desc
         // will add tags when the tags feature is implemented.
-    }
-    
-    private func updateBackgroundColor(backgroundColor: String) -> [Double] {
-        let newBackgroundColor = backgroundColor.split(separator: " ").map { String($0) }
-        let red: Double = Double(newBackgroundColor[1])!
-        let green: Double = Double(newBackgroundColor[2])!
-        let blue: Double = Double(newBackgroundColor[3])!
-        
-        let RGBColors: [Double] = [red, green, blue]
-        
-        return RGBColors
     }
 }
 

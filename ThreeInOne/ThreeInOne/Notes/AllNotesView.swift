@@ -32,6 +32,8 @@ struct AllNotesView: View {
     
     @State private var searchText: String = ""
     
+    @State var selectedNote: Note? = nil
+    
     var filteredNotes: [Note] {
         guard !searchText.isEmpty else {
             if toggleOnlyStar && toggleOnlyBookmark {
@@ -82,7 +84,6 @@ struct AllNotesView: View {
     
     @State private var showingAddNote: Bool = false
     @State private var showingEditNote: Bool = false
-    @State private var selectedNote: Note?
     
     var body: some View {
         ZStack {
@@ -190,53 +191,40 @@ struct AllNotesView: View {
                         ForEach(toggleOnlyHidden ? groupedHiddenNotes.keys.sorted(by: >) : groupedNotes.keys.sorted(by: >), id: \.self) { date in
                             Section(header: Text(formatDate(date: date))) {
                                 ForEach(toggleOnlyHidden ? groupedHiddenNotes[date]! : groupedNotes[date]!) { note in
-                                    NavigationLink(destination: EditNoteView(note: note, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)) {
-                                        HStack(alignment: .top) {
-                                            VStack(alignment: .leading, spacing: 10) {
-                                                HStack(alignment: .top) {
-                                                    Text(note.name!)
-                                                        .font(.headline)
-                                                        .bold()
-                                                    Spacer()
-                                                    if note.bookmark {
-                                                        Image(systemName: "bookmark.fill")
-                                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "0968e5")), Color(UIColor(hex: "71c3f7"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                            .shadow(radius: 15.0)
-                                                    }
-                                                    if note.star {
-                                                        Image(systemName: "star.fill")
-                                                            .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f9bc2c")), Color(UIColor(hex: "f74c06"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                            .shadow(radius: 15.0)
-                                                    }
-                                                }
-                                                
-                                                Text(note.note_desc!)
-                                                    .font(.subheadline)
-                                                
+                                    HStack(alignment: .top) {
+                                        VStack(alignment: .leading, spacing: 10) {
+                                            HStack(alignment: .top) {
+                                                Text(note.name!)
+                                                    .font(.headline)
+                                                    .bold()
                                                 Spacer()
-                                                HStack {
-                                                    Text(calculateTime(date: note.date!))
-                                                        .font(.caption)
-                                                        .foregroundStyle(Color.gray)
-                                                        .italic()
-                                                    Spacer()
-                                                    Image(systemName: "eye.slash")
-                                                        .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "A06CD5")), Color(UIColor(hex: "6247AA"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                        .opacity(note.hidden ? 1.0 : 0.0)
+                                                if note.bookmark {
+                                                    Image(systemName: "bookmark.fill")
+                                                        .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "0968e5")), Color(UIColor(hex: "71c3f7"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                        .shadow(radius: 15.0)
+                                                }
+                                                if note.star {
+                                                    Image(systemName: "star.fill")
+                                                        .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f9bc2c")), Color(UIColor(hex: "f74c06"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                        .shadow(radius: 15.0)
                                                 }
                                             }
+                                            
+                                            Text(note.note_desc!)
+                                                .font(.subheadline)
+                                            
+                                            Spacer()
+                                            HStack {
+                                                Spacer()
+                                                Image(systemName: "eye.slash")
+                                                    .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "A06CD5")), Color(UIColor(hex: "6247AA"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                    .opacity(note.hidden ? 1.0 : 0.0)
+                                            }
                                         }
-                                        .padding(.vertical)
                                     }
+                                    .padding(.vertical)
+                                    // leading swipe actions are bookmark and star
                                     .swipeActions(edge: .leading) {
-                                        Button {
-                                            note.hidden.toggle()
-                                            updateNotesCount()
-                                            DataController.shared.save(context: managedObjectContext)
-                                        } label: {
-                                            Image(systemName: note.hidden ? "eye.slash" : "eye")
-                                                .tint(Color(UIColor(hex: "4F4789")))
-                                        }
                                         Button {
                                             note.star.toggle()
                                             updateNotesCount()
@@ -254,10 +242,39 @@ struct AllNotesView: View {
                                                 .tint(Color(UIColor(hex: "2B2D42")))
                                         }
                                     }
+                                    
+                                    // trailing swipe action is the hide function
+                                    .swipeActions(edge: .trailing) {
+                                        Button {
+                                            note.hidden.toggle()
+                                            updateNotesCount()
+                                            DataController.shared.save(context: managedObjectContext)
+                                        } label: {
+                                            Image(systemName: note.hidden ? "eye.slash" : "eye")
+                                                .tint(Color(UIColor(hex: "4F4789")))
+                                        }
+                                    }
+                                    .contextMenu {
+                                        Button {
+                                            selectedNote = note
+                                        } label: {
+                                            Text("Edit")
+                                        }
+                                        
+                                        Button {
+                                        } label: {
+                                            Text("Delete")
+                                        }
+                                    }
                                 }
-                                .onDelete(perform: deleteNote)
                             }
                         }
+                    }
+                    .sheet(item: $selectedNote) { note in
+                        EditNoteView(note: note, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)
+                            .onDisappear {
+                                selectedNote = nil
+                            }
                     }
                     .frame(maxWidth: .infinity)
                     .overlay {
@@ -483,12 +500,6 @@ struct AllNotesView: View {
     
     private func deleteNote(offsets: IndexSet) {
         withAnimation {
-//            for index in offsets {
-//                let note = notes[index]
-//                managedObjectContext.delete(note)
-//            }
-//            DataController.shared.save(context: managedObjectContext)
-            
             for index in offsets {
                 guard index < notes.count else { continue }
                 

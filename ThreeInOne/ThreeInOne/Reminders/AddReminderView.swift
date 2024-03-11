@@ -28,32 +28,32 @@ struct AddReminderView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Todo Name", text: $name, axis: .vertical)
-                        .foregroundStyle(Color.newFont)
-                        .bold()
+                    TextField("Todo name...", text: $name, axis: .vertical)
                         .font(.headline)
+                        .fontWeight(.bold)
                         .focused($focus, equals: .name)
                 }
                 Section {
-                    TextField("Todo Description", text: $reminder_desc, axis: .vertical)
-                        .foregroundStyle(Color.newFont)
+                    TextField("Todo description...", text: $reminder_desc, axis: .vertical)
                         .font(.subheadline)
                         .focused($focus, equals: .reminder_desc)
                 }
                 Section {
-                    TextField("Tags", text: $tags, axis: .vertical)
-                        .foregroundStyle(Color.newFont)
+                    TextField("Tags...", text: $tags, axis: .vertical)
                         .font(.subheadline)
+                        .foregroundStyle(Color.newFont)
                 }
             }
             .navigationTitle("New Todo")
         }
+        .interactiveDismissDisabled()
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 focus = .name
             }
         }
-        Group {
+        HStack {
+            // To add the new todo
             Button {
                 if name.trimmingCharacters(in: .whitespaces) == "" {
                     name = "New Todo"
@@ -64,11 +64,24 @@ struct AddReminderView: View {
                 Label("Add Todo", systemImage: "plus")
             }
             .padding()
-            .bold()
             .font(.title3)
-            .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)))
+            .fontWeight(.bold)
             .foregroundStyle(Color.newFont)
-            .clipShape(RoundedRectangle(cornerRadius: 1000.0))
+            .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)))
+            .clipShape(Capsule())
+            
+            // to dismiss the view if wanting to exit the edit view
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .padding()
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.white)
+                    .background(.tertiary)
+                    .clipShape(Circle())
+            }
         }
     }
     
