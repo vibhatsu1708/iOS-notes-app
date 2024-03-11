@@ -26,9 +26,6 @@ struct EditReminderView: View {
     @State private var reminder_desc: String = ""
     @State private var tags: String = ""
     
-    // For presenting the sheet of the edit reminder view
-    @State var editReminderViewToggle: Bool
-    
     var body: some View {
         NavigationStack {
             Form {

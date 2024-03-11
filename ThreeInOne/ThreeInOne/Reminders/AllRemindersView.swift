@@ -271,7 +271,6 @@ struct AllRemindersView: View {
                                     .contextMenu {
                                         Button {
                                             selectedReminder = reminder
-                                            editReminderViewToggle = true
                                         } label: {
                                             Text("Edit")
                                         }
@@ -287,7 +286,7 @@ struct AllRemindersView: View {
                         }
                     }
                     .sheet(item: $selectedReminder) { reminder in
-                        EditReminderView(reminder: reminder, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden, editReminderViewToggle: editReminderViewToggle)
+                        EditReminderView(reminder: reminder, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)
                             .onDisappear {
                                 selectedReminder = nil
                             }
