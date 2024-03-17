@@ -14,10 +14,6 @@ struct EditReminderView: View {
     
     var reminder: FetchedResults<Reminder>.Element
     
-    @ObservedObject private var customTabViewModel = CustomTabViewModel()
-    
-    @Binding var isCustomTabBarHidden: Bool
-    
     @Binding var isAddButtonHidden: Bool
     
     @State private var disabledEditButton: Bool = true
@@ -55,6 +51,7 @@ struct EditReminderView: View {
             .navigationTitle("Edit Todo")
         }
         .interactiveDismissDisabled()
+        .background(.ultraThinMaterial)
 
         HStack {
             // To save changes button
@@ -72,14 +69,14 @@ struct EditReminderView: View {
             .font(.title3)
             .fontWeight(.bold)
             .foregroundStyle(Color.newFont)
-            .background(!disabledEditButton ? Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)) : Color(UIColor(hex: "DEDEE0")))
+            .background(!disabledEditButton ? Color.red : Color.secondary)
             .clipShape(RoundedRectangle(cornerRadius: 1000.0))
             .onAppear {
-                isCustomTabBarHidden = true
+//                isCustomTabBarHidden = true
                 isAddButtonHidden = true
             }
             .onDisappear {
-                isCustomTabBarHidden = false
+//                isCustomTabBarHidden = false
                 isAddButtonHidden = false
             }
             

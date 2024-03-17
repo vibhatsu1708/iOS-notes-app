@@ -14,10 +14,8 @@ struct AllRemindersView: View {
         entity: Reminder.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Reminder.date, ascending: false)]) var reminders: FetchedResults<Reminder>
     
-    @ObservedObject private var customTabViewModel = CustomTabViewModel()
-    
     // For hiding the Custom Tab Bar when in Edit View or Add View.
-    @Binding var isCustomTabBarHidden: Bool
+//    @Binding var isCustomTabBarHidden: Bool
     
     // For hiding the Add button when in Edit View.
     @Binding var isAddButtonHidden: Bool
@@ -38,7 +36,9 @@ struct AllRemindersView: View {
     
     @State var selectedReminder: Reminder? = nil
     
+    //MARK: - Filtering reminders when text entered in the search box
     var filteredReminders: [Reminder] {
+        // if the search field is empty
         guard !searchText.isEmpty else {
             if toggleOnlyFlag && toggleOnlyCompleted {
                 return reminders.filter { $0.flag && $0.completed }
@@ -59,6 +59,7 @@ struct AllRemindersView: View {
             return Array(reminders)
         }
 
+        // if the search field is not empty
         return reminders.filter {
             if toggleOnlyCompleted {
                 return $0.completed && ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false || $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
@@ -83,13 +84,14 @@ struct AllRemindersView: View {
         }
     }
     
+    //MARK: - Grouping the filtered reminders based on the date of creation
     var groupedReminders: [Date: [Reminder]] {
         Dictionary(grouping: filteredReminders) { reminder in
             Calendar.current.startOfDay(for: reminder.date!)
         }
     }
 
-
+    //MARK: - Toggles for the showing or display of the add buttons and the edit view for the selected reminder
     @State private var showingAddReminder: Bool = false
     @State private var showingEditReminder: Bool = false
     
@@ -99,8 +101,10 @@ struct AllRemindersView: View {
         ZStack {
             NavigationStack {
                 VStack(alignment: .leading) {
+                    //MARK: - Top horizontal scrollview bar featuring the toggle buttons to toggle the visibility buttons
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
+                            // to toggle all the filters to false, or to turn them off
                             Button {
                                 toggleOnlyCompleted = false
                                 toggleOnlyNotCompleted = false
@@ -126,6 +130,7 @@ struct AllRemindersView: View {
                                 .frame(height: 5)
                                 .opacity(0.5)
                             
+                            // to toggle the flagged reminders
                             Button {
                                 toggleOnlyFlag.toggle()
                             } label: {
@@ -147,6 +152,7 @@ struct AllRemindersView: View {
                             .background(toggleOnlyFlag ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
                             .clipShape(Capsule())
                             
+                            // to toggle the not completed reminders
                             Button {
                                 if toggleOnlyNotCompleted {
                                     toggleOnlyNotCompleted = false
@@ -171,6 +177,7 @@ struct AllRemindersView: View {
                             .background(toggleOnlyCompleted ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
                             .clipShape(Capsule())
                             
+                            // to toggle the completed reminders
                             Button {
                                 if toggleOnlyCompleted {
                                     toggleOnlyCompleted = false
@@ -195,6 +202,7 @@ struct AllRemindersView: View {
                             .background(toggleOnlyNotCompleted ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
                             .clipShape(Capsule())
                             
+                            // confirmation for the deleting of the archived reminders
                             Button {
                                 confirmationForDeletionOfCompletedReminders = true
                             } label: {
@@ -213,6 +221,7 @@ struct AllRemindersView: View {
                     .frame(minHeight: 50)
                     .frame(maxHeight: 60)
                     
+                    //MARK: - To display all the fetched reminders in a list
                     List {
                         ForEach(groupedReminders.keys.sorted(by: >), id: \.self) { date in
                             Section(header: Text(formatDate(date: date))) {
@@ -243,7 +252,9 @@ struct AllRemindersView: View {
                                             }
                                         }
                                     }
+                                    // swipe actions for each reminder
                                     .swipeActions(edge: .leading) {
+                                        // to toggle the completion toggle of a reminder
                                         Button {
                                             reminder.completed.toggle()
                                             updateRemindersCount()
@@ -252,6 +263,7 @@ struct AllRemindersView: View {
                                             Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
                                                 .tint(reminder.completed ? Color(UIColor(hex: "FF686B")) : Color(UIColor(hex: "5863F8")))
                                         }
+                                        // to toggle the flag status of a reminder
                                         Button {
                                             reminder.flag.toggle()
                                             updateRemindersCount()
@@ -261,7 +273,9 @@ struct AllRemindersView: View {
                                                 .tint(Color(UIColor(hex: "392d69")))
                                         }
                                     }
+                                    // to display the context menu when long pressing a reminder
                                     .contextMenu {
+                                        // to push the selected reminder in edit view
                                         Button {
                                             selectedReminder = reminder
                                         } label: {
@@ -278,13 +292,18 @@ struct AllRemindersView: View {
                             }
                         }
                     }
+                    
+                    // To display the sheet for the edit view for the selected reminder
                     .sheet(item: $selectedReminder) { reminder in
-                        EditReminderView(reminder: reminder, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)
+                        EditReminderView(reminder: reminder, isAddButtonHidden: $isAddButtonHidden)
                             .onDisappear {
                                 selectedReminder = nil
                             }
                     }
+                    .background(.ultraThinMaterial)
                     .frame(maxWidth: .infinity)
+                    
+                    // To display the empty states based on the toggles activated
                     .overlay {
                         if reminders.isEmpty && toggleOnlyFlag == false && toggleOnlyCompleted == false && toggleOnlyNotCompleted == false {
                             VStack(spacing: 20) {
@@ -389,32 +408,10 @@ struct AllRemindersView: View {
                 updateRemindersCount()
             }
 
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    VStack() {
-                        Button(action: {
-                            showingAddReminder.toggle()
-                        }) {
-                            Image(systemName: "checklist")
-                        }
-                        .sheet(isPresented: $showingAddReminder) {
-                            AddReminderView()
-                        }
-                    }
-                    .font(.title)
-                    .bold()
-                    .frame(width: 80, height: 80)
-                    .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)))
-                    .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
-                    .clipShape(Circle())
-                    .shadow(radius: 30)
-                }
-            }
-            .opacity(isAddButtonHidden ? 0.0 : 1.0)
-            .padding(.horizontal, 20)
-            .padding(.vertical, 120)
+            //MARK: - View for the add reminder button
+            AddReminderButton(
+                showingAddReminder: $showingAddReminder,
+                isAddButtonHidden: $isAddButtonHidden)
         }
     }
     
@@ -427,6 +424,8 @@ struct AllRemindersView: View {
             DataController.shared.save(context: managedObjectContext)
         }
     }
+    
+    //MARK: - To update the status of the reminders when any swipe action is completed
     private func updateRemindersCount() {
         totalCompleted = calculateTotalCompleted()
         totalNotCompleted = calculateTotalNotCompleted()
@@ -456,6 +455,50 @@ struct AllRemindersView: View {
     }
 }
 
+//MARK: - All Reminders View Preview
 #Preview {
-    AllRemindersView(isCustomTabBarHidden: .constant(true), isAddButtonHidden: .constant(true))
+    AllRemindersView(isAddButtonHidden: .constant(true))
 }
+
+//MARK: - Preview for the Custom View for the scrollview
+//#Preview {
+//    CustomReminderView()
+//}
+
+//MARK: - Custom view for the add reminder button
+struct AddReminderButton: View {
+    @Binding var showingAddReminder: Bool
+    @Binding var isAddButtonHidden: Bool
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                VStack() {
+                    Button(action: {
+                        showingAddReminder.toggle()
+                    }) {
+                        Image(systemName: "checklist")
+                    }
+                    .sheet(isPresented: $showingAddReminder) {
+                        AddReminderView()
+                            .background(.ultraThinMaterial)
+                    }
+                }
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
+                .frame(width: 80, height: 80)
+                .background(.ultraThinMaterial)
+                .clipShape(Circle())
+                .shadow(radius: 30)
+                .transition(.move(edge: .bottom))
+            }
+        }
+        .opacity(isAddButtonHidden ? 0.0 : 1.0)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 120)
+    }
+}
+

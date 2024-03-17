@@ -14,10 +14,8 @@ struct AllNotesView: View {
         entity: Note.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Note.date, ascending: false)]) var notes: FetchedResults<Note>
     
-    @ObservedObject private var customTabViewModel = CustomTabViewModel()
-    
     // For hiding the custom tab bar when in Add view or Edit View.
-    @Binding var isCustomTabBarHidden: Bool
+//    @Binding var isCustomTabBarHidden: Bool
     
     // For hiding the Add button when in Edit View.
     @Binding var isAddButtonHidden: Bool
@@ -271,7 +269,7 @@ struct AllNotesView: View {
                         }
                     }
                     .sheet(item: $selectedNote) { note in
-                        EditNoteView(note: note, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)
+                        EditNoteView(note: note, isAddButtonHidden: $isAddButtonHidden)
                             .onDisappear {
                                 selectedNote = nil
                             }
@@ -438,7 +436,7 @@ struct AllNotesView: View {
                         }
                     }
                 }
-                .navigationTitle("Notes")
+                .navigationTitle("Your Notes")
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
                 .onAppear {
                     updateNotesCount()
@@ -465,7 +463,7 @@ struct AllNotesView: View {
                     .font(.title)
                     .bold()
                     .frame(width: 80, height: 80)
-                    .background(Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)))
+                    .background(.ultraThinMaterial)
                     .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
                     .clipShape(Circle())
                     .shadow(radius: 30)
@@ -516,5 +514,5 @@ struct AllNotesView: View {
 
 
 #Preview {
-    AllNotesView(isCustomTabBarHidden: .constant(true), isAddButtonHidden: .constant(true))
+    AllNotesView(isAddButtonHidden: .constant(true))
 }

@@ -13,10 +13,6 @@ struct EditPurchaseView: View {
     
     var purchase: FetchedResults<Purchase>.Element
     
-    @ObservedObject private var customTabViewModel = CustomTabViewModel()
-    
-    @Binding var isCustomTabBarHidden: Bool
-    
     @Binding var isAddButtonHidden: Bool
     
     @State private var disabledEditButton: Bool = true
@@ -111,15 +107,15 @@ struct EditPurchaseView: View {
         .padding()
         .bold()
         .font(.title3)
-        .background(!disabledEditButton ? Color(UIColor(hex: customTabViewModel.tabBarItems[0].accentColor)) : Color(UIColor(hex: "DEDEE0")))
+        .background(!disabledEditButton ? Color.green : Color.secondary)
         .foregroundStyle(Color.newFont)
         .clipShape(RoundedRectangle(cornerRadius: 1000.0))
         .onAppear {
-            isCustomTabBarHidden = true
+//            isCustomTabBarHidden = true
             isAddButtonHidden = true
         }
         .onDisappear {
-            isCustomTabBarHidden = false
+//            isCustomTabBarHidden = false
             isAddButtonHidden = false
         }
     }

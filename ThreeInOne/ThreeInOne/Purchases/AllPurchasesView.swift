@@ -12,10 +12,8 @@ struct AllPurchasesView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var purchases: FetchedResults<Purchase>
     
-    @ObservedObject private var customTabViewModel = CustomTabViewModel()
-    
     // For hiding the Custom Tab Bar when in Edit View or Add View.
-    @Binding var isCustomTabBarHidden: Bool
+//    @Binding var isCustomTabBarHidden: Bool
     
     // For hiding the Add button when in Edit View.
     @Binding var isAddButtonHidden: Bool
@@ -40,7 +38,7 @@ struct AllPurchasesView: View {
                 VStack(alignment: .leading) {
                     List {
                         ForEach(filteredPurchases) { purchase in
-                            NavigationLink(destination: EditPurchaseView(purchase: purchase, isCustomTabBarHidden: $isCustomTabBarHidden, isAddButtonHidden: $isAddButtonHidden)) {
+                            NavigationLink(destination: EditPurchaseView(purchase: purchase, isAddButtonHidden: $isAddButtonHidden)) {
                                 VStack(alignment: .leading, spacing: 12) {
                                     VStack(alignment: .leading) {
                                         Text(purchase.name!)
@@ -80,7 +78,7 @@ struct AllPurchasesView: View {
                     }
                     .frame(maxWidth: .infinity)
                 }
-                .background(Color(UIColor(hex: customTabViewModel.tabBarItems[0].accentColor)).opacity(0.3))
+                .background(.ultraThinMaterial)
                 .navigationTitle("Your Purchases")
                 .navigationBarTitleDisplayMode(.large)
             }
@@ -103,7 +101,7 @@ struct AllPurchasesView: View {
                     .font(.title)
                     .bold()
                     .frame(width: 80, height: 80)
-                    .background(Color(UIColor(hex: customTabViewModel.tabBarItems[0].accentColor)))
+                    .background(.ultraThinMaterial)
                     .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
                     .clipShape(Circle())
                     .shadow(radius: 30)
@@ -127,5 +125,5 @@ struct AllPurchasesView: View {
 }
 
 #Preview {
-    AllPurchasesView(isCustomTabBarHidden: .constant(true), isAddButtonHidden: .constant(true))
+    AllPurchasesView(isAddButtonHidden: .constant(true))
 }

@@ -12,8 +12,6 @@ struct AddNoteView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
     
-    @ObservedObject private var customTabViewModel = CustomTabViewModel()
-    
     // For bringing focus onto the textfields.
     @FocusState var focus: FocusedField?
     
@@ -74,7 +72,7 @@ struct AddNoteView: View {
             .font(.title3)
             .fontWeight(.bold)
             .foregroundStyle(Color.newFont)
-            .background(Color(UIColor(hex: customTabViewModel.tabBarItems[2].accentColor)))
+            .background(.ultraThinMaterial)
             .clipShape(Capsule())
             
             // to dismiss the view if wanting to exit the edit view

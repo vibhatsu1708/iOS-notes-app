@@ -15,8 +15,6 @@ struct AddReminderView: View {
     // For bringing focus onto the textfields.
     @FocusState var focus: FocusedField?
     
-    @ObservedObject private var customTabViewModel = CustomTabViewModel()
-    
     @State private var name: String = ""
     @State private var reminder_desc: String = ""
     @State private var completed: Bool = false
@@ -47,6 +45,7 @@ struct AddReminderView: View {
             .navigationTitle("New Todo")
         }
         .interactiveDismissDisabled()
+        .background(.ultraThinMaterial)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 focus = .name
@@ -67,7 +66,7 @@ struct AddReminderView: View {
             .font(.title3)
             .fontWeight(.bold)
             .foregroundStyle(Color.newFont)
-            .background(Color(UIColor(hex: customTabViewModel.tabBarItems[1].accentColor)))
+            .background(.ultraThinMaterial)
             .clipShape(Capsule())
             
             // to dismiss the view if wanting to exit the edit view
