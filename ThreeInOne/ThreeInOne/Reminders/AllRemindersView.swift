@@ -18,7 +18,7 @@ struct AllRemindersView: View {
 //    @Binding var isCustomTabBarHidden: Bool
     
     // For hiding the Add button when in Edit View.
-    @Binding var isAddButtonHidden: Bool
+//    @Binding var isAddButtonHidden: Bool
 
     @State private var toggleOnlyCompleted: Bool = false
     @State private var toggleOnlyNotCompleted: Bool = false
@@ -100,8 +100,194 @@ struct AllRemindersView: View {
     var body: some View {
         ZStack {
             NavigationStack {
-                VStack(alignment: .leading) {
-                    //MARK: - Top horizontal scrollview bar featuring the toggle buttons to toggle the visibility buttons
+                //MARK: - To display all the fetched reminders in a list
+                List {
+                    ForEach(groupedReminders.keys.sorted(by: >), id: \.self) { date in
+                        Section(header: Text(formatDate(date: date))) {
+                            ForEach(groupedReminders[date]!, id:  \.self) { reminder in
+                                HStack(alignment: .top) {
+                                    VStack(alignment: .leading, spacing: 10) {
+                                        HStack(alignment: .firstTextBaseline, spacing: 10) {
+                                            Circle()
+                                                .frame(height: 15)
+                                                .foregroundStyle(reminder.completed ? Color(UIColor(hex: "5863F8")): Color(UIColor(hex: "FF686B")))
+                                            Text(reminder.name!)
+                                                .font(.headline)
+                                                .bold()
+                                        }
+                                        
+                                        if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                                            Text(reminder.reminder_desc!)
+                                                .font(.subheadline)
+                                        }
+                                        
+                                        Spacer()
+                                        
+                                        HStack {
+                                            Spacer()
+                                            Image(systemName: "flag.fill")
+                                                .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f83d5c")), Color(UIColor(hex: "fd4b2f"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                .opacity(reminder.flag ? 1.0 : 0.0)
+                                        }
+                                    }
+                                }
+                                // swipe actions for each reminder
+                                .swipeActions(edge: .leading) {
+                                    // to toggle the completion toggle of a reminder
+                                    Button {
+                                        reminder.completed.toggle()
+                                        updateRemindersCount()
+                                        DataController.shared.save(context: managedObjectContext)
+                                    } label: {
+                                        Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
+                                            .tint(reminder.completed ? Color(UIColor(hex: "FF686B")) : Color(UIColor(hex: "5863F8")))
+                                    }
+                                    // to toggle the flag status of a reminder
+                                    Button {
+                                        reminder.flag.toggle()
+                                        updateRemindersCount()
+                                        DataController.shared.save(context: managedObjectContext)
+                                    } label: {
+                                        Label(reminder.flag ? "Unflag" : "Flag", systemImage: reminder.flag ? "flag.slash.fill" : "flag.fill")
+                                            .tint(Color(UIColor(hex: "392d69")))
+                                    }
+                                }
+                                // to display the context menu when long pressing a reminder
+                                .contextMenu {
+                                    // to push the selected reminder in edit view
+                                    Button {
+                                        selectedReminder = reminder
+                                    } label: {
+                                        Text("Edit")
+                                    }
+                                    
+                                    Button {
+                                    } label: {
+                                        Text("Delete")
+                                    }
+                                }
+                            }
+                            .padding(.vertical)
+                        }
+                    }
+                }
+                
+                // To display the sheet for the edit view for the selected reminder
+                .sheet(item: $selectedReminder) { reminder in
+                    EditReminderView(reminder: reminder/*, isAddButtonHidden: $isAddButtonHidden*/)
+                        .onDisappear {
+                            selectedReminder = nil
+                        }
+                }
+                .background(.ultraThinMaterial)
+                
+                // To display the empty states based on the toggles activated
+                .overlay {
+                    if reminders.isEmpty && toggleOnlyFlag == false && toggleOnlyCompleted == false && toggleOnlyNotCompleted == false {
+                        VStack(spacing: 20) {
+                            Image(systemName: "checklist")
+                                .font(.system(size: 50))
+                                .padding()
+                                .background(.tertiary)
+                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            Text("No Todos to do")
+                            HStack {
+                                Text("Tap on the button to add a Todo.")
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 50)
+                    }
+                    if toggleOnlyFlag == true && calculateTotalFlagged() == 0 && toggleOnlyCompleted == false && toggleOnlyNotCompleted == false {
+                        VStack(spacing: 20) {
+                            Image(systemName: "flag.fill")
+                                .font(.system(size: 50))
+                                .padding()
+                                .background(.tertiary)
+                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            Text("No Flagged Todos to do")
+                            HStack {
+                                Text("Swipe on a Todo to flag.")
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 50)
+                    }
+                    if toggleOnlyCompleted == true && calculateTotalCompleted() == 0 && toggleOnlyFlag == false {
+                        VStack(spacing: 20) {
+                            Image(systemName: "checklist.checked")
+                                .font(.system(size: 50))
+                                .padding()
+                                .background(.tertiary)
+                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            Text("No Completed Todos")
+                            HStack {
+                                Text("Swipe on a Todo to Complete a Todo.")
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 50)
+                    }
+                    if toggleOnlyNotCompleted == true && calculateTotalNotCompleted() == 0 && toggleOnlyFlag == false {
+                        VStack(spacing: 20) {
+                            Image(systemName: "checklist.unchecked")
+                                .font(.system(size: 50))
+                                .padding()
+                                .background(.tertiary)
+                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            Text("No Incompleted Todos")
+                            HStack {
+                                Text("Tap on the button to add a Todo.")
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 50)
+                    }
+                    if (toggleOnlyCompleted == true && toggleOnlyFlag == true) && (filteredReminders.isEmpty) {
+                        VStack(spacing: 20) {
+                            Image(systemName: "checklist.unchecked")
+                                .font(.system(size: 50))
+                                .padding()
+                                .background(.tertiary)
+                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            Text("No Flagged Completed Todos")
+                            HStack {
+                                Text("Swipe on a Completed Todo to Flag a Todo.")
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 50)
+                    }
+                    if (toggleOnlyFlag == true && toggleOnlyNotCompleted == true) && (filteredReminders.isEmpty) {
+                        VStack(spacing: 20) {
+                            Image(systemName: "checklist.unchecked")
+                                .font(.system(size: 50))
+                                .padding()
+                                .background(.tertiary)
+                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            Text("No Flagged Incompleted Todos")
+                            HStack {
+                                Text("Swipe on a Incompleted Todo to Flag a Todo.")
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 50)
+                    }
+                }
+                .navigationTitle("Your Todos")
+            }
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+            .onAppear {
+                updateRemindersCount()
+                managedObjectContext.undoManager = UndoManager()
+            }
+            .onChange(of: filteredReminders) {
+                updateRemindersCount()
+            }
+            
+            //MARK: - Top horizontal scrollview bar featuring the toggle buttons to toggle the visibility buttons
+            .safeAreaInset(edge: .bottom) {
+                HStack {
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
                             // to toggle all the filters to false, or to turn them off
@@ -218,200 +404,23 @@ struct AllRemindersView: View {
                             .padding(.trailing)
                         }
                     }
-                    .frame(minHeight: 50)
-                    .frame(maxHeight: 60)
-                    
-                    //MARK: - To display all the fetched reminders in a list
-                    List {
-                        ForEach(groupedReminders.keys.sorted(by: >), id: \.self) { date in
-                            Section(header: Text(formatDate(date: date))) {
-                                ForEach(groupedReminders[date]!, id:  \.self) { reminder in
-                                    HStack(alignment: .top) {
-                                        VStack(alignment: .leading, spacing: 10) {
-                                            HStack(alignment: .firstTextBaseline, spacing: 10) {
-                                                Circle()
-                                                    .frame(height: 15)
-                                                    .foregroundStyle(reminder.completed ? Color(UIColor(hex: "5863F8")): Color(UIColor(hex: "FF686B")))
-                                                Text(reminder.name!)
-                                                    .font(.headline)
-                                                    .bold()
-                                            }
-                                            
-                                            if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-                                                Text(reminder.reminder_desc!)
-                                                    .font(.subheadline)
-                                            }
-                                            
-                                            Spacer()
-                                            
-                                            HStack {
-                                                Spacer()
-                                                Image(systemName: "flag.fill")
-                                                    .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f83d5c")), Color(UIColor(hex: "fd4b2f"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                    .opacity(reminder.flag ? 1.0 : 0.0)
-                                            }
-                                        }
-                                    }
-                                    // swipe actions for each reminder
-                                    .swipeActions(edge: .leading) {
-                                        // to toggle the completion toggle of a reminder
-                                        Button {
-                                            reminder.completed.toggle()
-                                            updateRemindersCount()
-                                            DataController.shared.save(context: managedObjectContext)
-                                        } label: {
-                                            Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
-                                                .tint(reminder.completed ? Color(UIColor(hex: "FF686B")) : Color(UIColor(hex: "5863F8")))
-                                        }
-                                        // to toggle the flag status of a reminder
-                                        Button {
-                                            reminder.flag.toggle()
-                                            updateRemindersCount()
-                                            DataController.shared.save(context: managedObjectContext)
-                                        } label: {
-                                            Label(reminder.flag ? "Unflag" : "Flag", systemImage: reminder.flag ? "flag.slash.fill" : "flag.fill")
-                                                .tint(Color(UIColor(hex: "392d69")))
-                                        }
-                                    }
-                                    // to display the context menu when long pressing a reminder
-                                    .contextMenu {
-                                        // to push the selected reminder in edit view
-                                        Button {
-                                            selectedReminder = reminder
-                                        } label: {
-                                            Text("Edit")
-                                        }
-                                        
-                                        Button {
-                                        } label: {
-                                            Text("Delete")
-                                        }
-                                    }
-                                }
-                                .padding(.vertical)
-                            }
-                        }
-                    }
-                    
-                    // To display the sheet for the edit view for the selected reminder
-                    .sheet(item: $selectedReminder) { reminder in
-                        EditReminderView(reminder: reminder, isAddButtonHidden: $isAddButtonHidden)
-                            .onDisappear {
-                                selectedReminder = nil
-                            }
-                    }
+                    .frame(height: 70)
                     .background(.ultraThinMaterial)
-                    .frame(maxWidth: .infinity)
-                    
-                    // To display the empty states based on the toggles activated
+                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
                     .overlay {
-                        if reminders.isEmpty && toggleOnlyFlag == false && toggleOnlyCompleted == false && toggleOnlyNotCompleted == false {
-                            VStack(spacing: 20) {
-                                Image(systemName: "checklist")
-                                    .font(.system(size: 50))
-                                    .padding()
-                                    .background(.tertiary)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                                Text("No Todos to do")
-                                HStack {
-                                    Text("Tap on the button to add a Todo.")
-                                }
-                                Spacer()
-                            }
-                            .padding(.top, 50)
-                        }
-                        if toggleOnlyFlag == true && calculateTotalFlagged() == 0 && toggleOnlyCompleted == false && toggleOnlyNotCompleted == false {
-                            VStack(spacing: 20) {
-                                Image(systemName: "flag.fill")
-                                    .font(.system(size: 50))
-                                    .padding()
-                                    .background(.tertiary)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                                Text("No Flagged Todos to do")
-                                HStack {
-                                    Text("Swipe on a Todo to flag.")
-                                }
-                                Spacer()
-                            }
-                            .padding(.top, 50)
-                        }
-                        if toggleOnlyCompleted == true && calculateTotalCompleted() == 0 && toggleOnlyFlag == false {
-                            VStack(spacing: 20) {
-                                Image(systemName: "checklist.checked")
-                                    .font(.system(size: 50))
-                                    .padding()
-                                    .background(.tertiary)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                                Text("No Completed Todos")
-                                HStack {
-                                    Text("Swipe on a Todo to Complete a Todo.")
-                                }
-                                Spacer()
-                            }
-                            .padding(.top, 50)
-                        }
-                        if toggleOnlyNotCompleted == true && calculateTotalNotCompleted() == 0 && toggleOnlyFlag == false {
-                            VStack(spacing: 20) {
-                                Image(systemName: "checklist.unchecked")
-                                    .font(.system(size: 50))
-                                    .padding()
-                                    .background(.tertiary)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                                Text("No Incompleted Todos")
-                                HStack {
-                                    Text("Tap on the button to add a Todo.")
-                                }
-                                Spacer()
-                            }
-                            .padding(.top, 50)
-                        }
-                        if (toggleOnlyCompleted == true && toggleOnlyFlag == true) && (filteredReminders.isEmpty) {
-                            VStack(spacing: 20) {
-                                Image(systemName: "checklist.unchecked")
-                                    .font(.system(size: 50))
-                                    .padding()
-                                    .background(.tertiary)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                                Text("No Flagged Completed Todos")
-                                HStack {
-                                    Text("Swipe on a Completed Todo to Flag a Todo.")
-                                }
-                                Spacer()
-                            }
-                            .padding(.top, 50)
-                        }
-                        if (toggleOnlyFlag == true && toggleOnlyNotCompleted == true) && (filteredReminders.isEmpty) {
-                            VStack(spacing: 20) {
-                                Image(systemName: "checklist.unchecked")
-                                    .font(.system(size: 50))
-                                    .padding()
-                                    .background(.tertiary)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                                Text("No Flagged Incompleted Todos")
-                                HStack {
-                                    Text("Swipe on a Incompleted Todo to Flag a Todo.")
-                                }
-                                Spacer()
-                            }
-                            .padding(.top, 50)
-                        }
+                        RoundedRectangle(cornerRadius: 20.0)
+                            .stroke(Color.white.opacity(0.3), lineWidth: 2)
                     }
+                    .padding(.leading)
+                    .padding(.top)
+                    .padding(.bottom)
+                    
+                    //MARK: - View for the add reminder button
+                    AddReminderButton(
+                        showingAddReminder: $showingAddReminder
+                        /*isAddButtonHidden: $isAddButtonHidden*/)
                 }
-                .navigationTitle("Your Todos")
             }
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
-            .onAppear {
-                updateRemindersCount()
-                managedObjectContext.undoManager = UndoManager()
-            }
-            .onChange(of: filteredReminders) {
-                updateRemindersCount()
-            }
-
-            //MARK: - View for the add reminder button
-            AddReminderButton(
-                showingAddReminder: $showingAddReminder,
-                isAddButtonHidden: $isAddButtonHidden)
         }
     }
     
@@ -457,7 +466,7 @@ struct AllRemindersView: View {
 
 //MARK: - All Reminders View Preview
 #Preview {
-    AllRemindersView(isAddButtonHidden: .constant(true))
+    AllRemindersView(/*isAddButtonHidden: .constant(true)*/)
 }
 
 //MARK: - Preview for the Custom View for the scrollview
@@ -468,37 +477,29 @@ struct AllRemindersView: View {
 //MARK: - Custom view for the add reminder button
 struct AddReminderButton: View {
     @Binding var showingAddReminder: Bool
-    @Binding var isAddButtonHidden: Bool
     
     var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                VStack() {
-                    Button(action: {
-                        showingAddReminder.toggle()
-                    }) {
-                        Image(systemName: "checklist")
-                    }
-                    .sheet(isPresented: $showingAddReminder) {
-                        AddReminderView()
-                            .background(.ultraThinMaterial)
-                    }
-                }
-                .font(.title)
+        Button {
+            showingAddReminder.toggle()
+        } label: {
+            Image(systemName: "plus")
+                .font(.title2)
                 .fontWeight(.bold)
-                .foregroundStyle(Color(UIColor(hex: "F8F7FF")))
-                .frame(width: 80, height: 80)
+                .foregroundStyle(Color.white)
+                .frame(width: 70, height: 70)
                 .background(.ultraThinMaterial)
                 .clipShape(Circle())
-                .shadow(radius: 30)
-                .transition(.move(edge: .bottom))
-            }
+                .overlay {
+                    Circle()
+                        .stroke(Color.white.opacity(0.3), lineWidth: 2)
+                }
+                .padding(.trailing)
         }
-        .opacity(isAddButtonHidden ? 0.0 : 1.0)
-        .padding(.horizontal, 20)
-        .padding(.vertical, 120)
+        .popover(isPresented: $showingAddReminder, content: {
+            AddReminderView()
+                .background(.ultraThinMaterial)
+                .presentationCompactAdaptation(.sheet)
+        })
     }
 }
 

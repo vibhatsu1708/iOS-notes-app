@@ -14,7 +14,7 @@ struct EditReminderView: View {
     
     var reminder: FetchedResults<Reminder>.Element
     
-    @Binding var isAddButtonHidden: Bool
+//    @Binding var isAddButtonHidden: Bool
     
     @State private var disabledEditButton: Bool = true
     
@@ -73,11 +73,11 @@ struct EditReminderView: View {
             .clipShape(RoundedRectangle(cornerRadius: 1000.0))
             .onAppear {
 //                isCustomTabBarHidden = true
-                isAddButtonHidden = true
+//                isAddButtonHidden = true
             }
             .onDisappear {
 //                isCustomTabBarHidden = false
-                isAddButtonHidden = false
+//                isAddButtonHidden = false
             }
             
             // to dismiss the view if wanting to exit the edit view

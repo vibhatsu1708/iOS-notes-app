@@ -13,7 +13,7 @@ struct EditPurchaseView: View {
     
     var purchase: FetchedResults<Purchase>.Element
     
-    @Binding var isAddButtonHidden: Bool
+//    @Binding var isAddButtonHidden: Bool
     
     @State private var disabledEditButton: Bool = true
     
@@ -112,11 +112,11 @@ struct EditPurchaseView: View {
         .clipShape(RoundedRectangle(cornerRadius: 1000.0))
         .onAppear {
 //            isCustomTabBarHidden = true
-            isAddButtonHidden = true
+//            isAddButtonHidden = true
         }
         .onDisappear {
 //            isCustomTabBarHidden = false
-            isAddButtonHidden = false
+//            isAddButtonHidden = false
         }
     }
     

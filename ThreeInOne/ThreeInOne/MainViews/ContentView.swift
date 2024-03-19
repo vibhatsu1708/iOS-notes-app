@@ -18,29 +18,23 @@ struct ContentView: View {
     
     // For the navigation bar
     @State private var tabSelection: Int = 1
-    // For hiding the custom tab bar when entering the edit view for notes/reminders/budget logs.
-//    @State private var isCustomTabBarHidden: Bool = true
+
     // For hiding the add button when in edit view.
-    @State private var isAddButtonHidden: Bool = false
-    
-    // To hide the default tab bar background.
-//    init() {
-//        UITabBar.appearance().isHidden = true
-//    }
-    
+//    @State private var isAddButtonHidden: Bool = false
+
     var body: some View {
         TabView {
-            AllPurchasesView(isAddButtonHidden: $isAddButtonHidden)
+            AllPurchasesView(/*isAddButtonHidden: $isAddButtonHidden*/)
                 .tabItem {
                     Label("Budget Tracker", systemImage: "creditcard.fill")
                 }
             
-            AllRemindersView(isAddButtonHidden: $isAddButtonHidden)
+            AllRemindersView(/*isAddButtonHidden: $isAddButtonHidden*/)
                 .tabItem {
                     Label("Your Todos", systemImage: "text.badge.checkmark")
                 }
             
-            AllNotesView(isAddButtonHidden: $isAddButtonHidden)
+            AllNotesView(/*isAddButtonHidden: $isAddButtonHidden*/)
                 .tabItem {
                     Label("Your Notes", systemImage: "note.text")
                 }
