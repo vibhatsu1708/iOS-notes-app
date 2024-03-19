@@ -19,22 +19,19 @@ struct ContentView: View {
     // For the navigation bar
     @State private var tabSelection: Int = 1
 
-    // For hiding the add button when in edit view.
-//    @State private var isAddButtonHidden: Bool = false
-
     var body: some View {
         TabView {
-            AllPurchasesView(/*isAddButtonHidden: $isAddButtonHidden*/)
+            AllPurchasesView()
                 .tabItem {
                     Label("Budget Tracker", systemImage: "creditcard.fill")
                 }
             
-            AllRemindersView(/*isAddButtonHidden: $isAddButtonHidden*/)
+            AllRemindersView()
                 .tabItem {
                     Label("Your Todos", systemImage: "text.badge.checkmark")
                 }
             
-            AllNotesView(/*isAddButtonHidden: $isAddButtonHidden*/)
+            AllNotesView()
                 .tabItem {
                     Label("Your Notes", systemImage: "note.text")
                 }

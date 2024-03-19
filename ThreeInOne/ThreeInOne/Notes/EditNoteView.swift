@@ -14,8 +14,6 @@ struct EditNoteView: View {
     
     var note: FetchedResults<Note>.Element
     
-//    @Binding var isAddButtonHidden: Bool
-    
     @State private var disabledEditButton: Bool = true
     
     @State private var name = ""
@@ -72,14 +70,6 @@ struct EditNoteView: View {
             .foregroundStyle(Color.newFont)
             .background(!disabledEditButton ? Color.indigo : Color.secondary)
             .clipShape(RoundedRectangle(cornerRadius: 1000.0))
-            .onAppear {
-//                isCustomTabBarHidden = true
-//                isAddButtonHidden = true
-            }
-            .onDisappear {
-//                isCustomTabBarHidden = false
-//                isAddButtonHidden = false
-            }
             
             // to dismiss the view if wanting to exit the edit view
             Button {

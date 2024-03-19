@@ -11,12 +11,6 @@ import CoreData
 struct AllPurchasesView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var purchases: FetchedResults<Purchase>
-    
-    // For hiding the Custom Tab Bar when in Edit View or Add View.
-//    @Binding var isCustomTabBarHidden: Bool
-    
-    // For hiding the Add button when in Edit View.
-//    @Binding var isAddButtonHidden: Bool
 
     @State private var searchText: String = ""
     
@@ -38,7 +32,7 @@ struct AllPurchasesView: View {
                 VStack(alignment: .leading) {
                     List {
                         ForEach(filteredPurchases) { purchase in
-                            NavigationLink(destination: EditPurchaseView(purchase: purchase/*, isAddButtonHidden: $isAddButtonHidden*/)) {
+                            NavigationLink(destination: EditPurchaseView(purchase: purchase)) {
                                 VStack(alignment: .leading, spacing: 12) {
                                     VStack(alignment: .leading) {
                                         Text(purchase.name!)
@@ -69,11 +63,9 @@ struct AllPurchasesView: View {
                                             .font(.caption2)
                                             .foregroundStyle(.tertiary)
                                     }
-//                                    .opacity(isAddButtonHidden ? 0.0 : 1.0)
                                 }
                             }
                         }
-//                        .onDelete(perform: deletePurchase)
                         .padding(.vertical)
                     }
                     .frame(maxWidth: .infinity)
@@ -107,7 +99,6 @@ struct AllPurchasesView: View {
                     .shadow(radius: 30)
                 }
             }
-//            .opacity(isAddButtonHidden ? 0.0 : 1.0)
             .padding(.horizontal, 20)
             .padding(.vertical, 120)
         }
@@ -125,5 +116,5 @@ struct AllPurchasesView: View {
 }
 
 #Preview {
-    AllPurchasesView(/*isAddButtonHidden: .constant(true)*/)
+    AllPurchasesView()
 }

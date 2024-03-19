@@ -13,13 +13,7 @@ struct AllNotesView: View {
     @FetchRequest(
         entity: Note.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Note.date, ascending: false)]) var notes: FetchedResults<Note>
-    
-    // For hiding the custom tab bar when in Add view or Edit View.
-//    @Binding var isCustomTabBarHidden: Bool
-    
-    // For hiding the Add button when in Edit View.
-//    @Binding var isAddButtonHidden: Bool
-    
+
     @State private var toggleOnlyStar: Bool = false
     @State private var toggleOnlyBookmark: Bool = false
     @State private var toggleOnlyHidden: Bool = false
@@ -170,7 +164,7 @@ struct AllNotesView: View {
                     }
                 }
                 .sheet(item: $selectedNote) { note in
-                    EditNoteView(note: note/*, isAddButtonHidden: $isAddButtonHidden*/)
+                    EditNoteView(note: note)
                         .onDisappear {
                             selectedNote = nil
                         }
@@ -502,7 +496,7 @@ struct AllNotesView: View {
 }
 
 #Preview {
-    AllNotesView(/*isAddButtonHidden: .constant(true)*/)
+    AllNotesView()
 }
 
 //MARK: - Custom view for the add note button

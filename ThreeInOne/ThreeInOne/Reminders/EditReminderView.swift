@@ -13,9 +13,7 @@ struct EditReminderView: View {
     @Environment(\.dismiss) var dismiss
     
     var reminder: FetchedResults<Reminder>.Element
-    
-//    @Binding var isAddButtonHidden: Bool
-    
+ 
     @State private var disabledEditButton: Bool = true
     
     @State private var name = ""
@@ -71,14 +69,6 @@ struct EditReminderView: View {
             .foregroundStyle(Color.newFont)
             .background(!disabledEditButton ? Color.red : Color.secondary)
             .clipShape(RoundedRectangle(cornerRadius: 1000.0))
-            .onAppear {
-//                isCustomTabBarHidden = true
-//                isAddButtonHidden = true
-            }
-            .onDisappear {
-//                isCustomTabBarHidden = false
-//                isAddButtonHidden = false
-            }
             
             // to dismiss the view if wanting to exit the edit view
             Button {

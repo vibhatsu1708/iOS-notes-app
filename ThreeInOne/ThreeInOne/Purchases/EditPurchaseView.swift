@@ -13,8 +13,6 @@ struct EditPurchaseView: View {
     
     var purchase: FetchedResults<Purchase>.Element
     
-//    @Binding var isAddButtonHidden: Bool
-    
     @State private var disabledEditButton: Bool = true
     
     @State private var name: String = ""
@@ -110,14 +108,6 @@ struct EditPurchaseView: View {
         .background(!disabledEditButton ? Color.green : Color.secondary)
         .foregroundStyle(Color.newFont)
         .clipShape(RoundedRectangle(cornerRadius: 1000.0))
-        .onAppear {
-//            isCustomTabBarHidden = true
-//            isAddButtonHidden = true
-        }
-        .onDisappear {
-//            isCustomTabBarHidden = false
-//            isAddButtonHidden = false
-        }
     }
     
     func updateButtonState() {

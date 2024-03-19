@@ -13,12 +13,6 @@ struct AllRemindersView: View {
     @FetchRequest(
         entity: Reminder.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Reminder.date, ascending: false)]) var reminders: FetchedResults<Reminder>
-    
-    // For hiding the Custom Tab Bar when in Edit View or Add View.
-//    @Binding var isCustomTabBarHidden: Bool
-    
-    // For hiding the Add button when in Edit View.
-//    @Binding var isAddButtonHidden: Bool
 
     @State private var toggleOnlyCompleted: Bool = false
     @State private var toggleOnlyNotCompleted: Bool = false
@@ -174,7 +168,7 @@ struct AllRemindersView: View {
                 
                 // To display the sheet for the edit view for the selected reminder
                 .sheet(item: $selectedReminder) { reminder in
-                    EditReminderView(reminder: reminder/*, isAddButtonHidden: $isAddButtonHidden*/)
+                    EditReminderView(reminder: reminder)
                         .onDisappear {
                             selectedReminder = nil
                         }
@@ -417,8 +411,7 @@ struct AllRemindersView: View {
                     
                     //MARK: - View for the add reminder button
                     AddReminderButton(
-                        showingAddReminder: $showingAddReminder
-                        /*isAddButtonHidden: $isAddButtonHidden*/)
+                        showingAddReminder: $showingAddReminder)
                 }
             }
         }
