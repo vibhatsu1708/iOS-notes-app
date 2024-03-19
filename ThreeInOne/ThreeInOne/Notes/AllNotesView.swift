@@ -350,7 +350,6 @@ struct AllNotesView: View {
                                 } label: {
                                     Group {
                                         Image(systemName: "eraser.fill")
-                                        Text("Clear Filters")
                                     }
                                     .bold()
                                 }
