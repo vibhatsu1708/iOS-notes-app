@@ -16,6 +16,7 @@ struct AllRemindersView: View {
 
     @State private var toggleOnlyCompleted: Bool = false
     @State private var toggleOnlyNotCompleted: Bool = false
+    @State private var toggleOnlyArchived: Bool = false
     
     @State private var toggleOnlyFlag: Bool = false
     
@@ -24,6 +25,7 @@ struct AllRemindersView: View {
     @State private var totalCompleted: Int = 0
     @State private var totalNotCompleted: Int = 0
     @State private var totalFlagged: Int = 0
+    @State private var totalArchived: Int = 0
     
     // For presenting the sheet of the edit reminder view
     @State var editReminderViewToggle: Bool = false
@@ -80,7 +82,15 @@ struct AllRemindersView: View {
     
     //MARK: - Grouping the filtered reminders based on the date of creation
     var groupedReminders: [Date: [Reminder]] {
-        Dictionary(grouping: filteredReminders) { reminder in
+        let filteredUnarchivedReminders = filteredReminders.filter { !$0.archive }
+        return Dictionary(grouping: filteredUnarchivedReminders) { reminder in
+            Calendar.current.startOfDay(for: reminder.date!)
+        }
+    }
+    
+    var groupedArchivedReminders: [Date: [Reminder]] {
+        let filteredArchivedReminders = filteredReminders.filter { $0.archive }
+        return Dictionary(grouping: filteredArchivedReminders) { reminder in
             Calendar.current.startOfDay(for: reminder.date!)
         }
     }
@@ -96,9 +106,9 @@ struct AllRemindersView: View {
             NavigationStack {
                 //MARK: - To display all the fetched reminders in a list
                 List {
-                    ForEach(groupedReminders.keys.sorted(by: >), id: \.self) { date in
+                    ForEach(toggleOnlyArchived ? groupedArchivedReminders.keys.sorted(by: >) : groupedReminders.keys.sorted(by: >), id: \.self) { date in
                         Section(header: Text(formatDate(date: date))) {
-                            ForEach(groupedReminders[date]!, id:  \.self) { reminder in
+                            ForEach(toggleOnlyArchived ? groupedArchivedReminders[date]! : groupedReminders[date]!) { reminder in
                                 HStack(alignment: .top) {
                                     VStack(alignment: .leading, spacing: 10) {
                                         HStack(alignment: .firstTextBaseline, spacing: 10) {
@@ -136,6 +146,8 @@ struct AllRemindersView: View {
                                         Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
                                             .tint(reminder.completed ? Color(UIColor(hex: "FF686B")) : Color(UIColor(hex: "5863F8")))
                                     }
+                                }
+                                .swipeActions(edge: .trailing) {
                                     // to toggle the flag status of a reminder
                                     Button {
                                         reminder.flag.toggle()
@@ -152,12 +164,15 @@ struct AllRemindersView: View {
                                     Button {
                                         selectedReminder = reminder
                                     } label: {
-                                        Text("Edit")
+                                        Label("Edit Todo", systemImage: "square.and.pencil")
                                     }
                                     
                                     Button {
+                                        reminder.archive.toggle()
+                                        updateRemindersCount()
+                                        DataController.shared.save(context: managedObjectContext)
                                     } label: {
-                                        Text("Delete")
+                                        Label("Archive Todo", systemImage: "archivebox.fill")
                                     }
                                 }
                             }
@@ -289,6 +304,7 @@ struct AllRemindersView: View {
                                 toggleOnlyCompleted = false
                                 toggleOnlyNotCompleted = false
                                 toggleOnlyFlag = false
+                                toggleOnlyArchived = false
                             } label: {
                                 Group {
                                     Image(systemName: "eraser.fill")
@@ -305,6 +321,7 @@ struct AllRemindersView: View {
                             }
                             .padding(.leading)
                             
+                            // Circle divider
                             Circle()
                                 .frame(height: 5)
                                 .opacity(0.5)
@@ -381,6 +398,32 @@ struct AllRemindersView: View {
                             .background(toggleOnlyNotCompleted ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
                             .clipShape(Capsule())
                             
+                            // To archive a reminder
+                            Button {
+                                toggleOnlyArchived.toggle()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "archivebox.fill")
+                                        .foregroundStyle(Color.newFont)
+                                        .opacity(toggleOnlyArchived ? 1.0 : 0.5)
+                                        .padding(.leading, 10)
+                                    Text("Archived")
+                                    Text("\(totalArchived)")
+                                        .foregroundStyle(.secondary)
+                                        .padding(.horizontal, 10)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                            }
+                            .padding(10)
+                            .foregroundStyle(Color.newFont)
+                            .background(toggleOnlyArchived ? Color.white.opacity(0.2) : Color.white.opacity(0.1))
+                            .clipShape(Capsule())
+                            
+                            // Circle divider
+                            Circle()
+                                .frame(height: 5)
+                                .opacity(0.5)
+                            
                             // confirmation for the deleting of the archived reminders
                             Button {
                                 confirmationForDeletionOfCompletedReminders = true
@@ -431,6 +474,7 @@ struct AllRemindersView: View {
         totalCompleted = calculateTotalCompleted()
         totalNotCompleted = calculateTotalNotCompleted()
         totalFlagged = calculateTotalFlagged()
+        totalArchived = calculateTotalArchived()
     }
     private func calculateTotalCompleted() -> Int {
         return reminders.reduce(0) {
@@ -445,6 +489,11 @@ struct AllRemindersView: View {
     private func calculateTotalFlagged() -> Int {
         return reminders.reduce(0) {
             $0 + ($1.flag ? 1 : 0)
+        }
+    }
+    private func calculateTotalArchived() -> Int {
+        return reminders.reduce(0) {
+            $0 + ($1.archive ? 1 : 0)
         }
     }
     private func deleteCompletedReminders() {
