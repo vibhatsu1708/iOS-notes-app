@@ -96,8 +96,8 @@ struct AllRemindersView: View {
     }
 
     //MARK: - Toggles for the showing or display of the add buttons and the edit view for the selected reminder
-    @State private var showingAddReminder: Bool = false
-    @State private var showingEditReminder: Bool = false
+    @State private var showingAddReminderView: Bool = false
+    @State private var showingEditReminderView: Bool = false
     
     @State private var confirmationForDeletionOfCompletedReminders: Bool = false
     
@@ -452,7 +452,7 @@ struct AllRemindersView: View {
                     
                     //MARK: - View for the add reminder button
                     AddReminderButton(
-                        showingAddReminder: $showingAddReminder)
+                        showingAddReminderView: $showingAddReminderView)
                 }
             }
         }
@@ -516,11 +516,11 @@ struct AllRemindersView: View {
 
 //MARK: - Custom view for the add reminder button
 struct AddReminderButton: View {
-    @Binding var showingAddReminder: Bool
+    @Binding var showingAddReminderView: Bool
     
     var body: some View {
         Button {
-            showingAddReminder.toggle()
+            showingAddReminderView.toggle()
         } label: {
             Image(systemName: "plus")
                 .font(.title2)
@@ -535,7 +535,7 @@ struct AddReminderButton: View {
                 }
                 .padding(.trailing)
         }
-        .popover(isPresented: $showingAddReminder, content: {
+        .popover(isPresented: $showingAddReminderView, content: {
             AddReminderView()
                 .background(.ultraThinMaterial)
                 .presentationCompactAdaptation(.sheet)
