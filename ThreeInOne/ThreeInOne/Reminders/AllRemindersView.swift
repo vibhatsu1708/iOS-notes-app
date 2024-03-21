@@ -118,20 +118,18 @@ struct AllRemindersView: View {
                                             Text(reminder.name!)
                                                 .font(.headline)
                                                 .bold()
+                                            
+                                            Spacer()
+                                            
+                                            if reminder.flag {
+                                                Image(systemName: "flag.fill")
+                                                    .foregroundStyle(Color.yellow)
+                                            }
                                         }
                                         
                                         if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                                             Text(reminder.reminder_desc!)
                                                 .font(.subheadline)
-                                        }
-                                        
-                                        Spacer()
-                                        
-                                        HStack {
-                                            Spacer()
-                                            Image(systemName: "flag.fill")
-                                                .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f83d5c")), Color(UIColor(hex: "fd4b2f"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                .opacity(reminder.flag ? 1.0 : 0.0)
                                         }
                                     }
                                 }
@@ -155,7 +153,7 @@ struct AllRemindersView: View {
                                         DataController.shared.save(context: managedObjectContext)
                                     } label: {
                                         Label(reminder.flag ? "Unflag" : "Flag", systemImage: reminder.flag ? "flag.slash.fill" : "flag.fill")
-                                            .tint(Color(UIColor(hex: "392d69")))
+                                            .tint(Color.yellow)
                                     }
                                 }
                                 // to display the context menu when long pressing a reminder
@@ -180,6 +178,7 @@ struct AllRemindersView: View {
                         }
                     }
                 }
+                .listStyle(InsetListStyle())
                 
                 // To display the sheet for the edit view for the selected reminder
                 .sheet(item: $selectedReminder) { reminder in
