@@ -74,8 +74,8 @@ struct AllNotesView: View {
         }
     }
     
-    @State private var showingAddNote: Bool = false
-    @State private var showingEditNote: Bool = false
+    @State private var showingAddNoteView: Bool = false
+    @State private var showingEditNoteView: Bool = false
     
     var body: some View {
         ZStack {
@@ -91,27 +91,31 @@ struct AllNotesView: View {
                                                 .font(.headline)
                                                 .bold()
                                             Spacer()
-                                            if note.bookmark {
-                                                Image(systemName: "bookmark.fill")
-                                                    .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "0968e5")), Color(UIColor(hex: "71c3f7"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                    .shadow(radius: 15.0)
-                                            }
                                             if note.star {
                                                 Image(systemName: "star.fill")
-                                                    .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f9bc2c")), Color(UIColor(hex: "f74c06"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                                    .foregroundStyle(Color.orange)
+                                                    .shadow(radius: 15.0)
+                                            }
+                                            if note.bookmark {
+                                                Image(systemName: "bookmark.fill")
+                                                    .foregroundStyle(Color.blue)
                                                     .shadow(radius: 15.0)
                                             }
                                         }
                                         
-                                        Text(note.note_desc!)
-                                            .font(.subheadline)
+                                        if !note.note_desc!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                            Text(note.note_desc!)
+                                                .font(.subheadline)
+                                        }
                                         
                                         Spacer()
-                                        HStack {
-                                            Spacer()
-                                            Image(systemName: "eye.slash")
-                                                .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "A06CD5")), Color(UIColor(hex: "6247AA"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                .opacity(note.hidden ? 1.0 : 0.0)
+                                        
+                                        if note.hidden {
+                                            HStack {
+                                                Spacer()
+                                                Image(systemName: "eye.slash")
+                                                    .foregroundStyle(Color.purple)
+                                            }
                                         }
                                     }
                                 }
@@ -124,7 +128,7 @@ struct AllNotesView: View {
                                         DataController.shared.save(context: managedObjectContext)
                                     } label: {
                                         Image(systemName: note.star ? "star.slash.fill" : "star.fill")
-                                            .tint(Color(UIColor(hex: "f74c06")))
+                                            .tint(Color.orange)
                                     }
                                     Button {
                                         note.bookmark.toggle()
@@ -132,7 +136,7 @@ struct AllNotesView: View {
                                         DataController.shared.save(context: managedObjectContext)
                                     } label: {
                                         Image(systemName: note.bookmark ? "bookmark.slash.fill" : "bookmark.fill")
-                                            .tint(Color(UIColor(hex: "2B2D42")))
+                                            .tint(Color.blue)
                                     }
                                 }
                                 
@@ -144,7 +148,7 @@ struct AllNotesView: View {
                                         DataController.shared.save(context: managedObjectContext)
                                     } label: {
                                         Image(systemName: note.hidden ? "eye.slash" : "eye")
-                                            .tint(Color(UIColor(hex: "4F4789")))
+                                            .tint(Color.purple)
                                     }
                                 }
                                 .contextMenu {
@@ -373,7 +377,7 @@ struct AllNotesView: View {
                                     HStack {
                                         Group {
                                             Image(systemName: "star.fill")
-                                                .foregroundStyle(Color.newFont)
+                                                .foregroundStyle(Color.orange)
                                                 .opacity(toggleOnlyStar ? 1.0 : 0.5)
                                                 .padding(.leading, 10)
                                             Text("Star")
@@ -395,7 +399,7 @@ struct AllNotesView: View {
                                     HStack {
                                         Group {
                                             Image(systemName: "bookmark.fill")
-                                                .foregroundStyle(Color.newFont)
+                                                .foregroundStyle(Color.blue)
                                                 .opacity(toggleOnlyBookmark ? 1.0 : 0.5)
                                                 .padding(.leading, 10)
                                             Text("Bookmark")
@@ -417,7 +421,7 @@ struct AllNotesView: View {
                                     HStack {
                                         Group {
                                             Image(systemName: "eye.slash")
-                                                .foregroundStyle(Color.white)
+                                                .foregroundStyle(Color.purple)
                                                 .opacity(toggleOnlyHidden ? 1.0 : 0.5)
                                                 .padding(.leading, 10)
                                             Text("Hidden")
@@ -450,7 +454,7 @@ struct AllNotesView: View {
                         
                         //MARK: - View for the add note button
                         AddNoteButton(
-                            showingAddNote: $showingAddNote)
+                            showingAddNoteView: $showingAddNoteView)
                     }
                 }
             }
@@ -500,11 +504,11 @@ struct AllNotesView: View {
 
 //MARK: - Custom view for the add note button
 struct AddNoteButton: View {
-    @Binding var showingAddNote: Bool
+    @Binding var showingAddNoteView: Bool
     
     var body: some View {
         Button {
-            showingAddNote.toggle()
+            showingAddNoteView.toggle()
         } label: {
             Image(systemName: "plus")
                 .font(.title2)
@@ -519,7 +523,7 @@ struct AddNoteButton: View {
                 }
                 .padding(.trailing)
         }
-        .popover(isPresented: $showingAddNote, content: {
+        .popover(isPresented: $showingAddNoteView, content: {
             AddNoteView()
                 .background(.ultraThinMaterial)
                 .presentationCompactAdaptation(.sheet)

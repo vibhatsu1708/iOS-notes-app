@@ -54,39 +54,41 @@ struct AddNoteView: View {
                 focus = .name
             }
         }
-        HStack {
-            // To add the new note
-            Button {
-                if name.trimmingCharacters(in: .whitespaces) == "" {
-                    name = "New Note"
+        .safeAreaInset(edge: .bottom) {
+            HStack {
+                // To add the new note
+                Button {
+                    if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        name = "New Note"
+                    }
+                    DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, background_color: background_color, context: managedObjectContext)
+                    dismiss()
+                } label: {
+                    Label("Add Note", systemImage: "plus")
                 }
-                if note_desc.trimmingCharacters(in: .whitespaces) == "" {
-                    note_desc = "Note description"
+                .padding()
+                .font(.title3)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.newFont)
+                .background(Color.teal)
+                .clipShape(Capsule())
+                
+                // to dismiss the view if wanting to exit the edit view
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .padding()
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Circle())
                 }
-                DataController.shared.addNote(name: name, note_desc: note_desc, star: star, bookmark: bookmark, hidden: hidden, background_color: background_color, context: managedObjectContext)
-                dismiss()
-            } label: {
-                Label("Add Note", systemImage: "plus")
             }
-            .padding()
-            .font(.title3)
-            .fontWeight(.bold)
-            .foregroundStyle(Color.newFont)
+            .padding(10)
+            .frame(maxWidth: .infinity)
             .background(.ultraThinMaterial)
-            .clipShape(Capsule())
-            
-            // to dismiss the view if wanting to exit the edit view
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "xmark")
-                    .padding()
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.white)
-                    .background(.tertiary)
-                    .clipShape(Circle())
-            }
         }
     }
     

@@ -49,40 +49,42 @@ struct EditNoteView: View {
         }
         .interactiveDismissDisabled()
         
-        HStack {
-            // To save changes button
-            Button {
-                if name.trimmingCharacters(in: .whitespaces) == "" {
-                    name = "New note"
-                }
-                if note_desc.trimmingCharacters(in: .whitespaces) == "" {
-                    note_desc = "Note description"
-                }
+        .safeAreaInset(edge: .bottom) {
+            HStack {
+                // To save changes button
+                Button {
+                    if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        name = "New note"
+                    }
+                    
+                    DataController().editNote(note: note, name: name, note_desc: note_desc, background_color: background_color, context: managedObjectContext)
+                    dismiss()
+                } label: {
+                    Label("Save changes", systemImage: "plus")
+                }.disabled(disabledEditButton)
+                .padding()
+                .font(.title3)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.newFont)
+                .background(!disabledEditButton ? Color.indigo : Color.secondary)
+                .clipShape(RoundedRectangle(cornerRadius: 1000.0))
                 
-                DataController().editNote(note: note, name: name, note_desc: note_desc, background_color: background_color, context: managedObjectContext)
-                dismiss()
-            } label: {
-                Label("Save changes", systemImage: "plus")
-            }.disabled(disabledEditButton)
-            .padding()
-            .font(.title3)
-            .fontWeight(.bold)
-            .foregroundStyle(Color.newFont)
-            .background(!disabledEditButton ? Color.indigo : Color.secondary)
-            .clipShape(RoundedRectangle(cornerRadius: 1000.0))
-            
-            // to dismiss the view if wanting to exit the edit view
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "xmark")
-                    .padding()
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.white)
-                    .background(.tertiary)
-                    .clipShape(Circle())
+                // to dismiss the view if wanting to exit the edit view
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .padding()
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Circle())
+                }
             }
+            .padding(10)
+            .frame(maxWidth: .infinity)
+            .background(.ultraThinMaterial)
         }
     }
     

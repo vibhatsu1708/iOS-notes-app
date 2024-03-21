@@ -51,37 +51,42 @@ struct EditReminderView: View {
         .interactiveDismissDisabled()
         .background(.ultraThinMaterial)
 
-        HStack {
-            // To save changes button
-            Button {
-                if name.trimmingCharacters(in: .whitespaces) == "" {
-                    name = "New Todo"
-                }
+        .safeAreaInset(edge: .bottom) {
+            HStack {
+                // To save changes button
+                Button {
+                    if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        name = "Edited Todo"
+                    }
+                    
+                    DataController().editReminder(reminder: reminder, name: name, reminder_desc: reminder_desc, tags: tags, context: managedObjectContext)
+                    dismiss()
+                } label: {
+                    Label("Save changes", systemImage: "plus")
+                }.disabled(disabledEditButton)
+                .padding()
+                .font(.title3)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.newFont)
+                .background(!disabledEditButton ? Color.red : Color.secondary)
+                .clipShape(RoundedRectangle(cornerRadius: 1000.0))
                 
-                DataController().editReminder(reminder: reminder, name: name, reminder_desc: reminder_desc, tags: tags, context: managedObjectContext)
-                dismiss()
-            } label: {
-                Label("Save changes", systemImage: "plus")
-            }.disabled(disabledEditButton)
-            .padding()
-            .font(.title3)
-            .fontWeight(.bold)
-            .foregroundStyle(Color.newFont)
-            .background(!disabledEditButton ? Color.red : Color.secondary)
-            .clipShape(RoundedRectangle(cornerRadius: 1000.0))
-            
-            // to dismiss the view if wanting to exit the edit view
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "xmark")
-                    .padding()
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.white)
-                    .background(.tertiary)
-                    .clipShape(Circle())
+                // to dismiss the view if wanting to exit the edit view
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .padding()
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Circle())
+                }
             }
+            .padding(10)
+            .frame(maxWidth: .infinity)
+            .background(.ultraThinMaterial)
         }
     }
     

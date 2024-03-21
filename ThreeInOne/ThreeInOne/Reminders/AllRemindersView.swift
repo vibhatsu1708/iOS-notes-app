@@ -114,7 +114,7 @@ struct AllRemindersView: View {
                                         HStack(alignment: .firstTextBaseline, spacing: 10) {
                                             Circle()
                                                 .frame(height: 15)
-                                                .foregroundStyle(reminder.completed ? Color(UIColor(hex: "5863F8")): Color(UIColor(hex: "FF686B")))
+                                                .foregroundStyle(reminder.completed ? Color.indigo : Color.red)
                                             Text(reminder.name!)
                                                 .font(.headline)
                                                 .bold()
@@ -142,7 +142,7 @@ struct AllRemindersView: View {
                                         DataController.shared.save(context: managedObjectContext)
                                     } label: {
                                         Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
-                                            .tint(reminder.completed ? Color(UIColor(hex: "FF686B")) : Color(UIColor(hex: "5863F8")))
+                                            .tint(reminder.completed ? Color.red : Color.indigo)
                                     }
                                 }
                                 .swipeActions(edge: .trailing) {
@@ -331,7 +331,7 @@ struct AllRemindersView: View {
                             } label: {
                                 HStack {
                                     Image(systemName: "flag.fill")
-                                        .foregroundStyle(LinearGradient(colors: [Color(UIColor(hex: "f83d5c")), Color(UIColor(hex: "fd4b2f"))], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                        .foregroundStyle(Color.yellow)
                                         .opacity(toggleOnlyFlag ? 1.0 : 0.5)
                                         .padding(.leading, 10)
                                     
