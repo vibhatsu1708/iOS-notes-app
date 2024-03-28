@@ -116,6 +116,7 @@ struct AllRemindersView: View {
                                                 .frame(height: 15)
                                                 .foregroundStyle(reminder.completed ? Color.indigo : Color.red)
                                             Text(reminder.name!)
+                                                .strikethrough(reminder.completed, pattern: .solid, color: Color.secondary)
                                                 .font(.headline)
                                                 .bold()
                                             
@@ -129,6 +130,7 @@ struct AllRemindersView: View {
                                         
                                         if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                                             Text(reminder.reminder_desc!)
+                                                .strikethrough(reminder.completed, pattern: .solid, color: Color.secondary)
                                                 .font(.subheadline)
                                         }
                                     }

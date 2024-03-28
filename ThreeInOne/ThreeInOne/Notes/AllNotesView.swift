@@ -335,6 +335,7 @@ struct AllNotesView: View {
                     }
                 }
                 .navigationTitle("Your Notes")
+                .navigationBarTitleDisplayMode(.automatic)
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
                 .onAppear {
                     updateNotesCount()

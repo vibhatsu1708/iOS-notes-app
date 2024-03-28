@@ -149,7 +149,7 @@ struct SwipeToUnlockView: View {
                 )
                 
                 if nil != self.actionSuccess {
-                    DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                         self.actionSuccess!()
                     }
                 }
