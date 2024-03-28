@@ -28,6 +28,7 @@
 		141FFFF72B2EB96B00E06199 /* EditPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFFF62B2EB96B00E06199 /* EditPurchaseView.swift */; };
 		143889DB2B34393700028415 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143889DA2B34393700028415 /* DateFormatter.swift */; };
 		14D416A72B4C7894008883C5 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D416A62B4C7894008883C5 /* SplashScreenView.swift */; };
+		14EBA0F02BB610F60009BC80 /* SwipeToUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EBA0EF2BB610F60009BC80 /* SwipeToUnlockView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		143889DA2B34393700028415 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		14D416A52B4C7668008883C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14D416A62B4C7894008883C5 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		14EBA0EF2BB610F60009BC80 /* SwipeToUnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeToUnlockView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				14D416A62B4C7894008883C5 /* SplashScreenView.swift */,
+				14EBA0EF2BB610F60009BC80 /* SwipeToUnlockView.swift */,
 				141FFF782B2E9F5200E06199 /* ContentView.swift */,
 			);
 			path = MainViews;
@@ -350,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14D416A72B4C7894008883C5 /* SplashScreenView.swift in Sources */,
+				14EBA0F02BB610F60009BC80 /* SwipeToUnlockView.swift in Sources */,
 				141FFFB22B2EA23900E06199 /* EditReminderView.swift in Sources */,
 				141FFFA82B2EA06C00E06199 /* AddNoteView.swift in Sources */,
 				141FFFAC2B2EA0D800E06199 /* TimeFormatter.swift in Sources */,
