@@ -8,6 +8,11 @@
 import SwiftUI
 import CoreData
 
+struct TabItem {
+    let tag: Int
+    let color: Color
+}
+
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
@@ -18,7 +23,7 @@ struct ContentView: View {
     
     // For the navigation bar
     @State private var tabSelection: Int = 1
-
+    
     var body: some View {
         TabView {
             AllPurchasesView()
@@ -30,6 +35,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Your Todos", systemImage: "text.badge.checkmark")
                 }
+                .tag(tabSelection)
             
             AllNotesView()
                 .tabItem {

@@ -11,10 +11,22 @@ struct SplashScreenView: View {
     @State private var showUnlockedView: Bool = false
     @State private var didUnlock: Bool = false
     
+    @State private var angle: CGFloat = 0.0
+    
     var body: some View {
-        
         ZStack {
             Color.black
+            
+//            VStack {
+//                HStack {
+//                    Rectangle()
+//                        .frame(height: 80)
+//                        .frame(maxWidth: .infinity)
+//                }
+//                
+//                Spacer()
+//            }
+//            .frame(maxHeight: .infinity)
             
             VStack {
                 Spacer()
@@ -25,6 +37,7 @@ struct SplashScreenView: View {
                     .foregroundStyle(Color.white)
                 
                 Spacer()
+                
                 if showUnlockedView {
                     SwipeToUnlockView()
                         .onSwipeSuccess {
@@ -37,6 +50,9 @@ struct SplashScreenView: View {
                 }
             }
             .padding(.bottom, 100)
+            .frame(maxWidth: .infinity)
+            .frame(maxHeight: .infinity)
+            .background(.ultraThinMaterial)
             
             if didUnlock {
                 ContentView()
@@ -44,9 +60,11 @@ struct SplashScreenView: View {
             }
         }
         .ignoresSafeArea()
+        .ignoresSafeArea()
         .onAppear {
             self.showUnlockedView = true
         }
+        .preferredColorScheme(.dark)
     }
 }
 

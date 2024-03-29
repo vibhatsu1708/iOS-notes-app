@@ -1,8 +1,8 @@
 //
 //  SwipeToUnlockView.swift
-//  SwipeToUnlockFunctionality
+//  ThreeInOne
 //
-//  Created by Vedant Mistry on 29/03/24.
+//  Created by Vedant Mistry on 30/03/24.
 //
 
 import SwiftUI
@@ -58,7 +58,8 @@ struct SwipeToUnlockView: View {
         ZStack {
             Capsule()
                 .frame(width: trackSize.width, height: trackSize.height)
-                .foregroundColor(sliderColors[indexColor % sliderColors.count])
+                .foregroundStyle(sliderColors[indexColor % sliderColors.count])
+                .shadow(color: sliderColors[indexColor % sliderColors.count].opacity(0.7), radius: 40)
             
             HStack {
                 Text("Swipe to enter")
@@ -103,7 +104,6 @@ struct SwipeToUnlockView: View {
                     }
             )
         }
-        .shadow(color: sliderColors[indexColor % sliderColors.count].opacity(0.7), radius: 40)
         .onReceive(timer) { value in
             withAnimation(Animation.easeInOut) {
                 indexColor += 1
