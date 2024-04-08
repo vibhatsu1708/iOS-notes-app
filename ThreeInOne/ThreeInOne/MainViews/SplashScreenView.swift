@@ -52,7 +52,6 @@ struct SplashScreenView: View {
             .padding(.bottom, 100)
             .frame(maxWidth: .infinity)
             .frame(maxHeight: .infinity)
-            .background(.ultraThinMaterial)
             
             if didUnlock {
                 ContentView()

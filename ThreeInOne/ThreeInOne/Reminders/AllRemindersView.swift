@@ -165,7 +165,7 @@ struct AllRemindersView: View {
                                     Button {
                                         selectedReminder = reminder
                                     } label: {
-                                        Label("Edit Todo", systemImage: "square.and.pencil")
+                                        Label("Edit", systemImage: "square.and.pencil")
                                     }
                                     
                                     Button {
@@ -173,7 +173,7 @@ struct AllRemindersView: View {
                                         updateRemindersCount()
                                         DataController.shared.save(context: managedObjectContext)
                                     } label: {
-                                        Label("Archive Todo", systemImage: "archivebox.fill")
+                                        Label(reminder.archive ? "Unarchive" : "Archive", systemImage: "archivebox.fill")
                                     }
                                 }
                             }
