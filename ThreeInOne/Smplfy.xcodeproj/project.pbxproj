@@ -49,14 +49,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		141FFF732B2E9F5200E06199 /* ThreeInOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThreeInOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		141FFF732B2E9F5200E06199 /* Smplfy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smplfy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		141FFF762B2E9F5200E06199 /* ThreeInOneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeInOneApp.swift; sourceTree = "<group>"; };
 		141FFF782B2E9F5200E06199 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		141FFF7A2B2E9F5400E06199 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		141FFF7D2B2E9F5400E06199 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		141FFF832B2E9F5500E06199 /* ThreeInOneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThreeInOneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		141FFF832B2E9F5500E06199 /* SmplfyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmplfyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		141FFF872B2E9F5500E06199 /* ThreeInOneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeInOneTests.swift; sourceTree = "<group>"; };
-		141FFF8D2B2E9F5500E06199 /* ThreeInOneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThreeInOneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		141FFF8D2B2E9F5500E06199 /* SmplfyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmplfyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		141FFF912B2E9F5500E06199 /* ThreeInOneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeInOneUITests.swift; sourceTree = "<group>"; };
 		141FFF932B2E9F5500E06199 /* ThreeInOneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeInOneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		141FFFA12B2E9F7300E06199 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -115,9 +115,9 @@
 		141FFF742B2E9F5200E06199 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				141FFF732B2E9F5200E06199 /* ThreeInOne.app */,
-				141FFF832B2E9F5500E06199 /* ThreeInOneTests.xctest */,
-				141FFF8D2B2E9F5500E06199 /* ThreeInOneUITests.xctest */,
+				141FFF732B2E9F5200E06199 /* Smplfy.app */,
+				141FFF832B2E9F5500E06199 /* SmplfyTests.xctest */,
+				141FFF8D2B2E9F5500E06199 /* SmplfyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -225,9 +225,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		141FFF722B2E9F5200E06199 /* ThreeInOne */ = {
+		141FFF722B2E9F5200E06199 /* Smplfy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 141FFF972B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "ThreeInOne" */;
+			buildConfigurationList = 141FFF972B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "Smplfy" */;
 			buildPhases = (
 				141FFF6F2B2E9F5200E06199 /* Sources */,
 				141FFF702B2E9F5200E06199 /* Frameworks */,
@@ -237,14 +237,14 @@
 			);
 			dependencies = (
 			);
-			name = ThreeInOne;
+			name = Smplfy;
 			productName = ThreeInOne;
-			productReference = 141FFF732B2E9F5200E06199 /* ThreeInOne.app */;
+			productReference = 141FFF732B2E9F5200E06199 /* Smplfy.app */;
 			productType = "com.apple.product-type.application";
 		};
-		141FFF822B2E9F5500E06199 /* ThreeInOneTests */ = {
+		141FFF822B2E9F5500E06199 /* SmplfyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 141FFF9A2B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "ThreeInOneTests" */;
+			buildConfigurationList = 141FFF9A2B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "SmplfyTests" */;
 			buildPhases = (
 				141FFF7F2B2E9F5500E06199 /* Sources */,
 				141FFF802B2E9F5500E06199 /* Frameworks */,
@@ -255,14 +255,14 @@
 			dependencies = (
 				141FFF852B2E9F5500E06199 /* PBXTargetDependency */,
 			);
-			name = ThreeInOneTests;
+			name = SmplfyTests;
 			productName = ThreeInOneTests;
-			productReference = 141FFF832B2E9F5500E06199 /* ThreeInOneTests.xctest */;
+			productReference = 141FFF832B2E9F5500E06199 /* SmplfyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		141FFF8C2B2E9F5500E06199 /* ThreeInOneUITests */ = {
+		141FFF8C2B2E9F5500E06199 /* SmplfyUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 141FFF9D2B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "ThreeInOneUITests" */;
+			buildConfigurationList = 141FFF9D2B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "SmplfyUITests" */;
 			buildPhases = (
 				141FFF892B2E9F5500E06199 /* Sources */,
 				141FFF8A2B2E9F5500E06199 /* Frameworks */,
@@ -273,9 +273,9 @@
 			dependencies = (
 				141FFF8F2B2E9F5500E06199 /* PBXTargetDependency */,
 			);
-			name = ThreeInOneUITests;
+			name = SmplfyUITests;
 			productName = ThreeInOneUITests;
-			productReference = 141FFF8D2B2E9F5500E06199 /* ThreeInOneUITests.xctest */;
+			productReference = 141FFF8D2B2E9F5500E06199 /* SmplfyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -301,7 +301,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 141FFF6E2B2E9F5200E06199 /* Build configuration list for PBXProject "ThreeInOne" */;
+			buildConfigurationList = 141FFF6E2B2E9F5200E06199 /* Build configuration list for PBXProject "Smplfy" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -314,9 +314,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				141FFF722B2E9F5200E06199 /* ThreeInOne */,
-				141FFF822B2E9F5500E06199 /* ThreeInOneTests */,
-				141FFF8C2B2E9F5500E06199 /* ThreeInOneUITests */,
+				141FFF722B2E9F5200E06199 /* Smplfy */,
+				141FFF822B2E9F5500E06199 /* SmplfyTests */,
+				141FFF8C2B2E9F5500E06199 /* SmplfyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -394,12 +394,12 @@
 /* Begin PBXTargetDependency section */
 		141FFF852B2E9F5500E06199 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 141FFF722B2E9F5200E06199 /* ThreeInOne */;
+			target = 141FFF722B2E9F5200E06199 /* Smplfy */;
 			targetProxy = 141FFF842B2E9F5500E06199 /* PBXContainerItemProxy */;
 		};
 		141FFF8F2B2E9F5500E06199 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 141FFF722B2E9F5200E06199 /* ThreeInOne */;
+			target = 141FFF722B2E9F5200E06199 /* Smplfy */;
 			targetProxy = 141FFF8E2B2E9F5500E06199 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -600,7 +600,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ThreeInOne.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ThreeInOne";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Smplfy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Smplfy";
 			};
 			name = Debug;
 		};
@@ -620,7 +620,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ThreeInOne.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ThreeInOne";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Smplfy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Smplfy";
 			};
 			name = Release;
 		};
@@ -663,7 +663,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		141FFF6E2B2E9F5200E06199 /* Build configuration list for PBXProject "ThreeInOne" */ = {
+		141FFF6E2B2E9F5200E06199 /* Build configuration list for PBXProject "Smplfy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				141FFF952B2E9F5500E06199 /* Debug */,
@@ -672,7 +672,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		141FFF972B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "ThreeInOne" */ = {
+		141FFF972B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "Smplfy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				141FFF982B2E9F5500E06199 /* Debug */,
@@ -681,7 +681,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		141FFF9A2B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "ThreeInOneTests" */ = {
+		141FFF9A2B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "SmplfyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				141FFF9B2B2E9F5500E06199 /* Debug */,
@@ -690,7 +690,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		141FFF9D2B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "ThreeInOneUITests" */ = {
+		141FFF9D2B2E9F5500E06199 /* Build configuration list for PBXNativeTarget "SmplfyUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				141FFF9E2B2E9F5500E06199 /* Debug */,

@@ -116,9 +116,10 @@ struct AllRemindersView: View {
                                                 .frame(height: 15)
                                                 .foregroundStyle(reminder.completed ? Color.indigo : Color.red)
                                             Text(reminder.name!)
-                                                .strikethrough(reminder.completed, pattern: .solid, color: Color.secondary)
                                                 .font(.headline)
-                                                .bold()
+                                                .fontWeight(.bold)
+                                                .foregroundStyle(reminder.completed ? Color.secondary : Color.white)
+                                                .strikethrough(reminder.completed, pattern: .solid, color: Color.white)
                                             
                                             Spacer()
                                             
@@ -179,6 +180,10 @@ struct AllRemindersView: View {
                             .padding(.vertical)
                         }
                     }
+                    
+                    Rectangle()
+                        .foregroundStyle(Color.clear)
+                        .frame(height: UIScreen.main.bounds.height / 10)
                 }
                 .listStyle(InsetListStyle())
                 
@@ -189,7 +194,7 @@ struct AllRemindersView: View {
                             selectedReminder = nil
                         }
                 }
-                .background(.ultraThinMaterial)
+                .frame(maxWidth: .infinity)
                 
                 // To display the empty states based on the toggles activated
                 .overlay {
