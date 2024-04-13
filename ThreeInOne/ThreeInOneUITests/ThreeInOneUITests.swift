@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class ThreeInOneUITests: XCTestCase {
+final class SmplfyUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

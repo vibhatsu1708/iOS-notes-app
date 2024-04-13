@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import ThreeInOne
+@testable import Smplfy
 
 final class ThreeInOneTests: XCTestCase {
 

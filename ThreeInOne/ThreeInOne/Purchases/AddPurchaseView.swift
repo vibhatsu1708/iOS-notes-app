@@ -15,48 +15,148 @@ struct AddPurchaseView: View {
     @State private var name: String = ""
     @State private var purchase_desc: String = ""
     @State private var amount: String = ""
+    
+    @State private var spent: Bool = true
+    @State private var received: Bool = false
     @State private var spent_or_received: Bool = false
+    
     @State private var payment_method: String = ""
-    @State private var paid: Bool = true
+    
+    @State private var payment_completed: Bool = true
+    @State private var payment_pending: Bool = false
+    @State private var payment_status: Bool = true
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Form {
-                    Section {
-                        TextField("Purchase Name", text: $name, axis: .vertical)
-                            .foregroundStyle(Color.newFont)
-                            .font(.headline)
-                            .bold()
-                        
-                        TextField("Purchase Description", text: $purchase_desc, axis: .vertical)
-                            .foregroundStyle(Color.newFont)
-                            .font(.subheadline)
-                    }
+            ScrollView {
+                VStack(spacing: 20) {
+                    // Purchase name
+                    TextField("Name...", text: $name, axis: .vertical)
+                        .padding()
+                        .font(.subheadline)
+                        .foregroundStyle(Color.newFont)
+                        .background(.ultraThickMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
                     
-                    Section {
-                        TextField("Purchase Amount" + amount, text: $amount)
-                            .foregroundStyle(Color.newFont)
-                            .font(.subheadline)
-                            .keyboardType(.numberPad)
-                        
-                        
-                        Toggle("Spent or Received?", isOn: $spent_or_received)
-                            .foregroundStyle(Color.newFont)
-                            .font(.headline)
-                    }
+                    // Purchase description
+                    TextField("Description...", text: $purchase_desc, axis: .vertical)
+                        .padding()
+                        .font(.subheadline)
+                        .foregroundStyle(Color.newFont)
+                        .background(.ultraThickMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
                     
-                    Section {
-                        Toggle("Completed Payment?", isOn: $paid)
-                            .foregroundStyle(Color.newFont)
-                            .font(.headline)
+                    // Toggle for spent or received
+                    HStack {
+                        Button {
+                            spent = true
+                            received = false
+                        } label: {
+                            Text("Spent")
+                                .padding(.vertical, 15)
+                                .padding(.horizontal, 25)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(Color.newFont)
+                                .frame(maxWidth: .infinity)
+                                .background(spent ? Color.red : Color.secondary)
+                                .clipShape(Capsule())
+                        }
                         
-                        TextField("Payment Method", text: $payment_method, axis: .vertical)
-                            .foregroundStyle(Color.newFont)
-                            .font(.subheadline)
+                        Spacer()
+                        
+                        Circle()
+                            .foregroundStyle(Color.secondary)
+                            .frame(height: 5)
+                        
+                        Spacer()
+                        
+                        Button {
+                            spent = false
+                            received = true
+                        } label: {
+                            Text("Received")
+                                .padding(.vertical, 15)
+                                .padding(.horizontal, 25)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(Color.newFont)
+                                .frame(maxWidth: .infinity)
+                                .background(received ? Color.green : Color.secondary)
+                                .clipShape(Capsule())
+                        }
                     }
+                    .padding(5)
+                    .background(.ultraThickMaterial)
+                    .clipShape(Capsule())
+                    
+                    // Purchase amount
+                    TextField("Amount..." + amount, text: $amount)
+                        .padding()
+                        .font(.subheadline)
+                        .foregroundStyle(Color.newFont)
+                        .background(.ultraThickMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
+                        .keyboardType(.numberPad)
+                    
+                    // Toggle for completed or pending payment
+                    HStack {
+                        Button {
+                            payment_completed = true
+                            payment_pending = false
+                        } label: {
+                            Text("Completed")
+                                .padding(.vertical, 15)
+                                .padding(.horizontal, 25)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(Color.newFont)
+                                .frame(maxWidth: .infinity)
+                                .background(payment_completed ? Color.green : Color.secondary)
+                                .clipShape(Capsule())
+                        }
+                        
+                        Spacer()
+                        
+                        Circle()
+                            .foregroundStyle(Color.secondary)
+                            .frame(height: 5)
+                        
+                        Spacer()
+                        
+                        Button {
+                            payment_completed = false
+                            payment_pending = true
+                        } label: {
+                            Text("Pending")
+                                .padding(.vertical, 15)
+                                .padding(.horizontal, 25)
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(Color.newFont)
+                                .frame(maxWidth: .infinity)
+                                .background(payment_pending ? Color.red : Color.secondary)
+                                .clipShape(Capsule())
+                        }
+                    }
+                    .padding(5)
+                    .background(.ultraThickMaterial)
+                    .clipShape(Capsule())
+                    
+                    // type of payment method
+                    TextField("Payment Method...", text: $payment_method, axis: .vertical)
+                        .padding()
+                        .font(.subheadline)
+                        .foregroundStyle(Color.newFont)
+                        .background(.ultraThickMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10.0))
                 }
-                Group {
+                .padding()
+            }
+            .navigationTitle("New Purchase")
+            
+            .safeAreaInset(edge: .bottom) {
+                HStack {
                     Button {
                         if name.trimmingCharacters(in: .whitespaces) == "" {
                             name = "New Purchase"
@@ -64,21 +164,49 @@ struct AddPurchaseView: View {
                         if purchase_desc.trimmingCharacters(in: .whitespaces) == "" {
                             purchase_desc = "Purchase Description"
                         }
-                        DataController.shared.addPurchase(name: name, purchase_desc: purchase_desc, amount: amount, payment_method: payment_method, paid: paid, spent_or_received: spent_or_received, context: managedObjectContext)
+                        
+                        if spent {
+                            spent_or_received = false
+                        } else {
+                            spent_or_received = true
+                        }
+                        
+                        if payment_completed {
+                            payment_status = true
+                        } else {
+                            payment_status = false
+                        }
+                        
+                        DataController.shared.addPurchase(name: name, purchase_desc: purchase_desc, amount: amount, payment_method: payment_method, paid: payment_status, spent_or_received: spent_or_received, context: managedObjectContext)
                         dismiss()
                     } label: {
                         Label("Add Purchase", systemImage: "plus")
+                            .padding()
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color.newFont)
+                            .background(Color.green)
+                            .clipShape(Capsule())
                     }
-                    .padding()
-                    .bold()
-                    .font(.title3)
-                    .background(Color.green)
-                    .foregroundStyle(Color.newFont)
-                    .clipShape(RoundedRectangle(cornerRadius: 1000.0))
+                    
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .padding()
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color.white)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Circle())
+                    }
                 }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(.ultraThinMaterial)
             }
-            .navigationTitle("New Purchase")
         }
+        .interactiveDismissDisabled()
     }
 }
 #Preview {

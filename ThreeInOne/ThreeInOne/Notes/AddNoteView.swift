@@ -86,7 +86,7 @@ struct AddNoteView: View {
                         .clipShape(Circle())
                 }
             }
-            .padding(10)
+            .padding()
             .frame(maxWidth: .infinity)
             .background(.ultraThinMaterial)
         }
