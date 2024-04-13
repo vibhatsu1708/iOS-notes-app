@@ -117,7 +117,7 @@ struct AllRemindersView: View {
                                                 .foregroundStyle(reminder.completed ? Color.indigo : Color.red)
                                             Text(reminder.name!)
                                                 .font(.headline)
-                                                .fontWeight(.bold)
+                                                .fontWeight(.semibold)
                                                 .foregroundStyle(reminder.completed ? Color.secondary : Color.white)
                                                 .strikethrough(reminder.completed, pattern: .solid, color: Color.white)
                                             
@@ -131,8 +131,9 @@ struct AllRemindersView: View {
                                         
                                         if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                                             Text(reminder.reminder_desc!)
-                                                .strikethrough(reminder.completed, pattern: .solid, color: Color.secondary)
                                                 .font(.subheadline)
+                                                .foregroundStyle(reminder.completed ? Color.secondary : Color.white)
+                                                .strikethrough(reminder.completed, pattern: .solid, color: Color.white)
                                         }
                                     }
                                 }
