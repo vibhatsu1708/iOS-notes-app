@@ -20,7 +20,7 @@ func calculateTime(date: Date) -> String {
     } else if minutes > 1 && minutes < 60 {
         return "\(minutes) minutes ago"
     } else if hours == 1 {
-      return "1 hour ago"
+        return "1 hour ago"
     } else if minutes >= 60 && hours < 24 {
         return "\(hours) hours ago"
     } else if hours >= 24 && days < 1 {

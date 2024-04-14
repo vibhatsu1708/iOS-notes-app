@@ -62,12 +62,12 @@ struct EditNoteView: View {
                 } label: {
                     Label("Save changes", systemImage: "plus")
                 }.disabled(disabledEditButton)
-                .padding()
-                .font(.title3)
-                .fontWeight(.bold)
-                .foregroundStyle(Color.newFont)
-                .background(!disabledEditButton ? Color.indigo : Color.secondary)
-                .clipShape(RoundedRectangle(cornerRadius: 1000.0))
+                    .padding()
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.newFont)
+                    .background(!disabledEditButton ? Color.indigo : Color.secondary)
+                    .clipShape(RoundedRectangle(cornerRadius: 1000.0))
                 
                 // to dismiss the view if wanting to exit the edit view
                 Button {

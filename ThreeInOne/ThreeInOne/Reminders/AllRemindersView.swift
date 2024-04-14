@@ -13,7 +13,7 @@ struct AllRemindersView: View {
     @FetchRequest(
         entity: Reminder.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Reminder.date, ascending: false)]) var reminders: FetchedResults<Reminder>
-
+    
     @State private var toggleOnlyCompleted: Bool = false
     @State private var toggleOnlyNotCompleted: Bool = false
     @State private var toggleOnlyArchived: Bool = false
@@ -54,7 +54,7 @@ struct AllRemindersView: View {
             
             return Array(reminders)
         }
-
+        
         // if the search field is not empty
         return reminders.filter {
             if toggleOnlyCompleted {
@@ -62,12 +62,12 @@ struct AllRemindersView: View {
             }
             if toggleOnlyNotCompleted {
                 return !$0.completed &&
-                    ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
-                    $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
-            } 
+                ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
+                 $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
+            }
             if toggleOnlyFlag {
                 return $0.flag && ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false || $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
-            } 
+            }
             if toggleOnlyFlag && toggleOnlyCompleted {
                 return $0.flag && $0.completed && ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false || $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
             }
@@ -75,7 +75,7 @@ struct AllRemindersView: View {
                 return $0.flag && !$0.completed && ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false || $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
             } else {
                 return $0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
-                    $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false
+                $0.reminder_desc?.localizedCaseInsensitiveContains(searchText) ?? false
             }
         }
     }
@@ -94,7 +94,7 @@ struct AllRemindersView: View {
             Calendar.current.startOfDay(for: reminder.date!)
         }
     }
-
+    
     //MARK: - Toggles for the showing or display of the add buttons and the edit view for the selected reminder
     @State private var showingAddReminderView: Bool = false
     @State private var showingEditReminderView: Bool = false

@@ -17,16 +17,16 @@ struct SplashScreenView: View {
         ZStack {
             Color.black
             
-//            VStack {
-//                HStack {
-//                    Rectangle()
-//                        .frame(height: 80)
-//                        .frame(maxWidth: .infinity)
-//                }
-//                
-//                Spacer()
-//            }
-//            .frame(maxHeight: .infinity)
+            //            VStack {
+            //                HStack {
+            //                    Rectangle()
+            //                        .frame(height: 80)
+            //                        .frame(maxWidth: .infinity)
+            //                }
+            //
+            //                Spacer()
+            //            }
+            //            .frame(maxHeight: .infinity)
             
             VStack {
                 Spacer()

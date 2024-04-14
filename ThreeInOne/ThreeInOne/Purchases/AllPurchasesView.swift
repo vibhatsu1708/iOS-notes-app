@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-import CoreData 
+import CoreData
 
 struct AllPurchasesView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var purchases: FetchedResults<Purchase>
-
+    
     @State private var searchText: String = ""
     
     var filteredPurchases: [Purchase] {
@@ -21,7 +21,7 @@ struct AllPurchasesView: View {
             ($0.purchase_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
         }
     }
-
+    
     @State private var showingAddPurchase: Bool = false
     @State private var showingEditPurchase: Bool = false
     @State private var selectedPurchase: Purchase?
@@ -98,7 +98,7 @@ struct AllPurchasesView: View {
                 .navigationBarTitleDisplayMode(.large)
             }
             .searchable(text: $searchText)
-
+            
             VStack {
                 Spacer()
                 HStack {

@@ -13,7 +13,7 @@ struct AllNotesView: View {
     @FetchRequest(
         entity: Note.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Note.date, ascending: false)]) var notes: FetchedResults<Note>
-
+    
     @State private var toggleOnlyStar: Bool = false
     @State private var toggleOnlyBookmark: Bool = false
     @State private var toggleOnlyHidden: Bool = false
@@ -39,24 +39,24 @@ struct AllNotesView: View {
             }
             return Array(notes)
         }
-
+        
         return notes.filter {
             if toggleOnlyStar && toggleOnlyBookmark {
                 return ($0.bookmark && $0.star) &&
-                    ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
-                    $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
+                ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
+                 $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
             }
             if toggleOnlyStar {
                 return $0.star && ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false || $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
             }
             if toggleOnlyBookmark {
                 return $0.bookmark &&
-                    ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
-                    $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
+                ($0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
+                 $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false)
             }
             else {
                 return $0.name?.localizedCaseInsensitiveContains(searchText) ?? false ||
-                    $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false
+                $0.note_desc?.localizedCaseInsensitiveContains(searchText) ?? false
             }
         }
     }
@@ -198,10 +198,10 @@ struct AllNotesView: View {
                                     .font(.subheadline)
                                 Image(systemName: "note.text")
                             }
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            .font(.system(size: 50))
+                            .padding()
+                            .background(.tertiary)
+                            .clipShape(RoundedRectangle(cornerRadius: 20.0))
                             Text("No Starred Notes")
                             HStack {
                                 Text("Swipe on a Note to Star a Note.")
@@ -218,10 +218,10 @@ struct AllNotesView: View {
                                     .font(.subheadline)
                                 Image(systemName: "note.text")
                             }
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            .font(.system(size: 50))
+                            .padding()
+                            .background(.tertiary)
+                            .clipShape(RoundedRectangle(cornerRadius: 20.0))
                             Text("No Bookmarked Notes")
                             HStack {
                                 Text("Swipe on a Note to Bookmark a Note.")
@@ -238,10 +238,10 @@ struct AllNotesView: View {
                                     .font(.subheadline)
                                 Image(systemName: "bookmark.fill")
                             }
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            .font(.system(size: 50))
+                            .padding()
+                            .background(.tertiary)
+                            .clipShape(RoundedRectangle(cornerRadius: 20.0))
                             Text("No Starred Bookmarked Notes")
                             HStack {
                                 Text("Swipe on a Note to Star or/and Bookmark.")
@@ -258,10 +258,10 @@ struct AllNotesView: View {
                                     .font(.subheadline)
                                 Image(systemName: "note.text")
                             }
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            .font(.system(size: 50))
+                            .padding()
+                            .background(.tertiary)
+                            .clipShape(RoundedRectangle(cornerRadius: 20.0))
                             Text("No Hidden Notes")
                             HStack {
                                 Text("Swipe on a Note to Hide.")
@@ -278,10 +278,10 @@ struct AllNotesView: View {
                                     .font(.subheadline)
                                 Image(systemName: "star.fill")
                             }
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            .font(.system(size: 50))
+                            .padding()
+                            .background(.tertiary)
+                            .clipShape(RoundedRectangle(cornerRadius: 20.0))
                             Text("No Hidden Starred Notes")
                             HStack {
                                 Text("Swipe on a Hidden Note to Star.")
@@ -298,10 +298,10 @@ struct AllNotesView: View {
                                     .font(.subheadline)
                                 Image(systemName: "bookmark.fill")
                             }
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            .font(.system(size: 50))
+                            .padding()
+                            .background(.tertiary)
+                            .clipShape(RoundedRectangle(cornerRadius: 20.0))
                             Text("No Hidden Bookmarked Notes")
                             HStack {
                                 Text("Swipe on a Hidden Note to Bookmark.")
@@ -321,10 +321,10 @@ struct AllNotesView: View {
                                     .font(.subheadline)
                                 Image(systemName: "star.fill")
                             }
-                                .font(.system(size: 35))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                            .font(.system(size: 35))
+                            .padding()
+                            .background(.tertiary)
+                            .clipShape(RoundedRectangle(cornerRadius: 20.0))
                             Text("No Hidden Starred Bookmarked Notes")
                             HStack {
                                 Text("Swipe on a Hidden Note to Star or/and Bookmark.")

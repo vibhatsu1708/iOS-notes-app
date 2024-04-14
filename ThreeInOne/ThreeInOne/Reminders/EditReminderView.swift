@@ -13,7 +13,7 @@ struct EditReminderView: View {
     @Environment(\.dismiss) var dismiss
     
     var reminder: FetchedResults<Reminder>.Element
- 
+    
     @State private var disabledEditButton: Bool = true
     
     @State private var name = ""
@@ -50,7 +50,7 @@ struct EditReminderView: View {
         }
         .interactiveDismissDisabled()
         .background(.ultraThinMaterial)
-
+        
         .safeAreaInset(edge: .bottom) {
             HStack {
                 // To save changes button
@@ -64,12 +64,12 @@ struct EditReminderView: View {
                 } label: {
                     Label("Save changes", systemImage: "plus")
                 }.disabled(disabledEditButton)
-                .padding()
-                .font(.title3)
-                .fontWeight(.bold)
-                .foregroundStyle(Color.newFont)
-                .background(!disabledEditButton ? Color.red : Color.secondary)
-                .clipShape(RoundedRectangle(cornerRadius: 1000.0))
+                    .padding()
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.newFont)
+                    .background(!disabledEditButton ? Color.red : Color.secondary)
+                    .clipShape(RoundedRectangle(cornerRadius: 1000.0))
                 
                 // to dismiss the view if wanting to exit the edit view
                 Button {
