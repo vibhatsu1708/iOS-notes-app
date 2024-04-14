@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CoreData
+import CoreData 
 
 struct AllPurchasesView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
