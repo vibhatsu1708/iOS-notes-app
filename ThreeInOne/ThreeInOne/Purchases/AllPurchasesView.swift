@@ -33,42 +33,65 @@ struct AllPurchasesView: View {
                     List {
                         ForEach(filteredPurchases) { purchase in
                             NavigationLink(destination: EditPurchaseView(purchase: purchase)) {
-                                VStack(alignment: .leading, spacing: 12) {
-                                    VStack(alignment: .leading) {
-                                        Text(purchase.name!)
-                                            .font(.headline)
-                                        Text(purchase.purchase_desc!)
-                                            .font(.subheadline)
-                                    }
-                                    
-                                    VStack(alignment: .leading) {
-                                        Text("Amount: \(purchase.amount!)")
-                                    }
-                                    
+                                VStack(alignment: .leading, spacing: 15) {
                                     VStack(alignment: .leading) {
                                         HStack {
-                                            Text(purchase.spent_or_received ? "Received" : "Spent")
-                                                .bold()
+                                            Text(purchase.name!)
                                                 .font(.headline)
+                                            
                                             Spacer()
-                                            Text(purchase.paid ? "Paid" : "Not Paid")
-                                                .padding(.vertical, 5)
-                                                .padding(.horizontal, 10)
-                                                .background(purchase.paid ? LinearGradient(colors: [Color(UIColor(hex: "FFE66D"))], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [Color(UIColor(hex: "FE5F55"))], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                                .foregroundStyle(Color.black)
-                                                .bold()
-                                                .clipShape(RoundedRectangle(cornerRadius: 1000.0))
+                                            
+                                            Text(purchase.amount!)
+                                                .font(.headline)
                                         }
-                                        Text("Paid by: \(purchase.payment_method!.isEmpty ? "Not Specified " : purchase.payment_method!)")
-                                            .font(.caption2)
-                                            .foregroundStyle(.tertiary)
+                                    }
+                                    
+                                    HStack {
+                                        Text(purchase.spent_or_received ? "Received" : "Spent")
+                                            .padding(.vertical, 5)
+                                            .padding(.horizontal, 15)
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                            .foregroundStyle(Color.newFont)
+                                            .frame(maxWidth: .infinity)
+                                            .background(purchase.spent_or_received ? Color.green : Color.red)
+                                            .clipShape(Capsule())
+                                        
+                                        Spacer()
+                                        
+                                        Text(purchase.paid ? "Completed" : "Pending")
+                                            .padding(.vertical, 5)
+                                            .padding(.horizontal, 15)
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                            .foregroundStyle(Color.newFont)
+                                            .frame(maxWidth: .infinity)
+                                            .background(purchase.paid ? Color.green : Color.red)
+                                            .clipShape(Capsule())
+                                    }
+                                    Text("Paid using: \(purchase.payment_method!.isEmpty ? "Not Specified " : purchase.payment_method!)")
+                                        .font(.caption2)
+                                        .foregroundStyle(.tertiary)
+                                    
+                                    VStack {
+                                        if purchase.purchase_desc?.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                                            Text(purchase.purchase_desc!)
+                                                .lineLimit(1)
+                                                .truncationMode(.tail)
+                                                .padding(10)
+                                                .font(.caption)
+                                                .foregroundStyle(Color.newFont)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .background(Color.secondary)
+                                                .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                                        }
                                     }
                                 }
                             }
                         }
-                        .padding(.vertical)
                     }
                     .frame(maxWidth: .infinity)
+                    .listStyle(.inset)
                 }
                 .background(.ultraThinMaterial)
                 .navigationTitle("Your Purchases")

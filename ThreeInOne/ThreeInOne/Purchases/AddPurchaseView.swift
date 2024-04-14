@@ -161,9 +161,6 @@ struct AddPurchaseView: View {
                         if name.trimmingCharacters(in: .whitespaces) == "" {
                             name = "New Purchase"
                         }
-                        if purchase_desc.trimmingCharacters(in: .whitespaces) == "" {
-                            purchase_desc = "Purchase Description"
-                        }
                         
                         if spent {
                             spent_or_received = false
