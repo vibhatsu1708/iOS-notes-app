@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct ThreeInOneApp: App {
+struct SmplfyApp: App {
     @StateObject private var dataController = DataController.shared
     
     var body: some Scene {

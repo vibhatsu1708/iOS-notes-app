@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		141FFF772B2E9F5200E06199 /* ThreeInOneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFF762B2E9F5200E06199 /* ThreeInOneApp.swift */; };
+		141FFF772B2E9F5200E06199 /* SmplfyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFF762B2E9F5200E06199 /* SmplfyApp.swift */; };
 		141FFF792B2E9F5200E06199 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFF782B2E9F5200E06199 /* ContentView.swift */; };
 		141FFF7B2B2E9F5400E06199 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 141FFF7A2B2E9F5400E06199 /* Assets.xcassets */; };
 		141FFF7E2B2E9F5400E06199 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 141FFF7D2B2E9F5400E06199 /* Preview Assets.xcassets */; };
-		141FFF882B2E9F5500E06199 /* ThreeInOneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFF872B2E9F5500E06199 /* ThreeInOneTests.swift */; };
+		141FFF882B2E9F5500E06199 /* SmplfyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFF872B2E9F5500E06199 /* SmplfyTests.swift */; };
 		141FFF922B2E9F5500E06199 /* ThreeInOneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFF912B2E9F5500E06199 /* ThreeInOneUITests.swift */; };
 		141FFF942B2E9F5500E06199 /* ThreeInOneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFF932B2E9F5500E06199 /* ThreeInOneUITestsLaunchTests.swift */; };
 		141FFFA22B2E9F7300E06199 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 141FFFA02B2E9F7300E06199 /* DataModel.xcdatamodeld */; };
@@ -50,12 +50,12 @@
 
 /* Begin PBXFileReference section */
 		141FFF732B2E9F5200E06199 /* Smplfy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smplfy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		141FFF762B2E9F5200E06199 /* ThreeInOneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeInOneApp.swift; sourceTree = "<group>"; };
+		141FFF762B2E9F5200E06199 /* SmplfyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmplfyApp.swift; sourceTree = "<group>"; };
 		141FFF782B2E9F5200E06199 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		141FFF7A2B2E9F5400E06199 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		141FFF7D2B2E9F5400E06199 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		141FFF832B2E9F5500E06199 /* SmplfyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmplfyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		141FFF872B2E9F5500E06199 /* ThreeInOneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeInOneTests.swift; sourceTree = "<group>"; };
+		141FFF872B2E9F5500E06199 /* SmplfyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmplfyTests.swift; sourceTree = "<group>"; };
 		141FFF8D2B2E9F5500E06199 /* SmplfyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmplfyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		141FFF912B2E9F5500E06199 /* ThreeInOneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeInOneUITests.swift; sourceTree = "<group>"; };
 		141FFF932B2E9F5500E06199 /* ThreeInOneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeInOneUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				14D416A52B4C7668008883C5 /* Info.plist */,
-				141FFF762B2E9F5200E06199 /* ThreeInOneApp.swift */,
+				141FFF762B2E9F5200E06199 /* SmplfyApp.swift */,
 				14D416A92B4C7F87008883C5 /* MainViews */,
 				14AC4B972B3357A30090CE9A /* Helper */,
 				14AC4B942B3357730090CE9A /* Notes */,
@@ -150,7 +150,7 @@
 		141FFF862B2E9F5500E06199 /* ThreeInOneTests */ = {
 			isa = PBXGroup;
 			children = (
-				141FFF872B2E9F5500E06199 /* ThreeInOneTests.swift */,
+				141FFF872B2E9F5500E06199 /* SmplfyTests.swift */,
 			);
 			path = ThreeInOneTests;
 			sourceTree = "<group>";
@@ -362,7 +362,7 @@
 				141FFFA62B2EA01B00E06199 /* AllNotesView.swift in Sources */,
 				141FFF792B2E9F5200E06199 /* ContentView.swift in Sources */,
 				141FFFB42B2EA59B00E06199 /* AllPurchasesView.swift in Sources */,
-				141FFF772B2E9F5200E06199 /* ThreeInOneApp.swift in Sources */,
+				141FFF772B2E9F5200E06199 /* SmplfyApp.swift in Sources */,
 				143889DB2B34393700028415 /* DateFormatter.swift in Sources */,
 				141FFFAE2B2EA1EB00E06199 /* AllRemindersView.swift in Sources */,
 				141FFFF72B2EB96B00E06199 /* EditPurchaseView.swift in Sources */,
@@ -376,7 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				141FFF882B2E9F5500E06199 /* ThreeInOneTests.swift in Sources */,
+				141FFF882B2E9F5500E06199 /* SmplfyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
