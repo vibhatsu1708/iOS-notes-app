@@ -144,7 +144,7 @@ struct EditPurchaseView: View {
                 // For the payment method field
                 TextField("Payment Method", text: $payment_method, axis: .vertical)
                     .padding()
-                    .font(.headline)
+                    .font(.subheadline)
                     .foregroundStyle(Color.newFont)
                     .background(.ultraThickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 10.0))
