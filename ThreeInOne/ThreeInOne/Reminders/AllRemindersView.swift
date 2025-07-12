@@ -107,86 +107,58 @@ struct AllRemindersView: View {
                 //MARK: - To display all the fetched reminders in a list
                 List {
                     ForEach(toggleOnlyArchived ? groupedArchivedReminders.keys.sorted(by: >) : groupedReminders.keys.sorted(by: >), id: \.self) { date in
-                        Section(header: Text(formatDate(date: date))) {
-                            ForEach(toggleOnlyArchived ? groupedArchivedReminders[date]! : groupedReminders[date]!) { reminder in
-                                HStack(alignment: .top) {
-                                    VStack(alignment: .leading, spacing: 10) {
-                                        HStack(alignment: .firstTextBaseline, spacing: 10) {
-                                            Circle()
-                                                .frame(height: 15)
-                                                .foregroundStyle(reminder.completed ? Color.indigo : Color.red)
-                                            Text(reminder.name!)
-                                                .font(.headline)
-                                                .fontWeight(.semibold)
-                                                .foregroundStyle(reminder.completed ? Color.secondary : Color.white)
-                                                .strikethrough(reminder.completed, pattern: .solid, color: Color.white)
-                                            
-                                            Spacer()
-                                            
-                                            if reminder.flag {
-                                                Image(systemName: "flag.fill")
-                                                    .foregroundStyle(Color.yellow)
-                                            }
-                                        }
-                                        
-                                        if reminder.reminder_desc!.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-                                            Text(reminder.reminder_desc!)
-                                                .font(.subheadline)
-                                                .foregroundStyle(reminder.completed ? Color.secondary : Color.white)
-                                                .strikethrough(reminder.completed, pattern: .solid, color: Color.white)
-                                        }
-                                    }
-                                }
-                                // swipe actions for each reminder
-                                .swipeActions(edge: .leading) {
-                                    // to toggle the completion toggle of a reminder
-                                    Button {
-                                        reminder.completed.toggle()
-                                        updateRemindersCount()
-                                        DataController.shared.save(context: managedObjectContext)
-                                    } label: {
-                                        Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
-                                            .tint(reminder.completed ? Color.red : Color.indigo)
-                                    }
-                                }
-                                .swipeActions(edge: .trailing) {
-                                    // to toggle the flag status of a reminder
-                                    Button {
-                                        reminder.flag.toggle()
-                                        updateRemindersCount()
-                                        DataController.shared.save(context: managedObjectContext)
-                                    } label: {
-                                        Label(reminder.flag ? "Unflag" : "Flag", systemImage: reminder.flag ? "flag.slash.fill" : "flag.fill")
-                                            .tint(Color.yellow)
-                                    }
-                                }
-                                // to display the context menu when long pressing a reminder
-                                .contextMenu {
-                                    // to push the selected reminder in edit view
-                                    Button {
-                                        selectedReminder = reminder
-                                    } label: {
-                                        Label("Edit", systemImage: "square.and.pencil")
-                                    }
-                                    
-                                    Button {
-                                        reminder.archive.toggle()
-                                        updateRemindersCount()
-                                        DataController.shared.save(context: managedObjectContext)
-                                    } label: {
-                                        Label(reminder.archive ? "Unarchive" : "Archive", systemImage: "archivebox.fill")
-                                    }
+                        ForEach(toggleOnlyArchived ? groupedArchivedReminders[date]! : groupedReminders[date]!) { reminder in
+                            ReminderView(reminder: reminder)
+                            
+                            // swipe actions for each reminder
+                            .swipeActions(edge: .leading) {
+                                // to toggle the completion toggle of a reminder
+                                Button {
+                                    reminder.completed.toggle()
+                                    updateRemindersCount()
+                                    DataController.shared.save(context: managedObjectContext)
+                                } label: {
+                                    Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
+                                        .tint(reminder.completed ? Color.red : Color.indigo)
                                 }
                             }
-                            .padding(.vertical)
+                            .swipeActions(edge: .trailing) {
+                                // to toggle the flag status of a reminder
+                                Button {
+                                    reminder.flag.toggle()
+                                    updateRemindersCount()
+                                    DataController.shared.save(context: managedObjectContext)
+                                } label: {
+                                    Label(reminder.flag ? "Unflag" : "Flag", systemImage: reminder.flag ? "flag.slash.fill" : "flag.fill")
+                                        .tint(Color.yellow)
+                                }
+                            }
+                            // to display the context menu when long pressing a reminder
+                            .contextMenu {
+                                // to push the selected reminder in edit view
+                                Button {
+                                    selectedReminder = reminder
+                                } label: {
+                                    Label("Edit", systemImage: "square.and.pencil")
+                                }
+                                
+                                Button {
+                                    reminder.archive.toggle()
+                                    updateRemindersCount()
+                                    DataController.shared.save(context: managedObjectContext)
+                                } label: {
+                                    Label(reminder.archive ? "Unarchive" : "Archive", systemImage: "archivebox.fill")
+                                }
+                            }
                         }
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(.init(.zero))
+                        .listRowSeparator(.hidden)
                     }
-                    
-                    Rectangle()
-                        .foregroundStyle(Color.clear)
-                        .frame(height: UIScreen.main.bounds.height / 10)
                 }
                 .listStyle(InsetListStyle())
+                .listRowSpacing(10)
+                .environment(\.defaultMinListRowHeight, 0)
                 
                 // To display the sheet for the edit view for the selected reminder
                 .sheet(item: $selectedReminder) { reminder in
@@ -292,7 +264,7 @@ struct AllRemindersView: View {
                 }
                 .navigationTitle("Your Todos")
             }
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
+//            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             .onAppear {
                 updateRemindersCount()
                 managedObjectContext.undoManager = UndoManager()

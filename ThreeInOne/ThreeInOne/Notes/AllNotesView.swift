@@ -82,86 +82,84 @@ struct AllNotesView: View {
             NavigationStack {
                 List {
                     ForEach(toggleOnlyHidden ? groupedHiddenNotes.keys.sorted(by: >) : groupedNotes.keys.sorted(by: >), id: \.self) { date in
-                        Section(header: Text(formatDate(date: date))) {
-                            ForEach(toggleOnlyHidden ? groupedHiddenNotes[date]! : groupedNotes[date]!) { note in
-                                HStack(alignment: .top) {
-                                    VStack(alignment: .leading, spacing: 10) {
-                                        HStack(alignment: .top) {
-                                            Text(note.name!)
-                                                .font(.headline)
-                                                .bold()
-                                            Spacer()
-                                            if note.star {
-                                                Image(systemName: "star.fill")
-                                                    .foregroundStyle(Color.orange)
-                                                    .shadow(radius: 15.0)
-                                            }
-                                            if note.bookmark {
-                                                Image(systemName: "bookmark.fill")
-                                                    .foregroundStyle(Color.blue)
-                                                    .shadow(radius: 15.0)
-                                            }
-                                        }
-                                        
-                                        if !note.note_desc!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                            Text(note.note_desc!)
-                                                .font(.subheadline)
-                                        }
-                                        
+                        ForEach(toggleOnlyHidden ? groupedHiddenNotes[date]! : groupedNotes[date]!) { note in
+                            HStack(alignment: .top) {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    HStack(alignment: .top) {
+                                        Text(note.name!)
+                                            .font(.headline)
+                                            .bold()
                                         Spacer()
-                                        
-                                        if note.hidden {
-                                            HStack {
-                                                Spacer()
-                                                Image(systemName: "eye.slash")
-                                                    .foregroundStyle(Color.purple)
-                                            }
+                                        if note.star {
+                                            Image(systemName: "star.fill")
+                                                .foregroundStyle(Color.orange)
+                                                .shadow(radius: 15.0)
                                         }
-                                    }
-                                }
-                                .padding(.vertical)
-                                // leading swipe actions are bookmark and star
-                                .swipeActions(edge: .leading) {
-                                    Button {
-                                        note.star.toggle()
-                                        updateNotesCount()
-                                        DataController.shared.save(context: managedObjectContext)
-                                    } label: {
-                                        Image(systemName: note.star ? "star.slash.fill" : "star.fill")
-                                            .tint(Color.orange)
-                                    }
-                                    Button {
-                                        note.bookmark.toggle()
-                                        updateNotesCount()
-                                        DataController.shared.save(context: managedObjectContext)
-                                    } label: {
-                                        Image(systemName: note.bookmark ? "bookmark.slash.fill" : "bookmark.fill")
-                                            .tint(Color.blue)
-                                    }
-                                }
-                                
-                                // trailing swipe action is the hide function
-                                .swipeActions(edge: .trailing) {
-                                    Button {
-                                        note.hidden.toggle()
-                                        updateNotesCount()
-                                        DataController.shared.save(context: managedObjectContext)
-                                    } label: {
-                                        Image(systemName: note.hidden ? "eye.slash" : "eye")
-                                            .tint(Color.purple)
-                                    }
-                                }
-                                .contextMenu {
-                                    Button {
-                                        selectedNote = note
-                                    } label: {
-                                        Text("Edit")
+                                        if note.bookmark {
+                                            Image(systemName: "bookmark.fill")
+                                                .foregroundStyle(Color.blue)
+                                                .shadow(radius: 15.0)
+                                        }
                                     }
                                     
-                                    Button {
-                                    } label: {
-                                        Text("Delete")
+                                    if !note.note_desc!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                        Text(note.note_desc!)
+                                            .font(.subheadline)
                                     }
+                                    
+                                    Spacer()
+                                    
+                                    if note.hidden {
+                                        HStack {
+                                            Spacer()
+                                            Image(systemName: "eye.slash")
+                                                .foregroundStyle(Color.purple)
+                                        }
+                                    }
+                                }
+                            }
+                            .padding(.vertical)
+                            // leading swipe actions are bookmark and star
+                            .swipeActions(edge: .leading) {
+                                Button {
+                                    note.star.toggle()
+                                    updateNotesCount()
+                                    DataController.shared.save(context: managedObjectContext)
+                                } label: {
+                                    Image(systemName: note.star ? "star.slash.fill" : "star.fill")
+                                        .tint(Color.orange)
+                                }
+                                Button {
+                                    note.bookmark.toggle()
+                                    updateNotesCount()
+                                    DataController.shared.save(context: managedObjectContext)
+                                } label: {
+                                    Image(systemName: note.bookmark ? "bookmark.slash.fill" : "bookmark.fill")
+                                        .tint(Color.blue)
+                                }
+                            }
+                            
+                            // trailing swipe action is the hide function
+                            .swipeActions(edge: .trailing) {
+                                Button {
+                                    note.hidden.toggle()
+                                    updateNotesCount()
+                                    DataController.shared.save(context: managedObjectContext)
+                                } label: {
+                                    Image(systemName: note.hidden ? "eye.slash" : "eye")
+                                        .tint(Color.purple)
+                                }
+                            }
+                            .contextMenu {
+                                Button {
+                                    selectedNote = note
+                                } label: {
+                                    Text("Edit")
+                                }
+                                
+                                Button {
+                                } label: {
+                                    Text("Delete")
                                 }
                             }
                         }

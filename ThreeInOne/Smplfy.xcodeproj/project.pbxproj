@@ -29,6 +29,8 @@
 		143889DB2B34393700028415 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143889DA2B34393700028415 /* DateFormatter.swift */; };
 		144232A72BB7736C0030AA6E /* SwipeToUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144232A62BB7736C0030AA6E /* SwipeToUnlockView.swift */; };
 		14D416A72B4C7894008883C5 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D416A62B4C7894008883C5 /* SplashScreenView.swift */; };
+		9EA0CC072E22B5A30045588F /* Optimus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA0CC062E22B59A0045588F /* Optimus.swift */; };
+		9EA0D2D22E22B7950045588F /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA0D2D12E22B7910045588F /* ReminderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		144232A62BB7736C0030AA6E /* SwipeToUnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeToUnlockView.swift; sourceTree = "<group>"; };
 		14D416A52B4C7668008883C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14D416A62B4C7894008883C5 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		9EA0CC062E22B59A0045588F /* Optimus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optimus.swift; sourceTree = "<group>"; };
+		9EA0D2D12E22B7910045588F /* ReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +200,7 @@
 		14AC4B962B3357950090CE9A /* Reminders */ = {
 			isa = PBXGroup;
 			children = (
+				9EA0D2D12E22B7910045588F /* ReminderView.swift */,
 				141FFFAD2B2EA1EB00E06199 /* AllRemindersView.swift */,
 				141FFFAF2B2EA20C00E06199 /* AddReminderView.swift */,
 				141FFFB12B2EA23900E06199 /* EditReminderView.swift */,
@@ -206,6 +211,7 @@
 		14AC4B972B3357A30090CE9A /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				9EA0CC062E22B59A0045588F /* Optimus.swift */,
 				143889DA2B34393700028415 /* DateFormatter.swift */,
 				141FFFAB2B2EA0D800E06199 /* TimeFormatter.swift */,
 			);
@@ -353,8 +359,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				14D416A72B4C7894008883C5 /* SplashScreenView.swift in Sources */,
+				9EA0CC072E22B5A30045588F /* Optimus.swift in Sources */,
 				144232A72BB7736C0030AA6E /* SwipeToUnlockView.swift in Sources */,
 				141FFFB22B2EA23900E06199 /* EditReminderView.swift in Sources */,
+				9EA0D2D22E22B7950045588F /* ReminderView.swift in Sources */,
 				141FFFA82B2EA06C00E06199 /* AddNoteView.swift in Sources */,
 				141FFFAC2B2EA0D800E06199 /* TimeFormatter.swift in Sources */,
 				141FFFA22B2E9F7300E06199 /* DataModel.xcdatamodeld in Sources */,
