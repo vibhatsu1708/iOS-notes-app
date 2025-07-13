@@ -31,8 +31,12 @@ struct SplashScreenView: View {
             VStack {
                 Spacer()
                 
-                Text("SMPLFY")
-                    .font(.luckiestGuy(size: 40))
+                SText(
+                    "SMPLFY",
+                    size: 20,
+                    weight: .bold,
+                    color: Color.white
+                )
                     .foregroundStyle(Color.white)
                 
                 Spacer()

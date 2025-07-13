@@ -245,28 +245,31 @@ struct HorizontalCountdownView: View {
             }
             .padding()
         } else {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(activeTimers, id: \.timer.id) { timerState in
-                        CountdownView(
-                            timeRemaining: timerState.timeRemaining,
-                            totalTime: Int(timerState.timer.duration),
-                            isPaused: timerState.isPaused,
-                            isCountdownRunning: timerState.timeRemaining > 0,
-                            onPauseResume: {
-                                onPauseResume(timerState.timer)
-                            },
-                            onReset: {
-                                onReset(timerState.timer)
-                            }
-                        )
-                        .frame(width: UIScreen.main.bounds.width - 40)
-                        .frame(height: 300)
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        ForEach(Array(activeTimers.enumerated()), id: \.element.timer.id) { index, timerState in
+                            CountdownView(
+                                timeRemaining: timerState.timeRemaining,
+                                totalTime: Int(timerState.timer.duration),
+                                isPaused: timerState.isPaused,
+                                isCountdownRunning: timerState.timeRemaining > 0,
+                                onPauseResume: {
+                                    onPauseResume(timerState.timer)
+                                },
+                                onReset: {
+                                    onReset(timerState.timer)
+                                }
+                            )
+                            .frame(width: UIScreen.main.bounds.width)
+                            .frame(height: 300)
+                            .id(index)
+                        }
                     }
                 }
-                .padding(.horizontal, 20)
+                .scrollTargetBehavior(.viewAligned)
+                .scrollTargetLayout()
             }
-            .frame(height: 300)
         }
     }
 }
