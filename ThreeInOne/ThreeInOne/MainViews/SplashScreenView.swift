@@ -31,9 +31,8 @@ struct SplashScreenView: View {
             VStack {
                 Spacer()
                 
-                Text("Simplify")
-                    .font(.title)
-                    .fontWeight(.bold)
+                Text("SMPLFY")
+                    .font(.luckiestGuy(size: 40))
                     .foregroundStyle(Color.white)
                 
                 Spacer()
@@ -61,6 +60,8 @@ struct SplashScreenView: View {
         .ignoresSafeArea()
         .ignoresSafeArea()
         .onAppear {
+            // Debug: Print available fonts
+            UIFont.printAvailableFonts()
             self.showUnlockedView = true
         }
         .preferredColorScheme(.dark)

@@ -14,35 +14,31 @@ struct TabItem {
 }
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var note: FetchedResults<Note>
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var reminder: FetchedResults<Reminder>
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var purchase: FetchedResults<Purchase>
-    
-    
-    // For the navigation bar
-    @State private var tabSelection: Int = 1
-    
     var body: some View {
         TabView {
             AllPurchasesView()
                 .tabItem {
-                    Label("Budget Tracker", systemImage: "creditcard.fill")
+                    Label("Budget", systemImage: "creditcard.fill")
+                }
+            
+            AllTimersView()
+                .tabItem {
+                    Label("Timers", systemImage: "45.arrow.trianglehead.clockwise")
                 }
             
             AllRemindersView()
                 .tabItem {
-                    Label("Your Todos", systemImage: "text.badge.checkmark")
+                    Label("Todos", systemImage: "text.badge.checkmark")
                 }
-                .tag(tabSelection)
             
             AllNotesView()
                 .tabItem {
-                    Label("Your Notes", systemImage: "note.text")
+                    Label("Notes", systemImage: "note.text")
                 }
+               
         }
         .tint(Color.white)
+        .withDefaultFont(.funnelDisplay(size: 16)) // Set default font for entire app
     }
 }
 

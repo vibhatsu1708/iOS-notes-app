@@ -59,7 +59,7 @@ struct EditPurchaseView: View {
                         spent = true
                         received = false
                     } label: {
-                        Text("Spent")
+                       SText("Spent")
                             .padding(.vertical, 15)
                             .padding(.horizontal, 25)
                             .font(.subheadline)
@@ -82,7 +82,7 @@ struct EditPurchaseView: View {
                         spent = false
                         received = true
                     } label: {
-                        Text("Received")
+                       SText("Received")
                             .padding(.vertical, 15)
                             .padding(.horizontal, 25)
                             .font(.subheadline)
@@ -103,7 +103,7 @@ struct EditPurchaseView: View {
                         payment_completed = true
                         payment_pending = false
                     } label: {
-                        Text("Completed")
+                       SText("Completed")
                             .padding(.vertical, 15)
                             .padding(.horizontal, 25)
                             .font(.subheadline)
@@ -126,7 +126,7 @@ struct EditPurchaseView: View {
                         payment_completed = false
                         payment_pending = true
                     } label: {
-                        Text("Pending")
+                       SText("Pending")
                             .padding(.vertical, 15)
                             .padding(.horizontal, 25)
                             .font(.subheadline)

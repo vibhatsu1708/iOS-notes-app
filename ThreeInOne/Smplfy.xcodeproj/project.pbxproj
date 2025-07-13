@@ -28,6 +28,20 @@
 		141FFFF72B2EB96B00E06199 /* EditPurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FFFF62B2EB96B00E06199 /* EditPurchaseView.swift */; };
 		143889DB2B34393700028415 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143889DA2B34393700028415 /* DateFormatter.swift */; };
 		144232A72BB7736C0030AA6E /* SwipeToUnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144232A62BB7736C0030AA6E /* SwipeToUnlockView.swift */; };
+		14C4CC852E22CC9E004A6193 /* AllTimersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CC842E22CC98004A6193 /* AllTimersView.swift */; };
+		14C4CC932E22E61B004A6193 /* AddTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CC922E22E615004A6193 /* AddTimerView.swift */; };
+		14C4CC952E22E630004A6193 /* AddTimerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CC942E22E62A004A6193 /* AddTimerButton.swift */; };
+		14C4CC972E22E63E004A6193 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CC962E22E639004A6193 /* EmptyStateView.swift */; };
+		14C4CC992E22E64C004A6193 /* FilterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CC982E22E648004A6193 /* FilterButtonsView.swift */; };
+		14C4CC9B2E22E657004A6193 /* TimerListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CC9A2E22E654004A6193 /* TimerListItemView.swift */; };
+		14C4CC9D2E22E662004A6193 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CC9C2E22E660004A6193 /* TimerView.swift */; };
+		14C4CC9F2E22FEA0004A6193 /* EditTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CC9E2E22FE9B004A6193 /* EditTimerView.swift */; };
+		14C4CCA12E231FBB004A6193 /* FunnelDisplay-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14C4CCA02E231FBB004A6193 /* FunnelDisplay-VariableFont_wght.ttf */; };
+		14C4CCA42E232225004A6193 /* LuckiestGuy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14C4CCA32E232225004A6193 /* LuckiestGuy-Regular.ttf */; };
+		14C4CCA62E2323C8004A6193 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CCA52E2323C4004A6193 /* FontExtension.swift */; };
+		14C4CCA82E2323F4004A6193 /* FontTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CCA72E2323EA004A6193 /* FontTestView.swift */; };
+		14C4CCAA2E232502004A6193 /* Boldonse-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14C4CCA92E232502004A6193 /* Boldonse-Regular.ttf */; };
+		14C4CCAE2E232945004A6193 /* AutoFontText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CCAD2E232941004A6193 /* AutoFontText.swift */; };
 		14D416A72B4C7894008883C5 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D416A62B4C7894008883C5 /* SplashScreenView.swift */; };
 		9EA0CC072E22B5A30045588F /* Optimus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA0CC062E22B59A0045588F /* Optimus.swift */; };
 		9EA0D2D22E22B7950045588F /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA0D2D12E22B7910045588F /* ReminderView.swift */; };
@@ -75,6 +89,20 @@
 		141FFFF62B2EB96B00E06199 /* EditPurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPurchaseView.swift; sourceTree = "<group>"; };
 		143889DA2B34393700028415 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		144232A62BB7736C0030AA6E /* SwipeToUnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeToUnlockView.swift; sourceTree = "<group>"; };
+		14C4CC842E22CC98004A6193 /* AllTimersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTimersView.swift; sourceTree = "<group>"; };
+		14C4CC922E22E615004A6193 /* AddTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimerView.swift; sourceTree = "<group>"; };
+		14C4CC942E22E62A004A6193 /* AddTimerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTimerButton.swift; sourceTree = "<group>"; };
+		14C4CC962E22E639004A6193 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		14C4CC982E22E648004A6193 /* FilterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonsView.swift; sourceTree = "<group>"; };
+		14C4CC9A2E22E654004A6193 /* TimerListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerListItemView.swift; sourceTree = "<group>"; };
+		14C4CC9C2E22E660004A6193 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		14C4CC9E2E22FE9B004A6193 /* EditTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTimerView.swift; sourceTree = "<group>"; };
+		14C4CCA02E231FBB004A6193 /* FunnelDisplay-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FunnelDisplay-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		14C4CCA32E232225004A6193 /* LuckiestGuy-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LuckiestGuy-Regular.ttf"; sourceTree = "<group>"; };
+		14C4CCA52E2323C4004A6193 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
+		14C4CCA72E2323EA004A6193 /* FontTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontTestView.swift; sourceTree = "<group>"; };
+		14C4CCA92E232502004A6193 /* Boldonse-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Boldonse-Regular.ttf"; sourceTree = "<group>"; };
+		14C4CCAD2E232941004A6193 /* AutoFontText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFontText.swift; sourceTree = "<group>"; };
 		14D416A52B4C7668008883C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14D416A62B4C7894008883C5 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		9EA0CC062E22B59A0045588F /* Optimus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optimus.swift; sourceTree = "<group>"; };
@@ -137,7 +165,9 @@
 				14AC4B962B3357950090CE9A /* Reminders */,
 				14AC4B932B33574D0090CE9A /* Purchases */,
 				14AC4B952B33578D0090CE9A /* Data Model */,
+				14C4CC832E22CC8C004A6193 /* Timers */,
 				141FFF7A2B2E9F5400E06199 /* Assets.xcassets */,
+				14C4CCA22E231FD4004A6193 /* Custom Font */,
 				141FFF7C2B2E9F5400E06199 /* Preview Content */,
 			);
 			path = ThreeInOne;
@@ -211,11 +241,39 @@
 		14AC4B972B3357A30090CE9A /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				14C4CCAD2E232941004A6193 /* AutoFontText.swift */,
+				14C4CCA72E2323EA004A6193 /* FontTestView.swift */,
+				14C4CCA52E2323C4004A6193 /* FontExtension.swift */,
 				9EA0CC062E22B59A0045588F /* Optimus.swift */,
 				143889DA2B34393700028415 /* DateFormatter.swift */,
 				141FFFAB2B2EA0D800E06199 /* TimeFormatter.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		14C4CC832E22CC8C004A6193 /* Timers */ = {
+			isa = PBXGroup;
+			children = (
+				14C4CC9E2E22FE9B004A6193 /* EditTimerView.swift */,
+				14C4CC9C2E22E660004A6193 /* TimerView.swift */,
+				14C4CC9A2E22E654004A6193 /* TimerListItemView.swift */,
+				14C4CC982E22E648004A6193 /* FilterButtonsView.swift */,
+				14C4CC962E22E639004A6193 /* EmptyStateView.swift */,
+				14C4CC942E22E62A004A6193 /* AddTimerButton.swift */,
+				14C4CC922E22E615004A6193 /* AddTimerView.swift */,
+				14C4CC842E22CC98004A6193 /* AllTimersView.swift */,
+			);
+			path = Timers;
+			sourceTree = "<group>";
+		};
+		14C4CCA22E231FD4004A6193 /* Custom Font */ = {
+			isa = PBXGroup;
+			children = (
+				14C4CCA32E232225004A6193 /* LuckiestGuy-Regular.ttf */,
+				14C4CCA92E232502004A6193 /* Boldonse-Regular.ttf */,
+				14C4CCA02E231FBB004A6193 /* FunnelDisplay-VariableFont_wght.ttf */,
+			);
+			path = "Custom Font";
 			sourceTree = "<group>";
 		};
 		14D416A92B4C7F87008883C5 /* MainViews */ = {
@@ -332,8 +390,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14C4CCA12E231FBB004A6193 /* FunnelDisplay-VariableFont_wght.ttf in Resources */,
+				14C4CCAA2E232502004A6193 /* Boldonse-Regular.ttf in Resources */,
 				141FFF7E2B2E9F5400E06199 /* Preview Assets.xcassets in Resources */,
 				141FFF7B2B2E9F5400E06199 /* Assets.xcassets in Resources */,
+				14C4CCA42E232225004A6193 /* LuckiestGuy-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,22 +421,33 @@
 			files = (
 				14D416A72B4C7894008883C5 /* SplashScreenView.swift in Sources */,
 				9EA0CC072E22B5A30045588F /* Optimus.swift in Sources */,
+				14C4CCA62E2323C8004A6193 /* FontExtension.swift in Sources */,
+				14C4CC972E22E63E004A6193 /* EmptyStateView.swift in Sources */,
 				144232A72BB7736C0030AA6E /* SwipeToUnlockView.swift in Sources */,
 				141FFFB22B2EA23900E06199 /* EditReminderView.swift in Sources */,
+				14C4CC9B2E22E657004A6193 /* TimerListItemView.swift in Sources */,
+				14C4CC932E22E61B004A6193 /* AddTimerView.swift in Sources */,
 				9EA0D2D22E22B7950045588F /* ReminderView.swift in Sources */,
 				141FFFA82B2EA06C00E06199 /* AddNoteView.swift in Sources */,
 				141FFFAC2B2EA0D800E06199 /* TimeFormatter.swift in Sources */,
 				141FFFA22B2E9F7300E06199 /* DataModel.xcdatamodeld in Sources */,
 				141FFFA42B2E9FAA00E06199 /* DataController.swift in Sources */,
 				141FFFA62B2EA01B00E06199 /* AllNotesView.swift in Sources */,
+				14C4CC9F2E22FEA0004A6193 /* EditTimerView.swift in Sources */,
 				141FFF792B2E9F5200E06199 /* ContentView.swift in Sources */,
 				141FFFB42B2EA59B00E06199 /* AllPurchasesView.swift in Sources */,
 				141FFF772B2E9F5200E06199 /* SmplfyApp.swift in Sources */,
 				143889DB2B34393700028415 /* DateFormatter.swift in Sources */,
 				141FFFAE2B2EA1EB00E06199 /* AllRemindersView.swift in Sources */,
+				14C4CC9D2E22E662004A6193 /* TimerView.swift in Sources */,
+				14C4CCA82E2323F4004A6193 /* FontTestView.swift in Sources */,
 				141FFFF72B2EB96B00E06199 /* EditPurchaseView.swift in Sources */,
+				14C4CC992E22E64C004A6193 /* FilterButtonsView.swift in Sources */,
 				141FFFB02B2EA20C00E06199 /* AddReminderView.swift in Sources */,
+				14C4CCAE2E232945004A6193 /* AutoFontText.swift in Sources */,
 				141FFFAA2B2EA0B100E06199 /* EditNoteView.swift in Sources */,
+				14C4CC952E22E630004A6193 /* AddTimerButton.swift in Sources */,
+				14C4CC852E22CC9E004A6193 /* AllTimersView.swift in Sources */,
 				141FFFB62B2EA5B100E06199 /* AddPurchaseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

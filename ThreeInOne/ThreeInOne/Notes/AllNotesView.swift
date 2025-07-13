@@ -86,7 +86,7 @@ struct AllNotesView: View {
                             HStack(alignment: .top) {
                                 VStack(alignment: .leading, spacing: 10) {
                                     HStack(alignment: .top) {
-                                        Text(note.name!)
+                                       SText(note.name!)
                                             .font(.headline)
                                             .bold()
                                         Spacer()
@@ -103,7 +103,7 @@ struct AllNotesView: View {
                                     }
                                     
                                     if !note.note_desc!.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                        Text(note.note_desc!)
+                                       SText(note.note_desc!)
                                             .font(.subheadline)
                                     }
                                     
@@ -154,12 +154,12 @@ struct AllNotesView: View {
                                 Button {
                                     selectedNote = note
                                 } label: {
-                                    Text("Edit")
+                                   SText("Edit")
                                 }
                                 
                                 Button {
                                 } label: {
-                                    Text("Delete")
+                                   SText("Delete")
                                 }
                             }
                         }
@@ -180,9 +180,9 @@ struct AllNotesView: View {
                                 .padding()
                                 .background(.tertiary)
                                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Notes noted")
+                           SText("No Notes noted")
                             HStack {
-                                Text("Tap on the button to create a Note.")
+                               SText("Tap on the button to create a Note.")
                             }
                             Spacer()
                         }
@@ -200,9 +200,9 @@ struct AllNotesView: View {
                             .padding()
                             .background(.tertiary)
                             .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Starred Notes")
+                           SText("No Starred Notes")
                             HStack {
-                                Text("Swipe on a Note to Star a Note.")
+                               SText("Swipe on a Note to Star a Note.")
                             }
                             Spacer()
                         }
@@ -220,9 +220,9 @@ struct AllNotesView: View {
                             .padding()
                             .background(.tertiary)
                             .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Bookmarked Notes")
+                           SText("No Bookmarked Notes")
                             HStack {
-                                Text("Swipe on a Note to Bookmark a Note.")
+                               SText("Swipe on a Note to Bookmark a Note.")
                             }
                             Spacer()
                         }
@@ -240,9 +240,9 @@ struct AllNotesView: View {
                             .padding()
                             .background(.tertiary)
                             .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Starred Bookmarked Notes")
+                           SText("No Starred Bookmarked Notes")
                             HStack {
-                                Text("Swipe on a Note to Star or/and Bookmark.")
+                               SText("Swipe on a Note to Star or/and Bookmark.")
                             }
                             Spacer()
                         }
@@ -260,9 +260,9 @@ struct AllNotesView: View {
                             .padding()
                             .background(.tertiary)
                             .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Hidden Notes")
+                           SText("No Hidden Notes")
                             HStack {
-                                Text("Swipe on a Note to Hide.")
+                               SText("Swipe on a Note to Hide.")
                             }
                             Spacer()
                         }
@@ -280,9 +280,9 @@ struct AllNotesView: View {
                             .padding()
                             .background(.tertiary)
                             .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Hidden Starred Notes")
+                           SText("No Hidden Starred Notes")
                             HStack {
-                                Text("Swipe on a Hidden Note to Star.")
+                               SText("Swipe on a Hidden Note to Star.")
                             }
                             Spacer()
                         }
@@ -300,9 +300,9 @@ struct AllNotesView: View {
                             .padding()
                             .background(.tertiary)
                             .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Hidden Bookmarked Notes")
+                           SText("No Hidden Bookmarked Notes")
                             HStack {
-                                Text("Swipe on a Hidden Note to Bookmark.")
+                               SText("Swipe on a Hidden Note to Bookmark.")
                             }
                             Spacer()
                         }
@@ -323,17 +323,23 @@ struct AllNotesView: View {
                             .padding()
                             .background(.tertiary)
                             .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Hidden Starred Bookmarked Notes")
+                           SText("No Hidden Starred Bookmarked Notes")
                             HStack {
-                                Text("Swipe on a Hidden Note to Star or/and Bookmark.")
+                               SText("Swipe on a Hidden Note to Star or/and Bookmark.")
                             }
                             Spacer()
                         }
                         .padding(.top, 50)
                     }
                 }
-                .navigationTitle("Your Notes")
-                .navigationBarTitleDisplayMode(.automatic)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                       Text("Your Notes")
+                            .font(.boldonse(size: 24))
+                            .foregroundStyle(Color.orange)
+                    }
+                }
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
                 .onAppear {
                     updateNotesCount()
@@ -379,10 +385,10 @@ struct AllNotesView: View {
                                                 .foregroundStyle(Color.orange)
                                                 .opacity(toggleOnlyStar ? 1.0 : 0.5)
                                                 .padding(.leading, 10)
-                                            Text("Star")
+                                           SText("Star")
                                         }
                                         
-                                        Text("\(totalStarred)")
+                                       SText("\(totalStarred)")
                                             .foregroundStyle(.secondary)
                                             .padding(.horizontal, 10)
                                     }
@@ -401,11 +407,11 @@ struct AllNotesView: View {
                                                 .foregroundStyle(Color.blue)
                                                 .opacity(toggleOnlyBookmark ? 1.0 : 0.5)
                                                 .padding(.leading, 10)
-                                            Text("Bookmark")
+                                           SText("Bookmark")
                                         }
                                     }
                                     
-                                    Text("\(totalBookmarked)")
+                                   SText("\(totalBookmarked)")
                                         .foregroundStyle(.secondary)
                                         .padding(.horizontal, 10)
                                 }
@@ -423,11 +429,11 @@ struct AllNotesView: View {
                                                 .foregroundStyle(Color.purple)
                                                 .opacity(toggleOnlyHidden ? 1.0 : 0.5)
                                                 .padding(.leading, 10)
-                                            Text("Hidden")
+                                           SText("Hidden")
                                         }
                                     }
                                     
-                                    Text("\(totalHidden)")
+                                   SText("\(totalHidden)")
                                         .foregroundStyle(.secondary)
                                         .padding(.horizontal, 10)
                                 }

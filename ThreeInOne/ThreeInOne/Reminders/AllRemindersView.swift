@@ -119,7 +119,7 @@ struct AllRemindersView: View {
                                     DataController.shared.save(context: managedObjectContext)
                                 } label: {
                                     Label(reminder.completed ? "Not Done" : "Done", systemImage: "checklist.checked")
-                                        .tint(reminder.completed ? Color.red : Color.indigo)
+                                    .tint(reminder.completed ? Color.red : Color.indigo)
                                 }
                             }
                             .swipeActions(edge: .trailing) {
@@ -178,9 +178,9 @@ struct AllRemindersView: View {
                                 .padding()
                                 .background(.tertiary)
                                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Todos to do")
+                           SText("No Todos to do")
                             HStack {
-                                Text("Tap on the button to add a Todo.")
+                               SText("Tap on the button to add a Todo.")
                             }
                             Spacer()
                         }
@@ -193,9 +193,9 @@ struct AllRemindersView: View {
                                 .padding()
                                 .background(.tertiary)
                                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Flagged Todos to do")
+                           SText("No Flagged Todos to do")
                             HStack {
-                                Text("Swipe on a Todo to flag.")
+                               SText("Swipe on a Todo to flag.")
                             }
                             Spacer()
                         }
@@ -208,9 +208,9 @@ struct AllRemindersView: View {
                                 .padding()
                                 .background(.tertiary)
                                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Completed Todos")
+                           SText("No Completed Todos")
                             HStack {
-                                Text("Swipe on a Todo to Complete a Todo.")
+                               SText("Swipe on a Todo to Complete a Todo.")
                             }
                             Spacer()
                         }
@@ -223,9 +223,9 @@ struct AllRemindersView: View {
                                 .padding()
                                 .background(.tertiary)
                                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Incompleted Todos")
+                           SText("No Incompleted Todos")
                             HStack {
-                                Text("Tap on the button to add a Todo.")
+                               SText("Tap on the button to add a Todo.")
                             }
                             Spacer()
                         }
@@ -238,9 +238,9 @@ struct AllRemindersView: View {
                                 .padding()
                                 .background(.tertiary)
                                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Flagged Completed Todos")
+                           SText("No Flagged Completed Todos")
                             HStack {
-                                Text("Swipe on a Completed Todo to Flag a Todo.")
+                               SText("Swipe on a Completed Todo to Flag a Todo.")
                             }
                             Spacer()
                         }
@@ -253,16 +253,23 @@ struct AllRemindersView: View {
                                 .padding()
                                 .background(.tertiary)
                                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                            Text("No Flagged Incompleted Todos")
+                           SText("No Flagged Incompleted Todos")
                             HStack {
-                                Text("Swipe on a Incompleted Todo to Flag a Todo.")
+                               SText("Swipe on a Incompleted Todo to Flag a Todo.")
                             }
                             Spacer()
                         }
                         .padding(.top, 50)
                     }
                 }
-                .navigationTitle("Your Todos")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("Your Todos")
+                            .font(.boldonse(size: 24))
+                            .foregroundStyle(Color.indigo)
+                    }
+                }
             }
 //            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             .onAppear {
@@ -315,8 +322,8 @@ struct AllRemindersView: View {
                                         .opacity(toggleOnlyFlag ? 1.0 : 0.5)
                                         .padding(.leading, 10)
                                     
-                                    Text("Flagged")
-                                    Text("\(totalFlagged)")
+                                   SText("Flagged")
+                                   SText("\(totalFlagged)")
                                         .foregroundStyle(.secondary)
                                         .padding(.horizontal, 10)
                                 }
@@ -340,8 +347,8 @@ struct AllRemindersView: View {
                                         .foregroundStyle(Color(UIColor(hex: "5863F8")))
                                         .opacity(toggleOnlyCompleted ? 1.0 : 0.5)
                                         .padding(.leading, 10)
-                                    Text("Completed")
-                                    Text("\(totalCompleted)")
+                                   SText("Completed")
+                                   SText("\(totalCompleted)")
                                         .foregroundStyle(.secondary)
                                         .padding(.horizontal, 10)
                                 }
@@ -365,8 +372,8 @@ struct AllRemindersView: View {
                                         .foregroundStyle(Color(UIColor(hex: "FF686B")))
                                         .opacity(toggleOnlyNotCompleted ? 1.0 : 0.5)
                                         .padding(.leading, 10)
-                                    Text("Not Completed")
-                                    Text("\(totalNotCompleted)")
+                                   SText("Not Completed")
+                                   SText("\(totalNotCompleted)")
                                         .foregroundStyle(.secondary)
                                         .padding(.horizontal, 10)
                                 }
@@ -386,8 +393,8 @@ struct AllRemindersView: View {
                                         .foregroundStyle(Color.newFont)
                                         .opacity(toggleOnlyArchived ? 1.0 : 0.5)
                                         .padding(.leading, 10)
-                                    Text("Archived")
-                                    Text("\(totalArchived)")
+                                   SText("Archived")
+                                   SText("\(totalArchived)")
                                         .foregroundStyle(.secondary)
                                         .padding(.horizontal, 10)
                                 }

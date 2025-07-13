@@ -48,7 +48,7 @@ struct SwipeToUnlockView: View {
     private var actionSuccess: (() -> Void)?
     
     @State var indexColor: Int = 0
-    var sliderColors: [Color] = [Color.indigo, Color.green, Color.red]
+    var sliderColors: [Color] = [Color.indigo, Color.green, Color.yellow, Color.orange, Color.red]
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State private var swipeToEnterTextVisible: Bool = true
@@ -62,14 +62,14 @@ struct SwipeToUnlockView: View {
                 .shadow(color: sliderColors[indexColor % sliderColors.count].opacity(0.7), radius: 40)
             
             HStack {
-                Text("Swipe to enter")
+               SText("Swipe to enter")
                     .offset(x: 40)
                     .opacity(swipeToEnterTextVisible ? 1.0 : 0.0)
             }
             .padding(.horizontal, 35)
             .overlay {
                 HStack {
-                    Text("Welcome")
+                   SText("Welcome")
                         .opacity(welcomeTextVisible ? 1.0 : 0.0)
                     Spacer()
                 }

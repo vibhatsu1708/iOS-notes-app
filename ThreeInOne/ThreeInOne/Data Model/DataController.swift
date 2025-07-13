@@ -122,4 +122,28 @@ class DataController: ObservableObject {
         
         save(context: context)
     }
+    
+    //MARK: - To add a new Timer
+    func addTimer(name: String?, desc: String?, duration: Double, isCompleted: Bool, context: NSManagedObjectContext) {
+        let timer = Timers(context: context)
+        timer.date = Date()
+        timer.name = name
+        timer.desc = desc
+        timer.duration = duration
+        timer.isCompleted = isCompleted
+        timer.flag = false
+        
+        save(context: context)
+    }
+    
+    //MARK: - To edit a Timer
+    func editTimer(timer: Timers, name: String?, desc: String?, duration: Double, isCompleted: Bool, context: NSManagedObjectContext) {
+        timer.date = Date()
+        timer.name = name
+        timer.desc = desc
+        timer.duration = duration
+        timer.isCompleted = isCompleted
+        
+        save(context: context)
+    }
 }

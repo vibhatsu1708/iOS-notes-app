@@ -36,18 +36,18 @@ struct AllPurchasesView: View {
                                 VStack(alignment: .leading, spacing: 15) {
                                     VStack(alignment: .leading) {
                                         HStack {
-                                            Text(purchase.name!)
+                                           SText(purchase.name!)
                                                 .font(.headline)
                                             
                                             Spacer()
                                             
-                                            Text(purchase.amount!)
+                                           SText(purchase.amount!)
                                                 .font(.headline)
                                         }
                                     }
                                     
                                     HStack {
-                                        Text(purchase.spent_or_received ? "Received" : "Spent")
+                                       SText(purchase.spent_or_received ? "Received" : "Spent")
                                             .padding(.vertical, 5)
                                             .padding(.horizontal, 15)
                                             .font(.subheadline)
@@ -59,7 +59,7 @@ struct AllPurchasesView: View {
                                         
                                         Spacer()
                                         
-                                        Text(purchase.paid ? "Completed" : "Pending")
+                                       SText(purchase.paid ? "Completed" : "Pending")
                                             .padding(.vertical, 5)
                                             .padding(.horizontal, 15)
                                             .font(.subheadline)
@@ -69,13 +69,13 @@ struct AllPurchasesView: View {
                                             .background(purchase.paid ? Color.green : Color.red)
                                             .clipShape(Capsule())
                                     }
-                                    Text("Paid using: \(purchase.payment_method!.isEmpty ? "Not Specified " : purchase.payment_method!)")
+                                   SText("Paid using: \(purchase.payment_method!.isEmpty ? "Not Specified " : purchase.payment_method!)")
                                         .font(.caption2)
                                         .foregroundStyle(.tertiary)
                                     
                                     VStack {
                                         if purchase.purchase_desc?.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-                                            Text(purchase.purchase_desc!)
+                                           SText(purchase.purchase_desc!)
                                                 .lineLimit(1)
                                                 .truncationMode(.tail)
                                                 .padding(10)
@@ -94,8 +94,14 @@ struct AllPurchasesView: View {
                     .listStyle(.inset)
                 }
                 .background(.ultraThinMaterial)
-                .navigationTitle("Your Purchases")
-                .navigationBarTitleDisplayMode(.large)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("Your Budget")
+                            .font(.boldonse(size: 24))
+                            .foregroundStyle(Color.green)
+                    }
+                }
             }
             .searchable(text: $searchText)
             
