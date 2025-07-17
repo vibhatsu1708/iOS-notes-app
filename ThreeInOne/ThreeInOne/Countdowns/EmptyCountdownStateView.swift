@@ -21,7 +21,7 @@ struct EmptyCountdownStateView: View {
             VStack(spacing: 20) {
                 Image(systemName: "clock.badge.exclamationmark")
                     .font(.system(size: 60))
-                    .foregroundStyle(Color.yellow)
+                    .foregroundStyle(Color.red)
                 
                SText(emptyStateTitle)
                     .font(.title2)

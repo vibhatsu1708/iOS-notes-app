@@ -68,7 +68,7 @@ struct AddReminderView: View {
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundStyle(Color.newFont)
-                .background(Color.red)
+                .background(Color.indigo)
                 .clipShape(Capsule())
                 
                 // to dismiss the view if wanting to exit the edit view

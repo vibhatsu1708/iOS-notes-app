@@ -42,6 +42,7 @@
 		14C4CCA82E2323F4004A6193 /* FontTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CCA72E2323EA004A6193 /* FontTestView.swift */; };
 		14C4CCAA2E232502004A6193 /* Boldonse-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14C4CCA92E232502004A6193 /* Boldonse-Regular.ttf */; };
 		14C4CCAE2E232945004A6193 /* AutoFontText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CCAD2E232941004A6193 /* AutoFontText.swift */; };
+		14C4CCC22E297B89004A6193 /* EmptyReminderStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C4CCC12E297B82004A6193 /* EmptyReminderStateView.swift */; };
 		14D416A72B4C7894008883C5 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D416A62B4C7894008883C5 /* SplashScreenView.swift */; };
 		9EA0CC072E22B5A30045588F /* Optimus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA0CC062E22B59A0045588F /* Optimus.swift */; };
 		9EA0D2D22E22B7950045588F /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA0D2D12E22B7910045588F /* ReminderView.swift */; };
@@ -103,6 +104,7 @@
 		14C4CCA72E2323EA004A6193 /* FontTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontTestView.swift; sourceTree = "<group>"; };
 		14C4CCA92E232502004A6193 /* Boldonse-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Boldonse-Regular.ttf"; sourceTree = "<group>"; };
 		14C4CCAD2E232941004A6193 /* AutoFontText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFontText.swift; sourceTree = "<group>"; };
+		14C4CCC12E297B82004A6193 /* EmptyReminderStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyReminderStateView.swift; sourceTree = "<group>"; };
 		14D416A52B4C7668008883C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14D416A62B4C7894008883C5 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		9EA0CC062E22B59A0045588F /* Optimus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optimus.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 		14AC4B962B3357950090CE9A /* Reminders */ = {
 			isa = PBXGroup;
 			children = (
+				14C4CCC12E297B82004A6193 /* EmptyReminderStateView.swift */,
 				9EA0D2D12E22B7910045588F /* ReminderView.swift */,
 				141FFFAD2B2EA1EB00E06199 /* AllRemindersView.swift */,
 				141FFFAF2B2EA20C00E06199 /* AddReminderView.swift */,
@@ -455,6 +458,7 @@
 				14C4CCAE2E232945004A6193 /* AutoFontText.swift in Sources */,
 				141FFFAA2B2EA0B100E06199 /* EditNoteView.swift in Sources */,
 				14C4CC952E22E630004A6193 /* AddTimerButton.swift in Sources */,
+				14C4CCC22E297B89004A6193 /* EmptyReminderStateView.swift in Sources */,
 				14C4CC852E22CC9E004A6193 /* AllTimersView.swift in Sources */,
 				141FFFB62B2EA5B100E06199 /* AddPurchaseView.swift in Sources */,
 			);

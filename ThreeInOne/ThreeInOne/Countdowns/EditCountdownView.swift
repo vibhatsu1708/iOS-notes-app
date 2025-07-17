@@ -16,7 +16,6 @@ struct EditCountdownView: View {
     
     @State private var title: String
     @State private var completionDate: Date
-    @State private var showingDatePicker: Bool = false
     @State private var currentTime = Date()
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -28,53 +27,24 @@ struct EditCountdownView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
-                // Title input
-                VStack(alignment: .leading, spacing: 8) {
-                   SText("Countdown Title")
-                        .font(.headline)
-                        .foregroundStyle(Color.yellow)
-                    
-                    TextField("Enter countdown title", text: $title)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .font(.system(size: 16))
+            Form {
+                Section("Countdown Details") {
+                    TextField("Countdown Title (Optional)", text: $title)
                 }
                 
-                // Completion date selection
-                VStack(alignment: .leading, spacing: 8) {
-                   SText("Completion Date")
-                        .font(.headline)
-                        .foregroundStyle(Color.yellow)
-                    
-                    Button {
-                        showingDatePicker.toggle()
-                    } label: {
-                        HStack {
-                           SText(formatDate(completionDate))
-                                .foregroundStyle(Color.primary)
-                            
-                            Spacer()
-                            
-                            Image(systemName: "calendar")
-                                .foregroundStyle(Color.yellow)
-                        }
-                        .padding()
-                        .background(Color.gray.opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(Color.gray.opacity(0.2), lineWidth: 1)
-                        }
-                    }
+                Section("Completion Date") {
+                    DatePicker(
+                        "Select Date",
+                        selection: $completionDate,
+                        displayedComponents: [.date, .hourAndMinute]
+                    )
+                    .datePickerStyle(WheelDatePickerStyle())
                 }
                 
-                // Preview of time remaining
-                VStack(alignment: .leading, spacing: 8) {
-                   SText("Time Remaining")
-                        .font(.headline)
-                        .foregroundStyle(Color.yellow)
+                HStack {
+                    Spacer()
                     
-                   SText(formatTimeRemaining())
+                    SText(formatTimeRemaining())
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundStyle(isExpired() ? Color.red : Color.yellow)
@@ -86,35 +56,49 @@ struct EditCountdownView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .strokeBorder(isExpired() ? Color.red.opacity(0.2) : Color.yellow.opacity(0.2), lineWidth: 1)
                         }
+                    
+                    Spacer()
                 }
+            }
+            .navigationTitle("Edit Countdown")
+        }
+        .interactiveDismissDisabled()
+        .background(.ultraThinMaterial)
+        .onReceive(timer) { _ in
+            currentTime = Date()
+        }
+        .safeAreaInset(edge: .bottom) {
+            HStack {
+                // To save the countdown
+                Button {
+                    saveCountdown()
+                } label: {
+                    Label("Save Countdown", systemImage: "checkmark")
+                }
+                .padding()
+                .font(.title3)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.newFont)
+                .background(Color.yellow)
+                .clipShape(Capsule())
+                .disabled(title.isEmpty)
                 
-                Spacer()
+                // to dismiss the view if wanting to exit the edit view
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .padding()
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .background(.ultraThinMaterial)
+                        .clipShape(Circle())
+                }
             }
             .padding()
-            .navigationTitle("Edit Countdown")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                    .foregroundStyle(Color.red)
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
-                        saveCountdown()
-                    }
-                    .foregroundStyle(Color.yellow)
-                    .disabled(title.isEmpty)
-                }
-            }
-            .sheet(isPresented: $showingDatePicker) {
-                DatePickerView(selectedDate: $completionDate)
-            }
-            .onReceive(timer) { _ in
-                currentTime = Date()
-            }
+            .frame(maxWidth: .infinity)
+            .background(.ultraThinMaterial)
         }
     }
     
@@ -124,13 +108,6 @@ struct EditCountdownView: View {
         
         DataController.shared.save(context: managedObjectContext)
         dismiss()
-    }
-    
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
     }
     
     private func formatTimeRemaining() -> String {
@@ -163,4 +140,4 @@ struct EditCountdownView: View {
 
 #Preview {
     EditCountdownView(countdown: Countdown())
-} 
+}

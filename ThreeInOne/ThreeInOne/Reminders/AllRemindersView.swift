@@ -171,96 +171,17 @@ struct AllRemindersView: View {
                 
                 // To display the empty states based on the toggles activated
                 .overlay {
-                    if reminders.isEmpty && toggleOnlyFlag == false && toggleOnlyCompleted == false && toggleOnlyNotCompleted == false {
-                        VStack(spacing: 20) {
-                            Image(systemName: "checklist")
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                           SText("No Todos to do")
-                            HStack {
-                               SText("Tap on the button to add a Todo.")
-                            }
-                            Spacer()
-                        }
-                        .padding(.top, 50)
-                    }
-                    if toggleOnlyFlag == true && calculateTotalFlagged() == 0 && toggleOnlyCompleted == false && toggleOnlyNotCompleted == false {
-                        VStack(spacing: 20) {
-                            Image(systemName: "flag.fill")
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                           SText("No Flagged Todos to do")
-                            HStack {
-                               SText("Swipe on a Todo to flag.")
-                            }
-                            Spacer()
-                        }
-                        .padding(.top, 50)
-                    }
-                    if toggleOnlyCompleted == true && calculateTotalCompleted() == 0 && toggleOnlyFlag == false {
-                        VStack(spacing: 20) {
-                            Image(systemName: "checklist.checked")
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                           SText("No Completed Todos")
-                            HStack {
-                               SText("Swipe on a Todo to Complete a Todo.")
-                            }
-                            Spacer()
-                        }
-                        .padding(.top, 50)
-                    }
-                    if toggleOnlyNotCompleted == true && calculateTotalNotCompleted() == 0 && toggleOnlyFlag == false {
-                        VStack(spacing: 20) {
-                            Image(systemName: "checklist.unchecked")
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                           SText("No Incompleted Todos")
-                            HStack {
-                               SText("Tap on the button to add a Todo.")
-                            }
-                            Spacer()
-                        }
-                        .padding(.top, 50)
-                    }
-                    if (toggleOnlyCompleted == true && toggleOnlyFlag == true) && (filteredReminders.isEmpty) {
-                        VStack(spacing: 20) {
-                            Image(systemName: "checklist.unchecked")
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                           SText("No Flagged Completed Todos")
-                            HStack {
-                               SText("Swipe on a Completed Todo to Flag a Todo.")
-                            }
-                            Spacer()
-                        }
-                        .padding(.top, 50)
-                    }
-                    if (toggleOnlyFlag == true && toggleOnlyNotCompleted == true) && (filteredReminders.isEmpty) {
-                        VStack(spacing: 20) {
-                            Image(systemName: "checklist.unchecked")
-                                .font(.system(size: 50))
-                                .padding()
-                                .background(.tertiary)
-                                .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                           SText("No Flagged Incompleted Todos")
-                            HStack {
-                               SText("Swipe on a Incompleted Todo to Flag a Todo.")
-                            }
-                            Spacer()
-                        }
-                        .padding(.top, 50)
-                    }
+                    EmptyReminderStateView(
+                        reminders: reminders,
+                        toggleOnlyCompleted: toggleOnlyCompleted,
+                        toggleOnlyNotCompleted: toggleOnlyNotCompleted,
+                        toggleOnlyFlagged: toggleOnlyFlag,
+                        toggleOnlyArchived: toggleOnlyArchived,
+                        calculateTotalCompleted: calculateTotalCompleted,
+                        calculateTotalNotCompleted: calculateTotalNotCompleted,
+                        calculateTotalFlagged: calculateTotalFlagged,
+                        calculateTotalArchived: calculateTotalArchived
+                    )
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
