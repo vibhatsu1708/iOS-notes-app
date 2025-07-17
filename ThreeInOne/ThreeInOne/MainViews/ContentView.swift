@@ -31,6 +31,11 @@ struct ContentView: View {
                     Label("Todos", systemImage: "text.badge.checkmark")
                 }
             
+            AllCountdownsView()
+                .tabItem {
+                    Label("Countdowns", systemImage: "clock.badge.exclamationmark")
+                }
+            
             AllNotesView()
                 .tabItem {
                     Label("Notes", systemImage: "note.text")

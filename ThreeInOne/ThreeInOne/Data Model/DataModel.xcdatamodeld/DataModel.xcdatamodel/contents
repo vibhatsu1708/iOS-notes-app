@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24F74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="DataModel">
+    <entity name="Countdown" representedClassName="Countdown" syncable="YES" codeGenerationType="class">
+        <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="flag" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="pin" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Note" representedClassName=".Note" syncable="YES" codeGenerationType="class">
         <attribute name="background_color" optional="YES" attributeType="String"/>
         <attribute name="bookmark" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

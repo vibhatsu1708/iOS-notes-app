@@ -48,7 +48,7 @@ struct SwipeToUnlockView: View {
     private var actionSuccess: (() -> Void)?
     
     @State var indexColor: Int = 0
-    var sliderColors: [Color] = [Color.indigo, Color.green, Color.yellow, Color.orange, Color.red]
+    var sliderColors: [Color] = [Color.indigo, Color.cyan, Color.yellow, Color.orange, Color.red]
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State private var swipeToEnterTextVisible: Bool = true

@@ -23,7 +23,7 @@ struct ActiveTimerState {
     }
 }
 
-struct CountdownView: View {
+struct TimerCountdownView: View {
     let timeRemaining: Int
     let totalTime: Int
     let isPaused: Bool
@@ -89,7 +89,7 @@ struct CountdownView: View {
             }
             .frame(maxWidth: .infinity, alignment: .center)
             
-            // Paused text overlay
+            // Status text overlay (Paused or Completed)
             VStack {
                SText("PAUSED")
                     .font(.system(size: 16, weight: .bold, design: .rounded))
@@ -133,9 +133,9 @@ struct CountdownView: View {
                     .onTapGesture(perform: {
                         onReset()
                     })
-                .offset(y: (isTotalTimeValid && timeRemaining > 0 && isCountdownRunning) ? 10 : 50)
-                .opacity((isTotalTimeValid && timeRemaining > 0 && isCountdownRunning) ? 1 : 0)
-                .animation(.bouncy(duration: 0.3), value: isTotalTimeValid && timeRemaining > 0 && isCountdownRunning)
+                .offset(y: (isTotalTimeValid && (timeRemaining > 0 || timeRemaining <= 0)) ? 10 : 50)
+                .opacity((isTotalTimeValid && (timeRemaining > 0 || timeRemaining <= 0)) ? 1 : 0)
+                .animation(.bouncy(duration: 0.3), value: isTotalTimeValid && (timeRemaining > 0 || timeRemaining <= 0))
             }
             .frame(maxWidth: .infinity, alignment: .bottom)
             .padding(.bottom, 20)
@@ -249,7 +249,7 @@ struct HorizontalCountdownView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(Array(activeTimers.enumerated()), id: \.element.timer.id) { index, timerState in
-                            CountdownView(
+                            TimerCountdownView(
                                 timeRemaining: timerState.timeRemaining,
                                 totalTime: Int(timerState.timer.duration),
                                 isPaused: timerState.isPaused,
@@ -412,6 +412,9 @@ struct AllTimersView: View {
                             calculateTotalFlagged: calculateTotalFlagged
                         )
                     }
+                    .safeAreaInset(edge: .bottom) {
+                        Color.clear.frame(height: 100)
+                    }
                     
                     .frame(maxWidth: .infinity)
                 }
@@ -534,8 +537,9 @@ struct AllTimersView: View {
                             if self.activeTimers[currentIndex].timeRemaining > 0 && !self.activeTimers[currentIndex].isPaused {
                                 self.activeTimers[currentIndex].timeRemaining -= 1
                             } else if self.activeTimers[currentIndex].timeRemaining <= 0 {
-                                // Timer completed
-                                self.stopCountdown(for: timer)
+                                // Timer completed - don't remove, just stop the countdown
+                                self.activeTimers[currentIndex].countdownTimer?.invalidate()
+                                self.activeTimers[currentIndex].countdownTimer = nil
                             }
                         }
                     }
@@ -575,8 +579,9 @@ struct AllTimersView: View {
                                 if self.activeTimers[timerIndex].timeRemaining > 0 && !self.activeTimers[timerIndex].isPaused {
                                     self.activeTimers[timerIndex].timeRemaining -= 1
                                 } else if self.activeTimers[timerIndex].timeRemaining <= 0 {
-                                    // Timer completed
-                                    self.stopCountdown(for: timer)
+                                    // Timer completed - don't remove, just stop the countdown
+                                    self.activeTimers[timerIndex].countdownTimer?.invalidate()
+                                    self.activeTimers[timerIndex].countdownTimer = nil
                                 }
                             }
                         }

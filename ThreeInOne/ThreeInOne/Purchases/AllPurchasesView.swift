@@ -54,7 +54,7 @@ struct AllPurchasesView: View {
                                             .fontWeight(.semibold)
                                             .foregroundStyle(Color.newFont)
                                             .frame(maxWidth: .infinity)
-                                            .background(purchase.spent_or_received ? Color.green : Color.red)
+                                            .background(purchase.spent_or_received ? Color.cyan : Color.red)
                                             .clipShape(Capsule())
                                         
                                         Spacer()
@@ -66,7 +66,7 @@ struct AllPurchasesView: View {
                                             .fontWeight(.semibold)
                                             .foregroundStyle(Color.newFont)
                                             .frame(maxWidth: .infinity)
-                                            .background(purchase.paid ? Color.green : Color.red)
+                                            .background(purchase.paid ? Color.cyan : Color.red)
                                             .clipShape(Capsule())
                                     }
                                    SText("Paid using: \(purchase.payment_method!.isEmpty ? "Not Specified " : purchase.payment_method!)")
@@ -99,7 +99,7 @@ struct AllPurchasesView: View {
                     ToolbarItem(placement: .principal) {
                         Text("Your Budget")
                             .font(.boldonse(size: 24))
-                            .foregroundStyle(Color.green)
+                            .foregroundStyle(Color.cyan)
                     }
                 }
             }

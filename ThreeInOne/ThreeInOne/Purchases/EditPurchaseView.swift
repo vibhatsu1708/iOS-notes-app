@@ -89,7 +89,7 @@ struct EditPurchaseView: View {
                             .fontWeight(.semibold)
                             .foregroundStyle(Color.newFont)
                             .frame(maxWidth: .infinity)
-                            .background(received ? Color.green : Color.secondary)
+                            .background(received ? Color.cyan : Color.secondary)
                             .clipShape(Capsule())
                     }
                 }
@@ -110,7 +110,7 @@ struct EditPurchaseView: View {
                             .fontWeight(.semibold)
                             .foregroundStyle(Color.newFont)
                             .frame(maxWidth: .infinity)
-                            .background(payment_completed ? Color.green : Color.secondary)
+                            .background(payment_completed ? Color.cyan : Color.secondary)
                             .clipShape(Capsule())
                     }
                     
@@ -218,7 +218,7 @@ struct EditPurchaseView: View {
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.newFont)
-                    .background(Color.green)
+                    .background(Color.cyan)
                     .clipShape(Capsule())
             }
             .padding()
